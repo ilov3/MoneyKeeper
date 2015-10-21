@@ -1,0 +1,17 @@
+.inline {
+    display: inline-block;
+}
+
+.datepickers {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.datepickers > div {
+    margin: 30px 40px;
+}
+
+.nav-tabs {
+    margin-top: 10px;
+}

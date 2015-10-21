@@ -1,0 +1,10 @@
+<div class="container">
+    <h2>Summary</h2>
+    <p>Select the range of dates and get your income and expenses:</p>
+    <div class="datepickers">
+        <uib-datepicker ng-model="from" starting-day="1" class="well well-sm inline"></uib-datepicker>
+        <uib-datepicker ng-model="to" starting-day="1" class="well well-sm inline"></uib-datepicker>
+    </div>
+    <h4>Income: {{ results.income }}</h4>
+    <h4>Expense: {{ results.expense }}</h4>
+</div>

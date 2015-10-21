@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MoneyKeeper</title>
+</head>
+{% verbatim %}
+<body ng-app="MoneyKeeper" ng-controller="AppMainController">
+<uib-tabset>
+    <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}">
+        <ui-view></ui-view>
+    </uib-tab>
+</uib-tabset>
+</body>
+{% endverbatim %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap-theme.css' %}">
+<link rel="stylesheet" href="{% static 'thirdparty/angular-ui-grid/ui-grid.css' %}">
+<link rel="stylesheet" href="{% static 'css/app_styles.css' %}">
+<script src="{% static 'thirdparty/jquery/dist/jquery.js' %}"></script>
+<script src="{% static 'thirdparty/bootstrap/dist/js/bootstrap.js' %}"></script>
+<script src="{% static 'thirdparty/angular/angular.js' %}"></script>
+<script src="{% static 'thirdparty/angular-resource/angular-resource.js' %}"></script>
+<script src="{% static 'thirdparty/angular-ui-grid/ui-grid.js' %}"></script>
+<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap.js' %}"></script>
+<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
+<script src="{% static 'thirdparty/angular-ui-router/release/angular-ui-router.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/services.js' %}"></script>
+<script src="{% static 'js/states.js' %}"></script>
+<script src="{% static 'js/home/controller.js' %}"></script>
+<script src="{% static 'js/account/controller.js' %}"></script>
+<script src="{% static 'js/category/controller.js' %}"></script>
+<script src="{% static 'js/transaction/controller.js' %}"></script>
+</html>
