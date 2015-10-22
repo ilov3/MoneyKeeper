@@ -11,12 +11,12 @@ angular.module('MoneyKeeper', [
         $resourceProvider.defaults.stripTrailingSlashes = false;
     }])
     .run(['$state', function ($state) {
-        $state.go('home')
+        $state.go('summary')
     }])
     .controller('AppMainController', ['$scope', AppMainController]);
 function AppMainController($scope) {
     $scope.tabs = [
-        {title: 'Home', state: 'home'},
+        {title: 'Summary', state: 'summary'},
         {title: 'Transactions', state: 'transaction'},
         {title: 'Categories', state: 'category'},
         {title: 'Accounts', state: 'account'}

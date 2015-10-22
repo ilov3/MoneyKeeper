@@ -1,0 +1,17 @@
+<div class="container">
+    <h2>Accounts</h2>
+    <h4 ng-repeat="account in results.accounts">{{ account.name }}: {{ account.get_balance | currency:"" }}</h4>
+    <h5>Total: {{ getTotal() | currency:""}}</h5>
+    <br>
+
+    <h2>Income/Expense</h2>
+    <h4>Income: {{ results.income | currency:"" }}</h4>
+    <h4>Expense: {{ results.expense | currency:"" }}</h4>
+    <a href="" ng-click="details ? details=false: details=true">Details</a>
+    <br>
+
+    <div ng-show="details">
+        <h3>Categories</h3>
+        <h4 ng-repeat="category in results.categories">{{ category.name }}: {{ category.get_transactions_amount | currency:"" }}</h4>
+    </div>
+</div>

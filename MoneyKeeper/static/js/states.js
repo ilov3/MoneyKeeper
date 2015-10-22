@@ -6,9 +6,9 @@ angular.module('MoneyKeeper.states', [])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state({
-                name: 'home',
-                templateUrl: '/static/js/home/template.html',
-                controller: 'HomeController'
+                name: 'summary',
+                templateUrl: '/static/js/summary/template.html',
+                controller: 'SummaryController'
             })
             .state({
                 name: 'transaction',

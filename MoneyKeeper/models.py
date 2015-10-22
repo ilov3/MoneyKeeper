@@ -1,7 +1,6 @@
-import calendar
 from django.db import models
 from django.db.models import Sum
-from django.utils.timezone import now
+from MoneyKeeper.utils import first_day, last_day
 
 TRANSACTION_KINDS = (
     ('exp', 'Expense'),
@@ -11,12 +10,9 @@ TRANSACTION_KINDS = (
 
 CATEGORY_KINDS = TRANSACTION_KINDS[:-1]
 
-first_day = lambda dt: dt.replace(day=1)
-last_day = lambda dt: dt.replace(day=calendar.monthrange(dt.year, dt.month)[1])
-
 
 class TransactionManager(models.Manager):
-    def get_amount(self, kind, fr=first_day(now()), to=last_day(now())):
+    def get_amount(self, kind, fr=first_day(), to=last_day()):
         result = self.filter(kind=kind, date__gte=fr, date__lte=to)
         result = result.aggregate(Sum('amount'))
         return result['amount__sum'] or 0
