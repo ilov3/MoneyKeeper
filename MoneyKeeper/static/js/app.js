@@ -7,11 +7,12 @@ angular.module('MoneyKeeper', [
     'ngResource', 'ui.router', 'ui.bootstrap',
     'MoneyKeeper.states'
 ])
-    .config(['$resourceProvider', function ($resourceProvider) {
+    .config(['$resourceProvider', '$urlRouterProvider', function ($resourceProvider, $urlRouterProvider) {
         $resourceProvider.defaults.stripTrailingSlashes = false;
+        $urlRouterProvider.otherwise('/summary');
     }])
-    .run(['$state', function ($state) {
-        $state.go('summary')
+    .run(['$state', '$rootScope', '$stateParams', function ($state, $rootScope, $stateParams) {
+        $rootScope.$stateParams = $stateParams;
     }])
     .controller('AppMainController', ['$scope', AppMainController]);
 function AppMainController($scope) {

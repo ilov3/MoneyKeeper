@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from MoneyKeeper.fields import CategoryField, AccountField
 from models import Transaction, Account, Category
 
 
@@ -21,9 +22,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
     kind = serializers.SerializerMethodField()
-    category = serializers.PrimaryKeyRelatedField(source='category.name', queryset=Category.objects.all(), allow_null=True)
-    account = serializers.PrimaryKeyRelatedField(source='account.name', queryset=Account.objects.all())
-    transfer_to_account = serializers.PrimaryKeyRelatedField(source='transfer_to_account.name', queryset=Account.objects.all(), allow_null=True)
+    category = CategoryField(queryset=Category.objects.all(), allow_null=True)
+    account = AccountField(queryset=Account.objects.all())
+    transfer_to_account = AccountField(queryset=Account.objects.all(), allow_null=True)
 
     class Meta:
         model = Transaction
