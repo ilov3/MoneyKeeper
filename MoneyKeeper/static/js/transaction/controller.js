@@ -13,7 +13,7 @@ function TransactionController($scope, dataSvc) {
             {name: 'Category', field: 'category', editableCellTemplate: 'ui-grid/dropdownEditor'},
             {name: 'Transfer to', field: 'transfer_to_account', editableCellTemplate: 'ui-grid/dropdownEditor'},
             {name: 'Account', field: 'account', editableCellTemplate: 'ui-grid/dropdownEditor'},
-            {name: 'Amount', field: 'amount'},
+            {name: 'Amount', field: 'amount', enableCellEditOnFocus: true},
             {name: 'Comment', field: 'comment'}
         ]
     };

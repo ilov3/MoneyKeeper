@@ -1,6 +1,11 @@
+from glob import glob
+import json
+import array
+
 from django.db import models
 from django.db.models import Sum
-from MoneyKeeper.utils import first_day, last_day
+
+from MoneyKeeper.utils.utils import first_day, last_day
 
 TRANSACTION_KINDS = (
     ('exp', 'Expense'),
@@ -44,7 +49,7 @@ class Category(TransactionAmountMixin, models.Model):
 
 
 class Account(TransactionAmountMixin, models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, unique=True)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
