@@ -5,6 +5,7 @@
 angular.module('MoneyKeeper', [
     'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav',
     'ngResource', 'ui.router', 'ui.bootstrap',
+    'formly', 'formlyBootstrap',
     'MoneyKeeper.states'
 ])
     .config(['$resourceProvider', '$urlRouterProvider', function ($resourceProvider, $urlRouterProvider) {

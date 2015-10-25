@@ -20,6 +20,8 @@
     "angular-resource": "~1.4.7",
     "angular-ui-router": "~0.2.15",
     "angular-bootstrap": "~0.14.2",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "angular-formly": "~7.2.3",
+    "angular-formly-templates-bootstrap": "~6.1.5"
   }
 }
