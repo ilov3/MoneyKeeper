@@ -4,16 +4,30 @@
 
 angular.module('MoneyKeeper', [
     'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav',
-    'ngResource', 'ui.router', 'ui.bootstrap',
-    'formly', 'formlyBootstrap',
+    'ngResource',
+    'ngSanitize',
+    'ui.router',
+    'ui.bootstrap',
+    'ui.select',
+    'formly',
+    'formlyBootstrap',
     'MoneyKeeper.states'
 ])
-    .config(['$resourceProvider', '$urlRouterProvider', function ($resourceProvider, $urlRouterProvider) {
+    .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', function ($resourceProvider, $httpProvider, $urlRouterProvider) {
         $resourceProvider.defaults.stripTrailingSlashes = false;
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         $urlRouterProvider.otherwise('/summary');
     }])
-    .run(['$state', '$rootScope', '$stateParams', function ($state, $rootScope, $stateParams) {
+    .run(['$state', '$rootScope', '$stateParams', 'formlyConfig', function ($state, $rootScope, $stateParams, formlyConfig) {
         $rootScope.$stateParams = $stateParams;
+
+        formlyConfig.extras.removeChromeAutoComplete = true;
+        formlyConfig.setType({
+            name: 'ui-select-single',
+            extends: 'select',
+            templateUrl: '/static/partials/ui-select-single.html'
+        });
     }])
     .controller('AppMainController', ['$scope', AppMainController]);
 function AppMainController($scope) {

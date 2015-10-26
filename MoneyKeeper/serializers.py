@@ -22,9 +22,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
     kind = serializers.SerializerMethodField()
-    category = CategoryField(queryset=Category.objects.all(), allow_null=True)
+    category = CategoryField(queryset=Category.objects.all(), allow_null=True, required=False)
     account = AccountField(queryset=Account.objects.all())
-    transfer_to_account = AccountField(queryset=Account.objects.all(), allow_null=True)
+    transfer_to_account = AccountField(queryset=Account.objects.all(), allow_null=True, required=False)
 
     class Meta:
         model = Transaction

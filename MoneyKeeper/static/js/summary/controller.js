@@ -62,8 +62,8 @@ function SummaryController($scope, $uibModal, dataSvc) {
                         t.value = t.name;
                         return t
                     });
-                }
 
+                }
             }
         });
 
@@ -89,13 +89,15 @@ function SummaryController($scope, $uibModal, dataSvc) {
     });
 }
 
-function AddTransactionController($scope, accounts, categories) {
+function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc) {
     var self = this;
     self.scope = $scope;
-    self.scope.kinds = {
-        inc: 'Income',
-        exp: 'Expense',
-        trn: 'Transfer'
+    self.scope.submit = function () {  // TODO finish submit func
+        var payLoad = self.scope.formData;
+        dataSvc.transaction.save(payLoad);
+        if (!self.scope.formData.addAnother) {
+            $modalInstance.close()
+        }
     };
     self.scope.formFields = [
         {
@@ -115,7 +117,6 @@ function AddTransactionController($scope, accounts, categories) {
             defaultValue: 'exp',
             templateOptions: {
                 label: 'Kind',
-                placeholder: '',
                 required: true,
                 options: [
                     {name: 'Income', value: 'inc'},
@@ -126,13 +127,13 @@ function AddTransactionController($scope, accounts, categories) {
         },
         {
             key: 'category',
-            type: 'select',
+            type: 'ui-select-single',
             hideExpression: 'model.kind == "trn"',
             templateOptions: {
+                optionsAttr: 'bs-options',
                 label: 'Category',
-                placeholder: '',
                 options: categories,
-                ngOptions: 'option.name for option in to.options | filter: {kind:"Income"}' // TODO fix that filter
+                ngOptions: 'option.name as option in to.options | filter: {kind: model.kind} | filter: $select.search'
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind != "trn"'
@@ -144,7 +145,6 @@ function AddTransactionController($scope, accounts, categories) {
             hideExpression: 'model.kind != "trn"',
             templateOptions: {
                 label: 'Transfer to',
-                placeholder: '',
                 options: accounts
             },
             expressionProperties: {
@@ -156,7 +156,6 @@ function AddTransactionController($scope, accounts, categories) {
             type: 'select',
             templateOptions: {
                 label: 'Account',
-                placeholder: '',
                 required: true,
                 options: accounts
             }
@@ -165,9 +164,8 @@ function AddTransactionController($scope, accounts, categories) {
             key: 'amount',
             type: 'input',
             templateOptions: {
-                type: 'text',
+                type: 'number',
                 label: 'Amount',
-                placeholder: '',
                 required: true
             }
         },
@@ -177,7 +175,14 @@ function AddTransactionController($scope, accounts, categories) {
             templateOptions: {
                 type: 'text',
                 label: 'Comment',
-                placeholder: '',
+                required: false
+            }
+        },
+        {
+            key: 'addAnother',
+            type: 'checkbox',
+            templateOptions: {
+                label: 'Add another',
                 required: false
             }
         }
