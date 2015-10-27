@@ -9,7 +9,11 @@ logger = logging.getLogger(__name__)
 
 class CategoryField(RelatedField):
     def to_internal_value(self, data):
-        return Category.objects.get(name=data)
+        kind = self.context['request'].data.get('kind', None)
+        if kind:
+            return Category.objects.get(name=data, kind=kind)
+        else:
+            raise Exception('Kind should be provided')
 
     def to_representation(self, value):
         return value.name

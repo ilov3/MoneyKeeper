@@ -3,6 +3,7 @@
         <div class="col-md-4">
             <h2>Accounts</h2>
             <h4 ng-repeat="account in results.accounts">{{ account.name }}: {{ account.get_balance | currency:"" }}</h4>
+
             <h3>Total: {{ getTotal() | currency:""}}</h3>
             <br>
             <a href="" ng-click="addAccount()">Add account</a>
@@ -16,9 +17,12 @@
         </div>
         <div class="col-md-4">
             <h2>Categories</h2>
-            <h4 ng-repeat="category in results.categories" ng-if="category.get_transactions_amount">
-                {{ category.name }}: {{ category.get_transactions_amount | currency:"" }}
-            </h4>
+            <div ng-repeat="(group, categories) in results.categories | groupBy: 'kind'">
+                <h3>{{ group }}</h3>
+                <h5 ng-repeat="category in categories" ng-if="category.get_transactions_amount">
+                    {{ category.name }}: {{ category.get_transactions_amount | currency:"" }}
+                </h5>
+            </div>
         </div>
     </div>
 </div>

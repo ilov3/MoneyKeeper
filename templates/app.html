@@ -7,10 +7,9 @@
 {% verbatim %}
 <body ng-app="MoneyKeeper" ng-controller="AppMainController">
 <uib-tabset>
-    <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active">
-        <ui-view></ui-view>
-    </uib-tab>
+    <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
 </uib-tabset>
+<ui-view></ui-view>
 </body>
 {% endverbatim %}
 {% load staticfiles %}
@@ -22,6 +21,7 @@
 <script src="{% static 'thirdparty/jquery/dist/jquery.js' %}"></script>
 <script src="{% static 'thirdparty/bootstrap/dist/js/bootstrap.js' %}"></script>
 <script src="{% static 'thirdparty/angular/angular.js' %}"></script>
+<script src="{% static 'thirdparty/angular-filter/dist/angular-filter.js' %}"></script>
 <script src="{% static 'thirdparty/angular-resource/angular-resource.js' %}"></script>
 <script src="{% static 'thirdparty/angular-ui-grid/ui-grid.js' %}"></script>
 <script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap.js' %}"></script>
@@ -35,6 +35,7 @@
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/services.js' %}"></script>
 <script src="{% static 'js/states.js' %}"></script>
+<script src="{% static 'js/filters.js' %}"></script>
 <script src="{% static 'js/summary/controller.js' %}"></script>
 <script src="{% static 'js/account/controller.js' %}"></script>
 <script src="{% static 'js/category/controller.js' %}"></script>

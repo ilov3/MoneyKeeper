@@ -9,7 +9,7 @@ function TransactionController($scope, dataSvc) {
     $scope.gridOptions = {
         columnDefs: [
             {name: 'Date', field: 'date', cellFilter: 'date'},
-            {name: 'Kind', field: 'kind'},
+            {name: 'Kind', field: 'kind_display'},
             {name: 'Category', field: 'category', editableCellTemplate: 'ui-grid/dropdownEditor'},
             {name: 'Transfer to', field: 'transfer_to_account', editableCellTemplate: 'ui-grid/dropdownEditor'},
             {name: 'Account', field: 'account', editableCellTemplate: 'ui-grid/dropdownEditor'},

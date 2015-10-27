@@ -41,8 +41,8 @@ class Category(TransactionAmountMixin, models.Model):
     name = models.CharField(max_length=150)
     kind = models.CharField(max_length=100, choices=CATEGORY_KINDS)
 
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return u'%s' % self.name
 
     def get_transactions_amount(self, *args, **kwargs):
         return super(Category, self).get_transactions_amount(kind=self.kind, *args, **kwargs)
@@ -52,8 +52,8 @@ class Account(TransactionAmountMixin, models.Model):
     name = models.CharField(max_length=150, unique=True)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return u'%s' % self.name
 
     def get_balance(self):
         income = self.transactions.get_income()
@@ -73,5 +73,5 @@ class Transaction(models.Model):
     kind = models.CharField(max_length=100, choices=TRANSACTION_KINDS)
     objects = TransactionManager()
 
-    def __str__(self):
-        return '%s::%s::%s::%d' % (self.account, self.kind, self.category, self.amount)
+    def __unicode__(self):
+        return u'%s::%s::%s::%d' % (self.account, self.kind, self.category, self.amount)

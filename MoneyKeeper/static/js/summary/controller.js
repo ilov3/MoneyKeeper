@@ -62,7 +62,9 @@ function SummaryController($scope, $uibModal, dataSvc) {
                         t.value = t.name;
                         return t
                     });
-
+                },
+                init: function () {
+                    return init;
                 }
             }
         });
@@ -82,6 +84,7 @@ function SummaryController($scope, $uibModal, dataSvc) {
     };
 
     init();
+
     self.scope.$watch('mon', function (newValue, oldValue) {
         if (oldValue !== newValue) {
             updateIncExp(getFirstDay(newValue), getLastDay(newValue));
@@ -89,16 +92,28 @@ function SummaryController($scope, $uibModal, dataSvc) {
     });
 }
 
-function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc) {
+function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc, init) {
     var self = this;
     self.scope = $scope;
-    self.scope.submit = function () {  // TODO finish submit func
-        var payLoad = self.scope.formData;
-        dataSvc.transaction.save(payLoad);
+    self.scope.submit = function () {
+        self.scope.dataResolved = false;
+        var payLoad = angular.copy(self.scope.formData);
+        payLoad.date = payLoad.date.toISOString().split('T')[0];
+        dataSvc.transaction.save(payLoad).$promise.then(function (data) {
+            if (data.$resolved) {
+                self.scope.dataResolved = true;
+            }
+        });
         if (!self.scope.formData.addAnother) {
             $modalInstance.close()
         }
     };
+    self.scope.cancel = function () {
+        $modalInstance.close()
+    };
+    self.scope.$on('modal.closing', function () {
+        init();
+    });
     self.scope.formFields = [
         {
             key: 'date',
@@ -145,7 +160,8 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
             hideExpression: 'model.kind != "trn"',
             templateOptions: {
                 label: 'Transfer to',
-                options: accounts
+                options: accounts,
+                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.account'
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind == "trn"'
@@ -157,7 +173,8 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
             templateOptions: {
                 label: 'Account',
                 required: true,
-                options: accounts
+                options: accounts,
+                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.transfer_to_account'
             }
         },
         {

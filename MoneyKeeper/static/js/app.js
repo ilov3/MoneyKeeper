@@ -11,6 +11,7 @@ angular.module('MoneyKeeper', [
     'ui.select',
     'formly',
     'formlyBootstrap',
+    'angular.filter',
     'MoneyKeeper.states'
 ])
     .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', function ($resourceProvider, $httpProvider, $urlRouterProvider) {
