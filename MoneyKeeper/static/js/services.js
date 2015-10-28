@@ -8,7 +8,7 @@ angular.module('MoneyKeeper')
                 amount: {method: 'GET', params: {begin: '@begin', end: '@end', kind: '@kind'}, isArray: false, headers: {}},
                 update: {method: 'PUT', params: {action: '@id'}}
             }),
-            category: $resource('/api/category'),
-            account: $resource('/api/account')
+            category: $resource('/api/category/:action'),
+            account: $resource('/api/account/:action')
         }
     }]);

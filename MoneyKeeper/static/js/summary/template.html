@@ -19,7 +19,7 @@
             <h2>Categories</h2>
             <div ng-repeat="(group, categories) in results.categories | groupBy: 'kind'">
                 <h3>{{ group }}</h3>
-                <h5 ng-repeat="category in categories" ng-if="category.get_transactions_amount">
+                <h5 ng-repeat="category in categories | orderBy: '-get_transactions_amount'" ng-if="category.get_transactions_amount">
                     {{ category.name }}: {{ category.get_transactions_amount | currency:"" }}
                 </h5>
             </div>

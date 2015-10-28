@@ -3,11 +3,11 @@
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="formData" fields="formFields" form="addTransactionForm"></formly-form>
+        <formly-form model="addTransactionCtrl.formData" fields="addTransactionCtrl.formFields" form="addTransactionCtrl.addTransactionForm"></formly-form>
     </form>
 </div>
 <div class="modal-footer">
-    <span style="margin: 10px; color: #23B123;" ng-show="dataResolved"><i class="glyphicon glyphicon-ok"></i></span>
-    <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="addTransactionForm.$invalid">Submit</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <span style="margin: 10px; color: #23B123;" ng-show="addTransactionCtrl.dataResolved"><i class="glyphicon glyphicon-ok"></i></span>
+    <button type="submit" class="btn btn-primary" ng-click="addTransactionCtrl.submit()" ng-disabled="addTransactionCtrl.addTransactionForm.$invalid">Submit</button>
+    <button class="btn btn-warning" type="button" ng-click="addTransactionCtrl.cancel()">Cancel</button>
 </div>

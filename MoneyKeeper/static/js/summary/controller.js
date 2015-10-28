@@ -3,8 +3,7 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states')
-    .controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', SummaryController])
-    .controller('AddTransactionController', AddTransactionController);
+    .controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', SummaryController]);
 
 function SummaryController($scope, $uibModal, dataSvc) {
     var self = this;
@@ -19,7 +18,7 @@ function SummaryController($scope, $uibModal, dataSvc) {
         });
     };
 
-    var init = function () {
+    var update = function () {
         updateIncExp(getFirstDay(self.scope.mon), getLastDay(self.scope.mon));
         dataSvc.account.query(function (data) {
             self.scope.results.accounts = data;
@@ -50,6 +49,7 @@ function SummaryController($scope, $uibModal, dataSvc) {
             animation: true,
             templateUrl: '/static/partials/addTransaction.html',
             controller: 'AddTransactionController',
+            controllerAs: 'addTransactionCtrl',
             resolve: {
                 accounts: function () {
                     return self.scope.results.accounts.map(function (t) {
@@ -63,17 +63,32 @@ function SummaryController($scope, $uibModal, dataSvc) {
                         return t
                     });
                 },
-                init: function () {
-                    return init;
+                update: function () {
+                    return update;
                 }
             }
         });
-
         modalInstance.result.then(function () {
-            init();
+            update();
         });
     };
 
+    self.scope.addAccount = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/static/partials/addAccount.html',
+            controller: 'AddAccountController',
+            controllerAs: 'addAccountCtrl',
+            resolve: {
+                update: function () {
+                    return update;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            update();
+        });
+    };
 
     self.scope.mon = new Date();
     self.scope.results = {
@@ -83,125 +98,11 @@ function SummaryController($scope, $uibModal, dataSvc) {
         categories: []
     };
 
-    init();
+    update();
 
     self.scope.$watch('mon', function (newValue, oldValue) {
         if (oldValue !== newValue) {
             updateIncExp(getFirstDay(newValue), getLastDay(newValue));
         }
     });
-}
-
-function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc, init) {
-    var self = this;
-    self.scope = $scope;
-    self.scope.submit = function () {
-        self.scope.dataResolved = false;
-        var payLoad = angular.copy(self.scope.formData);
-        payLoad.date = payLoad.date.toISOString().split('T')[0];
-        dataSvc.transaction.save(payLoad).$promise.then(function (data) {
-            if (data.$resolved) {
-                self.scope.dataResolved = true;
-            }
-        });
-        if (!self.scope.formData.addAnother) {
-            $modalInstance.close()
-        }
-    };
-    self.scope.cancel = function () {
-        $modalInstance.close()
-    };
-    self.scope.$on('modal.closing', function () {
-        init();
-    });
-    self.scope.formFields = [
-        {
-            key: 'date',
-            type: 'input',
-            defaultValue: new Date(),
-            templateOptions: {
-                type: 'date',
-                label: 'Date',
-                placeholder: '',
-                required: true
-            }
-        },
-        {
-            key: 'kind',
-            type: 'select',
-            defaultValue: 'exp',
-            templateOptions: {
-                label: 'Kind',
-                required: true,
-                options: [
-                    {name: 'Income', value: 'inc'},
-                    {name: 'Expense', value: 'exp'},
-                    {name: 'Transfer', value: 'trn'}
-                ]
-            }
-        },
-        {
-            key: 'category',
-            type: 'ui-select-single',
-            hideExpression: 'model.kind == "trn"',
-            templateOptions: {
-                optionsAttr: 'bs-options',
-                label: 'Category',
-                options: categories,
-                ngOptions: 'option.name as option in to.options | filter: {kind: model.kind} | filter: $select.search'
-            },
-            expressionProperties: {
-                "templateOptions.required": 'model.kind != "trn"'
-            }
-        },
-        {
-            key: 'transfer_to_account',
-            type: 'select',
-            hideExpression: 'model.kind != "trn"',
-            templateOptions: {
-                label: 'Transfer to',
-                options: accounts,
-                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.account'
-            },
-            expressionProperties: {
-                "templateOptions.required": 'model.kind == "trn"'
-            }
-        },
-        {
-            key: 'account',
-            type: 'select',
-            templateOptions: {
-                label: 'Account',
-                required: true,
-                options: accounts,
-                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.transfer_to_account'
-            }
-        },
-        {
-            key: 'amount',
-            type: 'input',
-            templateOptions: {
-                type: 'number',
-                label: 'Amount',
-                required: true
-            }
-        },
-        {
-            key: 'comment',
-            type: 'input',
-            templateOptions: {
-                type: 'text',
-                label: 'Comment',
-                required: false
-            }
-        },
-        {
-            key: 'addAnother',
-            type: 'checkbox',
-            templateOptions: {
-                label: 'Add another',
-                required: false
-            }
-        }
-    ]
 }
