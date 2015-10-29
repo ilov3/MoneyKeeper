@@ -17,11 +17,16 @@
         </div>
         <div class="col-md-4">
             <h2>Categories</h2>
-            <div ng-repeat="(group, categories) in results.categories | groupBy: 'kind'">
+
+            <div class="repeated-item" ng-repeat="(group, categories) in results.categories | groupBy: 'kind'">
                 <h3>{{ group }}</h3>
-                <h5 ng-repeat="category in categories | orderBy: '-get_transactions_amount'" ng-if="category.get_transactions_amount">
-                    {{ category.name }}: {{ category.get_transactions_amount | currency:"" }}
-                </h5>
+
+                <div class="row" ng-repeat="category in categories | orderBy: '-get_transactions_amount'"
+                     ng-if="category.get_transactions_amount || category.get_transactions_amount_last_month">
+                    <div class="col-sm-6" style="margin: 2px 0;">{{ category.name }}:</div>
+                    <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount | currency:"" }}</span></div>
+                    <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount_last_month | currency: "" }}</span></div>
+                </div>
             </div>
         </div>
     </div>

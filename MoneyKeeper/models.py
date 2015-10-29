@@ -5,7 +5,7 @@ import array
 from django.db import models
 from django.db.models import Sum
 
-from MoneyKeeper.utils.utils import first_day, last_day
+from MoneyKeeper.utils.utils import first_day, last_day, first_day_of_previous_month, last_day_of_previous_month
 
 TRANSACTION_KINDS = (
     ('exp', 'Expense'),
@@ -46,6 +46,9 @@ class Category(TransactionAmountMixin, models.Model):
 
     def get_transactions_amount(self, *args, **kwargs):
         return super(Category, self).get_transactions_amount(kind=self.kind, *args, **kwargs)
+
+    def get_transactions_amount_last_month(self):
+        return super(Category, self).get_transactions_amount(kind=self.kind, fr=first_day_of_previous_month(), to=last_day_of_previous_month())
 
 
 class Account(TransactionAmountMixin, models.Model):

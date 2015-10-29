@@ -25,6 +25,7 @@
     "angular-formly-templates-bootstrap": "~6.1.5",
     "ui-select": "angular-ui-select#~0.13.2",
     "angular-sanitize": "~1.4.7",
-    "angular-filter": "~0.5.7"
+    "angular-filter": "~0.5.7",
+    "angular-animate": "~1.4.7"
   }
 }

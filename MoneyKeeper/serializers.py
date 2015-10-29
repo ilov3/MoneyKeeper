@@ -14,7 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('name', 'kind', 'get_transactions_amount')
+        fields = ('name', 'kind', 'get_transactions_amount', 'get_transactions_amount_last_month')
 
 
 class TransactionSerializer(serializers.ModelSerializer):

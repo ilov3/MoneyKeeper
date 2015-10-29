@@ -10,6 +10,7 @@ function AddModalBaseController($scope, $modalInstance) {
         self.resource.save(self.processFormData(self.formData)).$promise.then(function (data) {
             if (data.$resolved) {
                 self.dataResolved = true;
+                self.updateFunc()
             }
         });
         if (!self.formData.addAnother) {

@@ -9,7 +9,9 @@ logger = logging.getLogger(__name__)
 
 to_pydate = lambda jsts: arrow.get(jsts).replace(days=+1).datetime
 first_day = lambda dt=arrow.now(): dt.floor('month').datetime
+first_day_of_previous_month = lambda: first_day(arrow.now().replace(months=-1))
 last_day = lambda dt=arrow.now(): dt.ceil('month').datetime
+last_day_of_previous_month = lambda: last_day(arrow.now().replace(months=-1))
 
 
 def setup_env(env_dir='envdir'):
