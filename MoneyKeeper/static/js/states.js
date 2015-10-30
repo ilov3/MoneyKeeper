@@ -9,7 +9,8 @@ angular.module('MoneyKeeper.states', [])
                 name: 'summary',
                 url: '/summary',
                 templateUrl: '/static/js/summary/template.html',
-                controller: 'SummaryController'
+                controller: 'SummaryController',
+                controllerAs: 'summaryCtrl'
             })
             .state({
                 name: 'transaction',

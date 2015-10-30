@@ -6,6 +6,10 @@
     margin: 40px 20px;
 }
 
+div.row h4.pull-right {
+    /*margin-top: 25px;*/
+}
+
 /*ngAnimate*/
 .repeated-item.ng-enter, .repeated-item.ng-move {
     -webkit-transition: 0.5s linear all;

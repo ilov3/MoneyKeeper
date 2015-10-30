@@ -3,48 +3,40 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states')
-    .controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', SummaryController]);
+    .controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', 'dateFuncs', SummaryController]);
 
-function SummaryController($scope, $uibModal, dataSvc) {
+function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     var self = this;
-    self.scope = $scope;
+    this.dateFuncs = dateFuncs;
 
     var updateIncExp = function (from, to) {
         dataSvc.transaction.amount({action: 'amount', kind: 'inc', begin: from, end: to}, function (data) {
-            self.scope.results.income = data.result;
+            self.results.income = data.result;
         });
         dataSvc.transaction.amount({action: 'amount', kind: 'exp', begin: from, end: to}, function (data) {
-            self.scope.results.expense = data.result;
+            self.results.expense = data.result;
         });
     };
 
     var update = function () {
-        updateIncExp(getFirstDay(self.scope.mon), getLastDay(self.scope.mon));
+        updateIncExp(self.dateFuncs.getFirstDay(self.mon), self.dateFuncs.getLastDay(self.mon));
         dataSvc.account.query(function (data) {
-            self.scope.results.accounts = data;
+            self.results.accounts = data;
         });
         dataSvc.category.query(function (data) {
-            self.scope.results.categories = data;
+            self.results.categories = data;
         })
     };
 
-    var getFirstDay = function (date) {
-        return new Date(date.getFullYear(), date.getMonth(), 1);
-    };
-
-    var getLastDay = function (date) {
-        return new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    };
-
-    self.scope.getTotal = function () {
+    this.getTotal = function () {
         var total = 0;
-        for (var i = 0; i < self.scope.results.accounts.length; i++) {
-            total += self.scope.results.accounts[i].get_balance;
+        for (var i = 0; i < self.results.accounts.length; i++) {
+            total += self.results.accounts[i].get_balance;
         }
         return total;
     };
 
-    self.scope.addTransaction = function () {
+    this.addTransaction = function () {
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/static/partials/addTransaction.html',
@@ -52,13 +44,13 @@ function SummaryController($scope, $uibModal, dataSvc) {
             controllerAs: 'addTransactionCtrl',
             resolve: {
                 accounts: function () {
-                    return self.scope.results.accounts.map(function (t) {
+                    return self.results.accounts.map(function (t) {
                         t.value = t.name;
                         return t
                     });
                 },
                 categories: function () {
-                    return self.scope.results.categories.map(function (t) {
+                    return self.results.categories.map(function (t) {
                         t.value = t.name;
                         return t
                     });
@@ -73,7 +65,7 @@ function SummaryController($scope, $uibModal, dataSvc) {
         });
     };
 
-    self.scope.addAccount = function () {
+    this.addAccount = function () {
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '/static/partials/addAccount.html',
@@ -90,8 +82,10 @@ function SummaryController($scope, $uibModal, dataSvc) {
         });
     };
 
-    self.scope.mon = new Date();
-    self.scope.results = {
+    this.mon = new Date();
+    this.prevMon = self.dateFuncs.getPrevMon(self.mon);
+    this.results = {
+        limit: 5,
         income: null,
         expense: null,
         accounts: [],
@@ -100,9 +94,9 @@ function SummaryController($scope, $uibModal, dataSvc) {
 
     update();
 
-    self.scope.$watch('mon', function (newValue, oldValue) {
+    $scope.$watch('mon', function (newValue, oldValue) {
         if (oldValue !== newValue) {
-            updateIncExp(getFirstDay(newValue), getLastDay(newValue));
+            updateIncExp(self.dateFuncs.getFirstDay(newValue), self.dateFuncs.getLastDay(newValue));
         }
     });
 }

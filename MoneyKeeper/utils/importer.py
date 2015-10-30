@@ -1,20 +1,21 @@
 # coding=utf-8
 import sys
+import os
+from utils import setup_env
+from glob import glob
+import json
+import logging
+import arrow
 
-sys.path.append('../')
-
-from MoneyKeeper.utils.utils import setup_env
-
-setup_env('../envdir')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.path.dirname(os.path.dirname(current_dir))
+sys.path.append(base_dir)
+setup_env(os.path.join(base_dir, 'envdir'))
 
 import django
 
 django.setup()
 
-from glob import glob
-import json
-import logging
-import arrow
 from MoneyKeeper.models import Transaction, Category, Account
 
 __author__ = 'ilov3'
