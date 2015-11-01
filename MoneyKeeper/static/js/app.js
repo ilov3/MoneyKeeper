@@ -3,7 +3,7 @@
  */
 
 angular.module('MoneyKeeper', [
-    'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav',
+    'ui.grid',
     'ngResource',
     'ngSanitize',
     'ngAnimate',
@@ -13,6 +13,7 @@ angular.module('MoneyKeeper', [
     'formly',
     'formlyBootstrap',
     'angular.filter',
+    'chart.js',
     'MoneyKeeper.states'
 ])
     .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', function ($resourceProvider, $httpProvider, $urlRouterProvider) {
@@ -32,6 +33,7 @@ angular.module('MoneyKeeper', [
         });
     }])
     .controller('AppMainController', ['$scope', AppMainController]);
+
 function AppMainController($scope) {
     $scope.tabs = [
         {title: 'Summary', state: 'summary'},

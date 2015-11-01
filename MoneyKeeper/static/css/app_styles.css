@@ -4,10 +4,15 @@
 
 .grid {
     margin: 40px 20px;
+    height: 780px;
 }
 
-div.row h4.pull-right {
-    /*margin-top: 25px;*/
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }
 
 /*ngAnimate*/

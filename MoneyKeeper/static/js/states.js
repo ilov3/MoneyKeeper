@@ -16,18 +16,21 @@ angular.module('MoneyKeeper.states', [])
                 name: 'transaction',
                 url: '/transaction',
                 templateUrl: '/static/js/transaction/template.html',
-                controller: 'TransactionController'
+                controller: 'TransactionController',
+                controllerAs: 'transactionCtrl'
             })
             .state({
                 name: 'category',
                 url: '/category',
                 templateUrl: '/static/js/category/template.html',
-                controller: 'CategoryController'
+                controller: 'CategoryController',
+                controllerAs: 'categoryCtrl'
             })
             .state({
                 name: 'account',
                 url: '/account',
                 templateUrl: '/static/js/account/template.html',
-                controller: 'AccountController'
+                controller: 'AccountController',
+                controllerAs: 'accountCtrl'
             })
     }]);

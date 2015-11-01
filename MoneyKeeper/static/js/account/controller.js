@@ -2,12 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-angular.module('MoneyKeeper.states')
-    .controller('AccountController', ['$scope', 'dataSvc', AccountController]);
 
-function AccountController($scope, dataSvc) {
-    $scope.gridOptions = {};
-    dataSvc.account.query({}, function (data) {
-        $scope.gridOptions.data = data
-    });
+function AccountController(dataSvc) {
+    BaseGridController.call(this);
+    this.gridDataSource = dataSvc.account;
+    this.setGridData()
 }
+
+AccountController.prototype = Object.create(BaseGridController.prototype);
+angular.module('MoneyKeeper.states').controller('AccountController', ['dataSvc', AccountController]);

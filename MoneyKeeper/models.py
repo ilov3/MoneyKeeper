@@ -1,9 +1,6 @@
-from glob import glob
-import json
-import array
-
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Q, When, Case
+from django.db import connection
 
 from MoneyKeeper.utils.utils import first_day, last_day, first_day_of_previous_month, last_day_of_previous_month
 
@@ -16,7 +13,7 @@ TRANSACTION_KINDS = (
 CATEGORY_KINDS = TRANSACTION_KINDS[:-1]
 
 
-class TransactionManager(models.Manager):
+class TransactionQuerySet(models.QuerySet):
     def get_amount(self, kind, fr=first_day(), to=last_day()):
         result = self.filter(kind=kind, date__gte=fr, date__lte=to)
         result = result.aggregate(Sum('amount'))
@@ -30,6 +27,12 @@ class TransactionManager(models.Manager):
 
     def get_transfers(self):
         return self.filter(kind='trn').aggregate(Sum('amount'))['amount__sum'] or 0
+
+    def get_amounts_by_month(self):
+        truncate_date = connection.ops.date_trunc_sql('month', 'date')
+        qs = self.extra({'month': truncate_date})
+        return qs.values('month').distinct().order_by('month').annotate(inc_sum=Sum(Case(When(kind='inc', then='amount'))),
+                                                                        exp_sum=Sum(Case(When(kind='exp', then='amount'))))
 
 
 class TransactionAmountMixin(object):
@@ -74,7 +77,10 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     comment = models.TextField(blank=True)
     kind = models.CharField(max_length=100, choices=TRANSACTION_KINDS)
-    objects = TransactionManager()
+    objects = TransactionQuerySet.as_manager()
 
     def __unicode__(self):
-        return u'%s::%s::%s::%d' % (self.account, self.kind, self.category, self.amount)
+        return u'%s::%s::%s::%s' % (self.account, self.kind, self.category, self.amount)
+
+    class Meta:
+        ordering = ['-date', '-amount']

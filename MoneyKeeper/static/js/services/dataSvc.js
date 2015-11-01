@@ -6,9 +6,15 @@ angular.module('MoneyKeeper')
         return {
             transaction: $resource('/api/transaction/:action', {}, {
                 amount: {method: 'GET', params: {begin: '@begin', end: '@end', kind: '@kind'}, isArray: false, headers: {}},
-                update: {method: 'PUT', params: {action: '@id'}}
+                update: {method: 'PUT', params: {action: '@id'}},
+                options: {method: 'OPTIONS', isArray: true},
+                stats: {method: 'GET', params: {action: 'stats'}}
             }),
-            category: $resource('/api/category/:action'),
-            account: $resource('/api/account/:action')
+            category: $resource('/api/category/:action', {}, {
+                options: {method: 'OPTIONS', isArray: true}
+            }),
+            account: $resource('/api/account/:action', {}, {
+                options: {method: 'OPTIONS', isArray: true}
+            })
         }
     }]);

@@ -49,7 +49,10 @@ def importer(path):
 
     transactions = []
     for tran_file in dynamic_data:
-        transactions += json.loads(open(tran_file).read())['operations']
+        try:
+            transactions += json.loads(open(tran_file).read())['operations']
+        except KeyError:
+            pass
 
     for t in transactions:
         if t['type'] == 'INCOME':

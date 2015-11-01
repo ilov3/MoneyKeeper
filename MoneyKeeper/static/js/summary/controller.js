@@ -82,6 +82,23 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
         });
     };
 
+    this.addCategory = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/static/partials/addCategory.html',
+            controller: 'AddCategoryController',
+            controllerAs: 'addCategoryCtrl',
+            resolve: {
+                update: function () {
+                    return update;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            update();
+        });
+    };
+
     this.mon = new Date();
     this.prevMon = self.dateFuncs.getPrevMon(self.mon);
     this.results = {

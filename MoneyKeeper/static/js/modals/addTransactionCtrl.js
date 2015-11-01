@@ -62,7 +62,8 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
                 ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.account'
             },
             expressionProperties: {
-                "templateOptions.required": 'model.kind == "trn"'
+                "templateOptions.required": 'model.kind == "trn"',
+                "templateOptions.disabled": 'model.kind != "trn" ? model.transfer_to_account = "" : ""'
             }
         },
         {
