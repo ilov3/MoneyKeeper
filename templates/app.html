@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MoneyKeeper</title>
+    <title>Money Keeper</title>
 </head>
 {% verbatim %}
 <body ng-app="MoneyKeeper" ng-controller="AppMainController">
+<nav class="navbar navbar-default">
+    <span class="navbar-brand">Money Keeper</span>
+    <ul class="nav navbar-nav pull-right">
+        <li><a>{{ conf.username }}</a></li>
+        <li><a ng-click="logout()" href="">Logout</a></li>
+    </ul>
+</nav>
 <uib-tabset>
     <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
 </uib-tabset>
@@ -17,31 +24,40 @@
 <link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap-theme.css' %}">
 <link rel="stylesheet" href="{% static 'thirdparty/angular-ui-grid/ui-grid.css' %}">
 <link rel="stylesheet" href="{% static 'thirdparty/ui-select/dist/select.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/angular-chart.js/dist/angular-chart.css' %}">
+<link rel="stylesheet" href="{% static 'thirdparty/ng-notify/src/styles/ng-notify.css' %}">
+<link rel="stylesheet" href="{% static 'thirdparty/angular-loading-bar/build/loading-bar.css' %}">
 <link rel="stylesheet" href="{% static 'css/app_styles.css' %}">
 <script src="{% static 'thirdparty/jquery/dist/jquery.js' %}"></script>
 <script src="{% static 'thirdparty/bootstrap/dist/js/bootstrap.js' %}"></script>
+<script src="{% static 'thirdparty/d3/d3.js' %}"></script>
+<script src="{% static 'thirdparty/moment/moment.js' %}"></script>
 <script src="{% static 'thirdparty/angular/angular.js' %}"></script>
+<script src="{% static 'thirdparty/ng-notify/src/scripts/ng-notify.js' %}"></script>
 <script src="{% static 'thirdparty/angular-filter/dist/angular-filter.js' %}"></script>
 <script src="{% static 'thirdparty/angular-resource/angular-resource.js' %}"></script>
+<script src="{% static 'thirdparty/ngstorage/ngStorage.js' %}"></script>
+<script src="{% static 'thirdparty/angular-loading-bar/build/loading-bar.js' %}"></script>
 <script src="{% static 'thirdparty/angular-ui-grid/ui-grid.js' %}"></script>
 <script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap.js' %}"></script>
 <script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
 <script src="{% static 'thirdparty/angular-ui-router/release/angular-ui-router.js' %}"></script>
 <script src="{% static 'thirdparty/angular-sanitize/angular-sanitize.js' %}"></script>
-<script src="{% static 'thirdparty/Chart.js/Chart.js' %}"></script>
-<script src="{% static 'thirdparty/angular-chart.js/angular-chart.js' %}"></script>
+<script src="{% static 'thirdparty/angular-http-auth/src/http-auth-interceptor.js' %}"></script>
+<script src="{% static 'thirdparty/n3-line-chart/build/line-chart.js' %}"></script>
 <script src="{% static 'thirdparty/api-check/dist/api-check.js' %}"></script>
 <script src="{% static 'thirdparty/angular-formly/dist/formly.js' %}"></script>
 <script src="{% static 'thirdparty/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js' %}"></script>
 <script src="{% static 'thirdparty/ui-select/dist/select.js' %}"></script>
 <script src="{% static 'thirdparty/angular-animate/angular-animate.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/services/auth.js' %}"></script>
 <script src="{% static 'js/services/dateFuncs.js' %}"></script>
 <script src="{% static 'js/services/dataSvc.js' %}"></script>
+<script src="{% static 'js/directives/select.js' %}"></script>
 <script src="{% static 'js/states.js' %}"></script>
 <script src="{% static 'js/filters.js' %}"></script>
 <script src="{% static 'js/grid.js' %}"></script>
+<script src="{% static 'js/modals/login.js' %}"></script>
 <script src="{% static 'js/summary/controller.js' %}"></script>
 <script src="{% static 'js/summary/chartController.js' %}"></script>
 <script src="{% static 'js/account/controller.js' %}"></script>

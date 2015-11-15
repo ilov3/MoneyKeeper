@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+from django.contrib.auth.models import User
 from rest_framework.serializers import RelatedField
 from models import Category, Account
 
@@ -25,3 +26,11 @@ class AccountField(RelatedField):
 
     def to_representation(self, value):
         return value.name
+
+
+class UserField(RelatedField):
+    def to_internal_value(self, data):
+        return User.objects.get(username=data)
+
+    def to_representation(self, value):
+        return value.username

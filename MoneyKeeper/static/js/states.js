@@ -33,4 +33,11 @@ angular.module('MoneyKeeper.states', [])
                 controller: 'AccountController',
                 controllerAs: 'accountCtrl'
             })
+            .state({
+                name: 'empty',
+                url: '/',
+                template: '',
+                controller: function () {
+                }
+            })
     }]);

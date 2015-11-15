@@ -2,8 +2,9 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddAccountController($scope, $modalInstance, dataSvc, update) {
-    AddModalBaseController.call(this, $scope, $modalInstance);
+function AddAccountController($scope, $modalInstance, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $modalInstance, ngNotify);
+    this.name = 'Account';
     this.resource = dataSvc.account;
     this.updateFunc = update;
     this.formFields = [

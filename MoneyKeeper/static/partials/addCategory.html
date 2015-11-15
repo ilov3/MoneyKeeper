@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Add account</h3>
+    <h3 class="modal-title">Add category</h3>
 </div>
 <div class="modal-body">
     <form novalidate>
@@ -7,7 +7,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <span style="margin: 10px; color: #23B123;" ng-show="addCategoryCtrl.dataResolved"><i class="glyphicon glyphicon-ok"></i></span>
     <button type="submit" class="btn btn-primary" ng-click="addCategoryCtrl.submit()" ng-disabled="addCategoryCtrl.addCategoryForm.$invalid">Submit</button>
     <button class="btn btn-warning" type="button" ng-click="addCategoryCtrl.cancel()">Cancel</button>
 </div>

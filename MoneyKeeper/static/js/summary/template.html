@@ -20,8 +20,8 @@
             </div>
             <h2>Report</h2>
 
-            <div ng-controller="ChartController as chartCtrl">
-                <canvas id="bar" class="chart chart-bar" chart-data="chartCtrl.data" chart-labels="chartCtrl.labels" chart-colours="chartCtrl.colors"></canvas>
+            <div class="summary-chart" ng-controller="ChartController as chartCtrl">
+                <linechart data="chartCtrl.data.stats" options="chartCtrl.options" mode="" width="" height="{{ chartCtrl.height }}"></linechart>
             </div>
         </div>
         <div class="col-md-4">
@@ -37,14 +37,14 @@
                         </div>
 
                         <div class="row"
-                             ng-repeat="category in categories | orderBy: ['-get_transactions_amount', '-get_transactions_amount_last_month'] | limitTo: summaryCtrl.results.limit"
+                             ng-repeat="category in categories | orderBy: ['-get_transactions_amount', '-get_transactions_amount_last_month'] | limitTo: summaryCtrl.limit"
                              ng-if="category.get_transactions_amount || category.get_transactions_amount_last_month">
                             <div class="col-sm-6" style="margin: 2px 0;">{{ category.name }}:</div>
                             <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount | currency:"" }}</span></div>
                             <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount_last_month | currency: "" }}</span></div>
                         </div>
-                        <a href="" ng-if="categories.length > summaryCtrl.results.limit" ng-click="summaryCtrl.results.limit = categories.length">More</a>
-                        <a href="" ng-if="categories.length == summaryCtrl.results.limit && categories.length > 5" ng-click="summaryCtrl.results.limit = 5">Less</a>
+                        <a href="" ng-if="categories.length > summaryCtrl.limit" ng-click="summaryCtrl.limit = categories.length">More</a>
+                        <a href="" ng-if="categories.length == summaryCtrl.limit && categories.length > 5" ng-click="summaryCtrl.limit = 5">Less</a>
                     </div>
                     <br>
                     <a href="" ng-click="summaryCtrl.addCategory()">Add category</a>

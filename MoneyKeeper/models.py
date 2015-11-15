@@ -1,6 +1,7 @@
 from django.db import models
-from django.db.models import Sum, Q, When, Case
+from django.db.models import Sum, When, Case, F, Value
 from django.db import connection
+from django.contrib.auth.models import User
 
 from MoneyKeeper.utils.utils import first_day, last_day, first_day_of_previous_month, last_day_of_previous_month
 
@@ -31,8 +32,10 @@ class TransactionQuerySet(models.QuerySet):
     def get_amounts_by_month(self):
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = self.extra({'month': truncate_date})
-        return qs.values('month').distinct().order_by('month').annotate(inc_sum=Sum(Case(When(kind='inc', then='amount'))),
-                                                                        exp_sum=Sum(Case(When(kind='exp', then='amount'))))
+        return qs.values('month').distinct().order_by('month').annotate(
+            inc_sum=Sum(Case(When(kind='inc', then='amount'), default=Value(0))),
+            exp_sum=Sum(Case(When(kind='exp', then='amount'), default=Value(0))),
+        ).annotate(profit=F('inc_sum') - F('exp_sum'))
 
 
 class TransactionAmountMixin(object):
@@ -41,6 +44,7 @@ class TransactionAmountMixin(object):
 
 
 class Category(TransactionAmountMixin, models.Model):
+    user = models.ForeignKey(User)
     name = models.CharField(max_length=150)
     kind = models.CharField(max_length=100, choices=CATEGORY_KINDS)
 
@@ -55,6 +59,7 @@ class Category(TransactionAmountMixin, models.Model):
 
 
 class Account(TransactionAmountMixin, models.Model):
+    user = models.ForeignKey(User)
     name = models.CharField(max_length=150, unique=True)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 
@@ -70,6 +75,7 @@ class Account(TransactionAmountMixin, models.Model):
 
 
 class Transaction(models.Model):
+    user = models.ForeignKey(User)
     date = models.DateField()
     category = models.ForeignKey('Category', null=True, blank=True, related_name='transactions')
     account = models.ForeignKey('Account', related_name='transactions')

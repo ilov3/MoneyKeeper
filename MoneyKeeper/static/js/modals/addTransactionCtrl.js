@@ -2,14 +2,15 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc, update) {
-    AddModalBaseController.call(this, $scope, $modalInstance);
+function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $modalInstance, ngNotify);
+    this.name = 'Transaction';
     this.resource = dataSvc.transaction;
     this.updateFunc = update;
     this.processFormData = function(formData){
-        var payLoad = angular.copy(formData);
-        payLoad.date = payLoad.date.toISOString().split('T')[0];
-        return payLoad
+        var payload = angular.copy(formData);
+        payload.date = payload.date.toISOString().split('T')[0];
+        return payload
     };
     this.formFields = [
         {

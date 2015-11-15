@@ -3,14 +3,16 @@
  * __author__ = 'ilov3'
  */
 
-function AddModalBaseController($scope, $modalInstance) {
+AddModalBaseController.$inject = ['$scope', '$modalInstance', 'ngNotify'];
+function AddModalBaseController($scope, $modalInstance, ngNotify) {
     var self = this;
     this.submit = function () {
-        self.dataResolved = false;
-        self.resource.save(self.processFormData(self.formData)).$promise.then(function (data) {
+        var payload = self.processFormData(self.formData);
+        payload.user = $scope.conf.username;
+        self.resource.save(payload).$promise.then(function (data) {
             if (data.$resolved) {
-                self.dataResolved = true;
-                self.updateFunc()
+                self.updateFunc();
+                ngNotify.set(self.name + ' successfully added!', 'success')
             }
         });
         if (!self.formData.addAnother) {

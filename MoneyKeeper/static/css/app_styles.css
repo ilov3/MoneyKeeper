@@ -1,10 +1,23 @@
+/*body::after {*/
+    /*content: "";*/
+    /*background-image: url('/static/img/bg.jpg');*/
+    /*background-size: cover;*/
+    /*opacity: 0.3;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+    /*position: absolute;*/
+    /*z-index: -1;*/
+/*}*/
+
 .nav-tabs {
     margin-top: 10px;
 }
 
 .grid {
     margin: 40px 20px;
-    height: 780px;
+    height: 750px;
 }
 
 .green {

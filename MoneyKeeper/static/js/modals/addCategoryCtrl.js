@@ -2,8 +2,9 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddCategoryController($scope, $modalInstance, dataSvc, update) {
-    AddModalBaseController.call(this, $scope, $modalInstance);
+function AddCategoryController($scope, $modalInstance, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $modalInstance, ngNotify);
+    this.name = 'Category';
     this.resource = dataSvc.category;
     this.updateFunc = update;
     this.formFields = [

@@ -2,31 +2,9 @@
 /**
  * __author__ = 'ilov3'
  */
-angular.module('MoneyKeeper.states')
-    .controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', 'dateFuncs', SummaryController]);
-
 function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     var self = this;
     this.dateFuncs = dateFuncs;
-
-    var updateIncExp = function (from, to) {
-        dataSvc.transaction.amount({action: 'amount', kind: 'inc', begin: from, end: to}, function (data) {
-            self.results.income = data.result;
-        });
-        dataSvc.transaction.amount({action: 'amount', kind: 'exp', begin: from, end: to}, function (data) {
-            self.results.expense = data.result;
-        });
-    };
-
-    var update = function () {
-        updateIncExp(self.dateFuncs.getFirstDay(self.mon), self.dateFuncs.getLastDay(self.mon));
-        dataSvc.account.query(function (data) {
-            self.results.accounts = data;
-        });
-        dataSvc.category.query(function (data) {
-            self.results.categories = data;
-        })
-    };
 
     this.getTotal = function () {
         var total = 0;
@@ -56,12 +34,12 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
                     });
                 },
                 update: function () {
-                    return update;
+                    return dataSvc.updateSummary;
                 }
             }
         });
         modalInstance.result.then(function () {
-            update();
+            dataSvc.updateSummary();
         });
     };
 
@@ -73,12 +51,12 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
             controllerAs: 'addAccountCtrl',
             resolve: {
                 update: function () {
-                    return update;
+                    return dataSvc.updateSummary;
                 }
             }
         });
         modalInstance.result.then(function () {
-            update();
+            dataSvc.updateSummary()
         });
     };
 
@@ -90,30 +68,27 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
             controllerAs: 'addCategoryCtrl',
             resolve: {
                 update: function () {
-                    return update;
+                    return dataSvc.updateSummary;
                 }
             }
         });
         modalInstance.result.then(function () {
-            update();
+            dataSvc.updateSummary()
         });
     };
 
+    this.results = dataSvc.results;
+    this.limit = 5;
     this.mon = new Date();
     this.prevMon = self.dateFuncs.getPrevMon(self.mon);
-    this.results = {
-        limit: 5,
-        income: null,
-        expense: null,
-        accounts: [],
-        categories: []
-    };
 
-    update();
+    dataSvc.updateSummary();
 
     $scope.$watch('mon', function (newValue, oldValue) {
         if (oldValue !== newValue) {
-            updateIncExp(self.dateFuncs.getFirstDay(newValue), self.dateFuncs.getLastDay(newValue));
+            dataSvc.updateSummary(newValue)
         }
     });
 }
+
+angular.module('MoneyKeeper.states').controller('SummaryController', ['$scope', '$uibModal', 'dataSvc', 'dateFuncs', SummaryController]);
