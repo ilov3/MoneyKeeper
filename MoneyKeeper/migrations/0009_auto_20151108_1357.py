@@ -12,17 +12,17 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='account',
             name='user',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name='category',
             name='user',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name='transaction',
             name='user',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
