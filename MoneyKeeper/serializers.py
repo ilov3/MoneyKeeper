@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 from MoneyKeeper.fields import CategoryField, AccountField, UserField
 from models import Transaction, Account, Category
 
@@ -21,6 +22,12 @@ class AccountSerializer(GridSchemaMixin, serializers.ModelSerializer):
             {'displayName': 'Opening', 'field': 'opening', 'colFilter': True},
             {'displayName': 'Balance', 'field': 'get_balance', 'colFilter': True},
         ]
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Account.objects.all(),
+                fields=('user', 'name')
+            )
+        ]
 
 
 class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
@@ -34,6 +41,12 @@ class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
             {'displayName': 'Name', 'field': 'name', 'colFilter': True},
             {'displayName': 'This month', 'field': 'get_transactions_amount', 'colFilter': True},
             {'displayName': 'Previous month', 'field': 'get_transactions_amount_last_month', 'colFilter': True},
+        ]
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Category.objects.all(),
+                fields=('user', 'name', 'kind')
+            )
         ]
 
 

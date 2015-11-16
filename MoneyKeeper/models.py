@@ -60,7 +60,7 @@ class Category(TransactionAmountMixin, models.Model):
 
 class Account(TransactionAmountMixin, models.Model):
     user = models.ForeignKey(User)
-    name = models.CharField(max_length=150, unique=True)
+    name = models.CharField(max_length=150)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __unicode__(self):

@@ -7,14 +7,18 @@
       <w>defs</w>
       <w>dest</w>
       <w>envdir</w>
+      <w>filenames</w>
       <w>formly</w>
       <w>ilov</w>
+      <w>minified</w>
       <w>mmmm</w>
       <w>moneykeeper</w>
       <w>signin</w>
       <w>thirdparty</w>
       <w>typeahead</w>
+      <w>uglify</w>
       <w>vizi</w>
+      <w>yuglify</w>
     </words>
   </dictionary>
 </component>

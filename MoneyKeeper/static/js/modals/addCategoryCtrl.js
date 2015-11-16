@@ -43,4 +43,4 @@ function AddCategoryController($scope, $modalInstance, dataSvc, update, ngNotify
 }
 
 AddCategoryController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddCategoryController', AddCategoryController);
+angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$scope', '$modalInstance', 'dataSvc', 'update', 'ngNotify', AddCategoryController]);

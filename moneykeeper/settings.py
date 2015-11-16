@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'MoneyKeeper',
     'rest_framework',
-    'compressor',
+    'pipeline',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,9 +112,77 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    'pipeline.finders.PipelineFinder',
 )
-COMPRESS_ENABLED = not DEBUG
+
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
+PIPELINE_CSS = {
+    'css': {
+        'source_filenames': (
+            'thirdparty/bootstrap/dist/css/bootstrap.css',
+            'thirdparty/bootstrap/dist/css/bootstrap-theme.css',
+            'thirdparty/angular-ui-grid/ui-grid.css',
+            'thirdparty/ui-select/dist/select.css',
+            'thirdparty/ng-notify/src/styles/ng-notify.css',
+            'thirdparty/angular-loading-bar/build/loading-bar.css',
+            'css/app_styles.css',
+        ),
+        'output_filename': 'css/project_styles.css',
+        'variant': 'datauri',
+    },
+}
+PIPELINE_JS = {
+    'js': {
+        'source_filenames': (
+            'thirdparty/jquery/dist/jquery.js',
+            'thirdparty/bootstrap/dist/js/bootstrap.js',
+            'thirdparty/d3/d3.js',
+            'thirdparty/moment/moment.js',
+            'thirdparty/angular/angular.js',
+            'thirdparty/ng-notify/src/scripts/ng-notify.js',
+            'thirdparty/angular-filter/dist/angular-filter.js',
+            'thirdparty/angular-resource/angular-resource.js',
+            'thirdparty/ngstorage/ngStorage.js',
+            'thirdparty/angular-loading-bar/build/loading-bar.js',
+            'thirdparty/angular-ui-grid/ui-grid.js',
+            'thirdparty/angular-bootstrap/ui-bootstrap.js',
+            'thirdparty/angular-bootstrap/ui-bootstrap-tpls.js',
+            'thirdparty/angular-ui-router/release/angular-ui-router.js',
+            'thirdparty/angular-sanitize/angular-sanitize.js',
+            'thirdparty/angular-http-auth/src/http-auth-interceptor.js',
+            'thirdparty/n3-line-chart/build/line-chart.js',
+            'thirdparty/api-check/dist/api-check.js',
+            'thirdparty/angular-formly/dist/formly.js',
+            'thirdparty/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js',
+            'thirdparty/ui-select/dist/select.js',
+            'thirdparty/angular-animate/angular-animate.js',
+            'js/app.js',
+            'js/services/auth.js',
+            'js/services/dateFuncs.js',
+            'js/services/dataSvc.js',
+            'js/directives/select.js',
+            'js/states.js',
+            'js/filters.js',
+            'js/grid.js',
+            'js/modals/login.js',
+            'js/summary/controller.js',
+            'js/summary/chartController.js',
+            'js/account/controller.js',
+            'js/category/controller.js',
+            'js/transaction/controller.js',
+            'js/modals/common.js',
+            'js/modals/addCategoryCtrl.js',
+            'js/modals/addAccountCtrl.js',
+            'js/modals/addTransactionCtrl.js',
+        ),
+        'output_filename': 'js/project_js.js',
+    }
+}
+PIPELINE_ENABLED = True
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',

@@ -2,7 +2,7 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddTransactionController($scope, $modalInstance, accounts, categories, dataSvc, update, ngNotify) {
+function AddTransactionController($scope, $modalInstance, dataSvc, update, ngNotify) {
     AddModalBaseController.call(this, $scope, $modalInstance, ngNotify);
     this.name = 'Transaction';
     this.resource = dataSvc.transaction;
@@ -45,7 +45,7 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
             templateOptions: {
                 optionsAttr: 'bs-options',
                 label: 'Category',
-                options: categories,
+                options: dataSvc.results.categories,
                 ngOptions: 'option.name as option in to.options | filter: {kind: model.kind} | filter: $select.search'
             },
             expressionProperties: {
@@ -59,7 +59,7 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
             hideExpression: 'model.kind != "trn"',
             templateOptions: {
                 label: 'Transfer to',
-                options: accounts,
+                options: dataSvc.results.accounts,
                 ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.account'
             },
             expressionProperties: {
@@ -73,7 +73,7 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
             templateOptions: {
                 label: 'Account',
                 required: true,
-                options: accounts,
+                options: dataSvc.results.accounts,
                 ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.transfer_to_account'
             }
         },
@@ -107,4 +107,4 @@ function AddTransactionController($scope, $modalInstance, accounts, categories, 
 }
 
 AddTransactionController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddTransactionController', AddTransactionController);
+angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$modalInstance', 'dataSvc', 'update', 'ngNotify', AddTransactionController]);

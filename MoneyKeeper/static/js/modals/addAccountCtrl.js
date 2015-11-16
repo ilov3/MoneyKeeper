@@ -41,4 +41,4 @@ function AddAccountController($scope, $modalInstance, dataSvc, update, ngNotify)
 }
 
 AddAccountController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddAccountController', AddAccountController);
+angular.module('MoneyKeeper.states').controller('AddAccountController', ['$scope', '$modalInstance', 'dataSvc', 'update', 'ngNotify', AddAccountController]);

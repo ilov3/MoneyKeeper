@@ -19,57 +19,55 @@
 <ui-view></ui-view>
 </body>
 {% endverbatim %}
-{% load compress %}
 {% load staticfiles %}
-{% compress css %}
-<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap-theme.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/angular-ui-grid/ui-grid.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/ui-select/dist/select.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/ng-notify/src/styles/ng-notify.css' %}">
-<link rel="stylesheet" href="{% static 'thirdparty/angular-loading-bar/build/loading-bar.css' %}">
-<link rel="stylesheet" href="{% static 'css/app_styles.css' %}">
-{% endcompress %}
-{% compress js %}
-<script src="{% static 'thirdparty/jquery/dist/jquery.js' %}"></script>
-<script src="{% static 'thirdparty/bootstrap/dist/js/bootstrap.js' %}"></script>
-<script src="{% static 'thirdparty/d3/d3.js' %}"></script>
-<script src="{% static 'thirdparty/moment/moment.js' %}"></script>
-<script src="{% static 'thirdparty/angular/angular.js' %}"></script>
-<script src="{% static 'thirdparty/ng-notify/src/scripts/ng-notify.js' %}"></script>
-<script src="{% static 'thirdparty/angular-filter/dist/angular-filter.js' %}"></script>
-<script src="{% static 'thirdparty/angular-resource/angular-resource.js' %}"></script>
-<script src="{% static 'thirdparty/ngstorage/ngStorage.js' %}"></script>
-<script src="{% static 'thirdparty/angular-loading-bar/build/loading-bar.js' %}"></script>
-<script src="{% static 'thirdparty/angular-ui-grid/ui-grid.js' %}"></script>
-<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap.js' %}"></script>
-<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
-<script src="{% static 'thirdparty/angular-ui-router/release/angular-ui-router.js' %}"></script>
-<script src="{% static 'thirdparty/angular-sanitize/angular-sanitize.js' %}"></script>
-<script src="{% static 'thirdparty/angular-http-auth/src/http-auth-interceptor.js' %}"></script>
-<script src="{% static 'thirdparty/n3-line-chart/build/line-chart.js' %}"></script>
-<script src="{% static 'thirdparty/api-check/dist/api-check.js' %}"></script>
-<script src="{% static 'thirdparty/angular-formly/dist/formly.js' %}"></script>
-<script src="{% static 'thirdparty/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js' %}"></script>
-<script src="{% static 'thirdparty/ui-select/dist/select.js' %}"></script>
-<script src="{% static 'thirdparty/angular-animate/angular-animate.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/services/auth.js' %}"></script>
-<script src="{% static 'js/services/dateFuncs.js' %}"></script>
-<script src="{% static 'js/services/dataSvc.js' %}"></script>
-<script src="{% static 'js/directives/select.js' %}"></script>
-<script src="{% static 'js/states.js' %}"></script>
-<script src="{% static 'js/filters.js' %}"></script>
-<script src="{% static 'js/grid.js' %}"></script>
-<script src="{% static 'js/modals/login.js' %}"></script>
-<script src="{% static 'js/summary/controller.js' %}"></script>
-<script src="{% static 'js/summary/chartController.js' %}"></script>
-<script src="{% static 'js/account/controller.js' %}"></script>
-<script src="{% static 'js/category/controller.js' %}"></script>
-<script src="{% static 'js/transaction/controller.js' %}"></script>
-<script src="{% static 'js/modals/common.js' %}"></script>
-<script src="{% static 'js/modals/addCategoryCtrl.js' %}"></script>
-<script src="{% static 'js/modals/addAccountCtrl.js' %}"></script>
-<script src="{% static 'js/modals/addTransactionCtrl.js' %}"></script>
-{% endcompress %}
+{#<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'thirdparty/bootstrap/dist/css/bootstrap-theme.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'thirdparty/angular-ui-grid/ui-grid.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'thirdparty/ui-select/dist/select.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'thirdparty/ng-notify/src/styles/ng-notify.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'thirdparty/angular-loading-bar/build/loading-bar.css' %}">#}
+{#<link rel="stylesheet" href="{% static 'css/app_styles.css' %}">#}
+{#<script src="{% static 'thirdparty/jquery/dist/jquery.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/bootstrap/dist/js/bootstrap.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/d3/d3.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/moment/moment.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular/angular.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/ng-notify/src/scripts/ng-notify.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-filter/dist/angular-filter.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-resource/angular-resource.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/ngstorage/ngStorage.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-loading-bar/build/loading-bar.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-ui-grid/ui-grid.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-ui-router/release/angular-ui-router.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-sanitize/angular-sanitize.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-http-auth/src/http-auth-interceptor.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/n3-line-chart/build/line-chart.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/api-check/dist/api-check.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-formly/dist/formly.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/ui-select/dist/select.js' %}"></script>#}
+{#<script src="{% static 'thirdparty/angular-animate/angular-animate.js' %}"></script>#}
+{#<script src="{% static 'js/app.js' %}"></script>#}
+{#<script src="{% static 'js/services/auth.js' %}"></script>#}
+{#<script src="{% static 'js/services/dateFuncs.js' %}"></script>#}
+{#<script src="{% static 'js/services/dataSvc.js' %}"></script>#}
+{#<script src="{% static 'js/directives/select.js' %}"></script>#}
+{#<script src="{% static 'js/states.js' %}"></script>#}
+{#<script src="{% static 'js/filters.js' %}"></script>#}
+{#<script src="{% static 'js/grid.js' %}"></script>#}
+{#<script src="{% static 'js/modals/login.js' %}"></script>#}
+{#<script src="{% static 'js/summary/controller.js' %}"></script>#}
+{#<script src="{% static 'js/summary/chartController.js' %}"></script>#}
+{#<script src="{% static 'js/account/controller.js' %}"></script>#}
+{#<script src="{% static 'js/category/controller.js' %}"></script>#}
+{#<script src="{% static 'js/transaction/controller.js' %}"></script>#}
+{#<script src="{% static 'js/modals/common.js' %}"></script>#}
+{#<script src="{% static 'js/modals/addCategoryCtrl.js' %}"></script>#}
+{#<script src="{% static 'js/modals/addAccountCtrl.js' %}"></script>#}
+{#<script src="{% static 'js/modals/addTransactionCtrl.js' %}"></script>#}
+{% load pipeline %}
+{% stylesheet 'css' %}
+{% javascript 'js' %}
 </html>
