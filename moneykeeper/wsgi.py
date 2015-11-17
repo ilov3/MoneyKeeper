@@ -18,5 +18,4 @@ sys.path.append(base_dir)
 setup_env(os.path.join(base_dir, 'envdir'))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moneykeeper.settings")
-setup_env('')
 application = get_wsgi_application()
