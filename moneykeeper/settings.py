@@ -181,7 +181,7 @@ PIPELINE_JS = {
         'output_filename': 'js/project_js.js',
     }
 }
-PIPELINE_ENABLED = True
+PIPELINE_ENABLED = not DEBUG
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

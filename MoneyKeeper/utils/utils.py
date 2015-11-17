@@ -22,8 +22,9 @@ def setup_env(env_dir='envdir'):
     http://bruno.im/2013/may/18/django-stop-writing-settings-files/
     """
     env_vars = glob.glob(os.path.join(env_dir, '*'))
-    for env_var in env_vars:
-        with open(env_var, 'r') as env_var_file:
-            os.environ.setdefault(env_var.split(os.sep)[-1],
-                                  env_var_file.read().strip())
+    if env_vars:
+        for env_var in env_vars:
+            with open(env_var, 'r') as env_var_file:
+                os.environ.setdefault(env_var.split(os.sep)[-1],
+                                      env_var_file.read().strip())
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moneykeeper.settings")
