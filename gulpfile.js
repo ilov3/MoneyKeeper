@@ -71,10 +71,13 @@ var ignorePaths = [
 ];
 
 gulp.task('css', function () {
+    var cssFilter = plugins.filter('**/*.css', {restore: true});
     var css = gulp.src(cssSrc)
+        .pipe(cssFilter)
         .pipe(plugins.if(argv.production, plugins.concat('all.min.css')))
         .pipe(plugins.if(argv.production, plugins.minifyCss()))
-        .pipe(gulp.dest((argv.production ? prodDest : devDest) + 'css'));
+        .pipe(cssFilter.restore)
+        .pipe(gulp.dest((argv.production ? devDest : devDest) + 'css'));
     return template
         .pipe(plugins.inject(css, {
             ignorePath: ignorePaths,
@@ -87,13 +90,13 @@ gulp.task('js', function () {
     var jsThirdparty = gulp.src(jsSrcThirdparty)
         .pipe(plugins.if(argv.production, plugins.concat('thirdparty.min.js')))
         .pipe(plugins.if(argv.production, plugins.uglify()))
-        .pipe(plugins.if(argv.production, gulp.dest(prodDest + 'js')));
+        .pipe(plugins.if(argv.production, gulp.dest(devDest + 'js')));
 
     var jsProject = gulp.src(jsSrcProject)
         //.pipe(plugins.angularFilesort())
         .pipe(plugins.if(argv.production, plugins.concat('project.min.js')))
         .pipe(plugins.if(argv.production, plugins.uglify()))
-        .pipe(plugins.if(argv.production, gulp.dest(prodDest + 'js')));
+        .pipe(plugins.if(argv.production, gulp.dest(devDest + 'js')));
 
     return template
         .pipe(plugins.inject(jsThirdparty, {
