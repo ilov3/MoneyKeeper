@@ -1,5 +1,7 @@
-MoneyKeeper/static/thirdparty/
-.idea/
-envdir/
-static/
+/MoneyKeeper/static/thirdparty/
+/.idea/
+/envdir/
+/static/
+/staticdev/
+/node_modules/
 *.pyc

@@ -1,0 +1,36 @@
+{
+  "name": "moneykeeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilov3/MoneyKeeper.git"
+  },
+  "author": "ilov3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilov3/MoneyKeeper/issues"
+  },
+  "homepage": "https://github.com/ilov3/MoneyKeeper#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-if": "^2.0.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-minify": "0.0.5",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-uglify": "^1.5.1",
+    "gulp-watch": "^4.3.5",
+    "main-bower-files": "^2.9.0",
+    "merge-stream": "^1.0.0",
+    "yargs": "^3.30.0"
+  }
+}

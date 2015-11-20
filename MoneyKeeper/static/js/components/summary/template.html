@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Accounts</h2>
+                    <h4 ng-repeat="account in summaryCtrl.results.accounts">{{ account.name }}: {{ account.get_balance | currency:"" }}</h4>
+
+                    <h3>Total: {{ summaryCtrl.getTotal() | currency:""}}</h3>
+                    <br>
+                    <a href="" ng-click="summaryCtrl.addAccount()">Add account</a>
+                </div>
+                <div class="col-md-6">
+                    <h2>Income/Expense</h2>
+                    <h4>Income: {{ summaryCtrl.results.income | currency:"" }}</h4>
+                    <h4>Expense: {{ summaryCtrl.results.expense | currency:"" }}</h4>
+                    <br>
+                    <a href="" ng-click="summaryCtrl.addTransaction()">Add transaction</a>
+                </div>
+            </div>
+            <h2>Report</h2>
+
+            <div class="summary-chart" ng-controller="ChartController as chartCtrl">
+                <linechart data="chartCtrl.data.stats" options="chartCtrl.options" mode="" width="" height="{{ chartCtrl.height }}"></linechart>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Categories</h2>
+
+                    <div class="repeated-item" ng-repeat="(group, categories) in summaryCtrl.results.categories | groupBy: 'kind_display'">
+                        <div class="row">
+                            <div class="col-md-6"><h4>{{ group }}</h4></div>
+                            <div ng-if="$index == 0" class="col-md-3"><h5 class="pull-right">{{ summaryCtrl.mon | date: "MMMM" }}</h5></div>
+                            <div ng-if="$index == 0" class="col-md-3"><h5 class="pull-right">{{ summaryCtrl.prevMon | date: "MMMM" }}</h5></div>
+                        </div>
+
+                        <div class="row"
+                             ng-repeat="category in categories | orderBy: ['-get_transactions_amount', '-get_transactions_amount_last_month'] | limitTo: summaryCtrl.limit"
+                             ng-if="category.get_transactions_amount || category.get_transactions_amount_last_month">
+                            <div class="col-sm-6" style="margin: 2px 0;">{{ category.name }}:</div>
+                            <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount | currency:"" }}</span></div>
+                            <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount_last_month | currency: "" }}</span></div>
+                        </div>
+                        <a href="" ng-if="categories.length > summaryCtrl.limit" ng-click="summaryCtrl.limit = categories.length">More</a>
+                        <a href="" ng-if="categories.length == summaryCtrl.limit && categories.length > 5" ng-click="summaryCtrl.limit = 5">Less</a>
+                    </div>
+                    <br>
+                    <a href="" ng-click="summaryCtrl.addCategory()">Add category</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

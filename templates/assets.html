@@ -1,14 +1,14 @@
 {% load staticfiles %}
 <!--inject:css-->
-<link rel="stylesheet" href="{% static "thirdparty/bootstrap/dist/css/bootstrap.css" %}">
-<link rel="stylesheet" href="{% static "thirdparty/bootstrap/dist/css/bootstrap-theme.css" %}">
-<link rel="stylesheet" href="{% static "thirdparty/angular-ui-grid/ui-grid.css" %}">
-<link rel="stylesheet" href="{% static "thirdparty/ui-select/dist/select.css" %}">
-<link rel="stylesheet" href="{% static "thirdparty/ng-notify/src/styles/ng-notify.css" %}">
-<link rel="stylesheet" href="{% static "thirdparty/angular-loading-bar/build/loading-bar.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+<link rel="stylesheet" href="{% static "css/ui-grid.css" %}">
+<link rel="stylesheet" href="{% static "css/select.css" %}">
+<link rel="stylesheet" href="{% static "css/ng-notify.css" %}">
+<link rel="stylesheet" href="{% static "css/loading-bar.css" %}">
 <link rel="stylesheet" href="{% static "css/app_styles.css" %}">
 <!--endinject-->
-<!--bower:js-->
+<!--thirdparty:js-->
 <script src="{% static "thirdparty/jquery/dist/jquery.js" %}"></script>
 <script src="{% static "thirdparty/bootstrap/dist/js/bootstrap.js" %}"></script>
 <script src="{% static "thirdparty/d3/d3.js" %}"></script>
@@ -34,21 +34,21 @@
 <!--endinject-->
 <!--project:js-->
 <script src="{% static "js/app.js" %}"></script>
-<script src="{% static "js/services/dateFuncs.js" %}"></script>
-<script src="{% static "js/services/dataSvc.js" %}"></script>
-<script src="{% static "js/services/auth.js" %}"></script>
-<script src="{% static "js/states.js" %}"></script>
-<script src="{% static "js/transaction/controller.js" %}"></script>
-<script src="{% static "js/summary/controller.js" %}"></script>
-<script src="{% static "js/summary/chartController.js" %}"></script>
-<script src="{% static "js/modals/login.js" %}"></script>
-<script src="{% static "js/modals/common.js" %}"></script>
-<script src="{% static "js/modals/addTransactionCtrl.js" %}"></script>
-<script src="{% static "js/modals/addCategoryCtrl.js" %}"></script>
-<script src="{% static "js/modals/addAccountCtrl.js" %}"></script>
-<script src="{% static "js/directives/select.js" %}"></script>
-<script src="{% static "js/category/controller.js" %}"></script>
-<script src="{% static "js/account/controller.js" %}"></script>
-<script src="{% static "js/grid.js" %}"></script>
-<script src="{% static "js/filters.js" %}"></script>
+<script src="{% static "js/common/filters.js" %}"></script>
+<script src="{% static "js/common/grid.js" %}"></script>
+<script src="{% static "js/common/states.js" %}"></script>
+<script src="{% static "js/common/directives/select.js" %}"></script>
+<script src="{% static "js/common/services/auth.js" %}"></script>
+<script src="{% static "js/common/services/dataSvc.js" %}"></script>
+<script src="{% static "js/common/services/dateFuncs.js" %}"></script>
+<script src="{% static "js/common/modals/common.js" %}"></script>
+<script src="{% static "js/common/modals/login/login.js" %}"></script>
+<script src="{% static "js/components/summary/modals/addAccount/addAccountCtrl.js" %}"></script>
+<script src="{% static "js/components/summary/modals/addCategory/addCategoryCtrl.js" %}"></script>
+<script src="{% static "js/components/summary/modals/addTransaction/addTransactionCtrl.js" %}"></script>
+<script src="{% static "js/components/account/controller.js" %}"></script>
+<script src="{% static "js/components/category/controller.js" %}"></script>
+<script src="{% static "js/components/summary/chartController.js" %}"></script>
+<script src="{% static "js/components/summary/controller.js" %}"></script>
+<script src="{% static "js/components/transaction/controller.js" %}"></script>
 <!--endinject-->
