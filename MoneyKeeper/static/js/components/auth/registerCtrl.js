@@ -2,28 +2,20 @@
 /**
  * __author__ = 'ilov3'
  */
-function LoginController(authSvc, $modalInstance) {
+function RegisterController(authSvc, $uibModalInstance) {
     var self = this;
-    this.heading = 'Login';
-    this.login = function () {
-        authSvc.login(self.formData).then(
-            function () {
-                $modalInstance.close()
-            }
-        )
+    var isUnique = function ($viewValue, $modelValue, scope) {
+        var value = $viewValue || $modelValue;
+        return authSvc.userIsUnique(value);
     };
+    this.heading = 'Register';
     this.register = function () {
         authSvc.register(self.formData).then(
             function () {
-                $modalInstance.close()
+                $uibModalInstance.close()
             }
         )
     };
-    this.switchToRegister = function () {
-        self.formData.switchToRegister = true;
-        self.greeting = 'Register';
-    };
-
     this.formFields = [
         {
             key: 'email',
@@ -33,12 +25,7 @@ function LoginController(authSvc, $modalInstance) {
                 label: 'Email',
                 placeholder: '',
                 required: true
-            },
-            expressionProperties: {
-                "templateOptions.required": 'model.switchToRegister',
-                "templateOptions.disabled": '!model.switchToRegister'
-            },
-            hideExpression: '!model.switchToRegister'
+            }
         },
         {
             key: 'username',
@@ -48,6 +35,11 @@ function LoginController(authSvc, $modalInstance) {
                 label: 'Login',
                 placeholder: '',
                 required: true
+            },
+            asyncValidators: {
+                isUnique: {
+                    expression: isUnique
+                }
             }
         },
         {
@@ -69,13 +61,13 @@ function LoginController(authSvc, $modalInstance) {
                 placeholder: '',
                 required: true
             },
-            expressionProperties: {
-                "templateOptions.required": 'model.switchToRegister',
-                "templateOptions.disabled": '!model.switchToRegister'
-            },
-            hideExpression: '!model.switchToRegister'
+            validators: {
+                isSame: function($viewValue, $modelValue, scope){
+                    return $viewValue == scope.model.password
+                }
+            }
         }
     ]
 }
 
-angular.module('MoneyKeeper').controller('LoginController', ['authSvc', '$modalInstance', LoginController]);
+angular.module('MoneyKeeper').controller('RegisterController', ['authSvc', '$uibModalInstance', RegisterController]);

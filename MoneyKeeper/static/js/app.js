@@ -48,7 +48,9 @@ function AppMainController($scope, $uibModal, $state, authSvc) {
     var loginRequired = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: '/static/js/common/modals/login/login.html',
+            backdrop: 'static',
+            keyboard: false,
+            templateUrl: '/static/js/components/auth/login.html',
             controller: 'LoginController',
             controllerAs: 'loginCtrl'
         });

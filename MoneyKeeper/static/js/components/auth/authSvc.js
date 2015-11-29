@@ -61,6 +61,15 @@ angular.module('MoneyKeeper')
                     $rootScope.conf.username = response.username;
                 })
             };
+            authSvc.userIsUnique = function (username) {
+                var resource = dataSvc.user.exists({username: username});
+                return resource.$promise.then(function (response) {
+                    if (response.result == true) {
+                        ngNotify.set('Username "' + username + '" already taken', 'error');
+                        throw new Error('username is not unique')
+                    }
+                });
+            };
             return authSvc
         }])
     .service('authSvcInterceptor', ['$injector', function ($injector) {

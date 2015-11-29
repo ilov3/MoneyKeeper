@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ilov3/MoneyKeeper#readme",
   "devDependencies": {
+    "browser-sync": "^2.10.0",
     "gulp": "^3.9.0",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.6.0",

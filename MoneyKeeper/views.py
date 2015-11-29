@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.decorators import list_route, permission_classes as perm_classes
+from rest_framework.decorators import list_route
 from rest_framework.metadata import SimpleMetadata
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.response import Response
@@ -84,6 +84,18 @@ class UserViewSet(CreateModelMixin,
         data['token'] = jwt_encode_handler(payload)
         headers = self.get_success_headers(serializer.data)
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @list_route()
+    def exists(self, request):
+        username = request.query_params.get('username', None)
+        if username:
+            try:
+                self.queryset.get(username=username)
+                return Response({'result': True})
+            except self.serializer_class.Meta.model.DoesNotExist:
+                return Response({'result': False})
+        else:
+            return Response({'details': 'no data provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ConfViewSet(ViewSet):

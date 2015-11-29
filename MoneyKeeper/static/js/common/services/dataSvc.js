@@ -25,7 +25,9 @@ angular.module('MoneyKeeper')
             account: $resource('/api/account/:action/', {}, {
                 options: {method: 'OPTIONS', isArray: true}
             }),
-            user: $resource('/api/user/:action/', {}),
+            user: $resource('/api/user/:action/', {}, {
+                exists: {method: 'GET', params: {action: 'exists', username: '@username'}, isArray: false}
+            }),
             tokenAuth: $resource('/api/token-auth/', {}, {
                 login: {method: 'POST', isArray: false}
             }),

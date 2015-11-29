@@ -93,7 +93,6 @@ gulp.task('js', function () {
         .pipe(plugins.if(argv.production, gulp.dest(devDest + 'js')));
 
     var jsProject = gulp.src(jsSrcProject)
-        //.pipe(plugins.angularFilesort())
         .pipe(plugins.if(argv.production, plugins.concat('project.min.js')))
         .pipe(plugins.if(argv.production, plugins.uglify()))
         .pipe(plugins.if(argv.production, gulp.dest(devDest + 'js')));
@@ -113,6 +112,7 @@ gulp.task('js', function () {
 });
 gulp.task('build', ['css', 'js']);
 
-gulp.task('watch', ['build'], function () {
-    gulp.watch(jsSrcProject, ['build'])
+gulp.task('default', ['build'], function () {
+    gulp.watch(jsSrcProject, ['js']);
+    gulp.watch(cssSrc, ['css']);
 });
