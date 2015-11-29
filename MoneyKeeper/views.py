@@ -88,9 +88,16 @@ class UserViewSet(CreateModelMixin,
     @list_route()
     def exists(self, request):
         username = request.query_params.get('username', None)
+        email = request.query_params.get('email', None)
         if username:
             try:
                 self.queryset.get(username=username)
+                return Response({'result': True})
+            except self.serializer_class.Meta.model.DoesNotExist:
+                return Response({'result': False})
+        if email:
+            try:
+                self.queryset.get(email=email)
                 return Response({'result': True})
             except self.serializer_class.Meta.model.DoesNotExist:
                 return Response({'result': False})

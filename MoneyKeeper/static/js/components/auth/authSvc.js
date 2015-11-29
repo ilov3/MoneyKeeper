@@ -70,6 +70,15 @@ angular.module('MoneyKeeper')
                     }
                 });
             };
+            authSvc.emailIsUnique = function (email) {
+                var resource = dataSvc.user.exists({email: email});
+                return resource.$promise.then(function (response) {
+                    if (response.result == true) {
+                        ngNotify.set('User with email "' + email + '" already registered', 'warn');
+                        throw new Error('email is not unique')
+                    }
+                });
+            };
             return authSvc
         }])
     .service('authSvcInterceptor', ['$injector', function ($injector) {

@@ -4,9 +4,18 @@
  */
 function RegisterController(authSvc, $uibModalInstance) {
     var self = this;
-    var isUnique = function ($viewValue, $modelValue, scope) {
+    var userIsUnique = function ($viewValue, $modelValue, scope) {
         var value = $viewValue || $modelValue;
         return authSvc.userIsUnique(value);
+    };
+    var emailIsUnique = function ($viewValue, $modelValue, scope) {
+        var value = $viewValue || $modelValue;
+        return authSvc.emailIsUnique(value);
+    };
+    var emailIsValid = function ($viewValue, $modelValue, scope) {
+        var value = $viewValue || $modelValue;
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        return re.test(value);
     };
     this.heading = 'Register';
     this.register = function () {
@@ -25,7 +34,14 @@ function RegisterController(authSvc, $uibModalInstance) {
                 label: 'Email',
                 placeholder: '',
                 required: true
+            },
+            validators: {
+                email: emailIsValid
+            },
+            asyncValidators: {
+                expression: emailIsUnique
             }
+
         },
         {
             key: 'username',
@@ -38,7 +54,7 @@ function RegisterController(authSvc, $uibModalInstance) {
             },
             asyncValidators: {
                 isUnique: {
-                    expression: isUnique
+                    expression: userIsUnique
                 }
             }
         },
@@ -62,7 +78,7 @@ function RegisterController(authSvc, $uibModalInstance) {
                 required: true
             },
             validators: {
-                isSame: function($viewValue, $modelValue, scope){
+                isSame: function ($viewValue, $modelValue, scope) {
                     return $viewValue == scope.model.password
                 }
             }
