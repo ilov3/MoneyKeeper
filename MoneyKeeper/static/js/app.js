@@ -3,23 +3,23 @@
  */
 
 angular.module('MoneyKeeper', [
-    'ui.grid',
-    'ngResource',
-    'ngSanitize',
-    'ngAnimate',
-    'ngStorage',
-    'ui.router',
-    'ui.bootstrap',
-    'ui.select',
-    'angular.filter',
-    'angular-loading-bar',
-    'http-auth-interceptor',
-    'formly',
-    'formlyBootstrap',
-    'n3-line-chart',
-    'ngNotify',
-    'MoneyKeeper.states'
-])
+        'ui.grid',
+        'ngResource',
+        'ngSanitize',
+        'ngAnimate',
+        'ngStorage',
+        'ui.router',
+        'ui.bootstrap',
+        'ui.select',
+        'angular.filter',
+        'angular-loading-bar',
+        'http-auth-interceptor',
+        'formly',
+        'formlyBootstrap',
+        'n3-line-chart',
+        'ngNotify',
+        'MoneyKeeper.states'
+    ])
     .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', function ($resourceProvider, $httpProvider, $urlRouterProvider, cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
         $resourceProvider.defaults.stripTrailingSlashes = false;
@@ -40,9 +40,9 @@ angular.module('MoneyKeeper', [
             templateUrl: '/static/partials/ui-select-single.html'
         });
     }])
-    .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', AppMainController]);
+    .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', 'ngNotify', AppMainController]);
 
-function AppMainController($scope, $uibModal, $state, authSvc) {
+function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
     var self = this;
     this.loginDialogIsOpened = 0;
     var loginRequired = function () {
@@ -73,10 +73,12 @@ function AppMainController($scope, $uibModal, $state, authSvc) {
         if (!self.loginDialogIsOpened) loginRequired();
         self.loginDialogIsOpened = 1;
         $state.go('empty');
+        ngNotify.set('Please, login or register new user', 'warn');
     });
     $scope.$on('event:auth-forbidden', function () {
         loginRequired();
         $state.go('empty');
+        ngNotify.set('Please, login or register new user', 'warn');
     });
     $scope.$on('event:auth-loginConfirmed', function () {
         $state.go('summary');

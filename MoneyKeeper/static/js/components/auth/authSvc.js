@@ -65,7 +65,7 @@ angular.module('MoneyKeeper')
                 var resource = dataSvc.user.exists({username: username});
                 return resource.$promise.then(function (response) {
                     if (response.result == true) {
-                        ngNotify.set('Username "' + username + '" already taken', 'error');
+                        ngNotify.set('Username "' + username + '" already taken', 'warn');
                         throw new Error('username is not unique')
                     }
                 });
