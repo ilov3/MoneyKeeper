@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'MoneyKeeper',
     'rest_framework',
-    'pipeline',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -13,19 +13,20 @@ angular.module('MoneyKeeper')
                 expense: null
             },
 
-            transaction: $resource('/api/transaction/:action/', {}, {
+            transaction: $resource('/api/transaction/:id/:action/', {}, {
                 amount: {method: 'GET', params: {begin: '@begin', end: '@end', kind: '@kind'}, isArray: false, headers: {}},
                 update: {method: 'PUT', params: {action: '@id'}},
+                delete: {method: 'DELETE', params: {action: '@id'}},
                 options: {method: 'OPTIONS', isArray: true},
                 stats: {method: 'GET', params: {action: 'stats'}}
             }),
-            category: $resource('/api/category/:action/', {}, {
+            category: $resource('/api/category/:id/:action/', {}, {
                 options: {method: 'OPTIONS', isArray: true}
             }),
-            account: $resource('/api/account/:action/', {}, {
+            account: $resource('/api/account/:id/:action/', {}, {
                 options: {method: 'OPTIONS', isArray: true}
             }),
-            user: $resource('/api/user/:action/', {}, {
+            user: $resource('/api/user/:id/:action/', {}, {
                 exists: {method: 'GET', params: {action: 'exists', username: '@username', email:'@email'}, isArray: false}
             }),
             tokenAuth: $resource('/api/token-auth/', {}, {

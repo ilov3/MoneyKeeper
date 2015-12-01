@@ -18,7 +18,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addTransaction = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath+'addTransaction/addTransaction.html',
+            templateUrl: modalTemplatePath + 'addTransaction/addTransaction.html',
             controller: 'AddTransactionController',
             controllerAs: 'addTransactionCtrl',
             resolve: {
@@ -47,7 +47,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addAccount = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath+'addAccount/addAccount.html',
+            templateUrl: modalTemplatePath + 'addAccount/addAccount.html',
             controller: 'AddAccountController',
             controllerAs: 'addAccountCtrl',
             resolve: {
@@ -64,7 +64,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addCategory = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath+'addCategory/addCategory.html',
+            templateUrl: modalTemplatePath + 'addCategory/addCategory.html',
             controller: 'AddCategoryController',
             controllerAs: 'addCategoryCtrl',
             resolve: {
