@@ -18,6 +18,7 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
             name: 'Del',
             enableFiltering: false,
             enableColumnMenu: false,
+            enableSorting: false,
             cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.deleteRow(row)">Delete</button>'
         });
         return columns;

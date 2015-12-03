@@ -7,6 +7,7 @@ import arrow
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
 
+to_js_timestamp = lambda dt: arrow.get(dt).to('utc').float_timestamp * 1000
 to_pydate = lambda jsts: arrow.get(jsts).replace(days=+1).datetime
 first_day = lambda dt=None: dt.floor('month').datetime if dt else arrow.now().floor('month').datetime
 first_day_of_previous_month = lambda: first_day(arrow.now().replace(months=-1))

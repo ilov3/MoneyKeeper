@@ -7,10 +7,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
-
 from MoneyKeeper.models import Transaction, Category, Account
 from MoneyKeeper.serializers import TransactionSerializer, CategorySerializer, AccountSerializer, UserSerializer
-from MoneyKeeper.utils.utils import to_pydate
+from MoneyKeeper.utils.utils import to_pydate, to_js_timestamp
 
 
 class GridMetadata(SimpleMetadata):

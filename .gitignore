@@ -5,4 +5,7 @@
 /staticdev/
 /node_modules/
 /templates/assets.html
+/MoneyKeeper/static/js/project.min.js
+/MoneyKeeper/static/js/thirdparty.min.js
+/MoneyKeeper/static/fonts
 *.pyc
