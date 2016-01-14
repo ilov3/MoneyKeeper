@@ -18,7 +18,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addTransaction = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath + 'addTransaction/addTransaction.html',
+            templateUrl: modalTemplatePath + 'addTransaction/template.html',
             controller: 'AddTransactionController',
             controllerAs: 'addTransactionCtrl',
             resolve: {
@@ -47,7 +47,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addAccount = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath + 'addAccount/addAccount.html',
+            templateUrl: modalTemplatePath + 'addAccount/template.html',
             controller: 'AddAccountController',
             controllerAs: 'addAccountCtrl',
             resolve: {
@@ -64,7 +64,7 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     this.addCategory = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: modalTemplatePath + 'addCategory/addCategory.html',
+            templateUrl: modalTemplatePath + 'addCategory/template.html',
             controller: 'AddCategoryController',
             controllerAs: 'addCategoryCtrl',
             resolve: {
@@ -76,6 +76,26 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
         modalInstance.result.then(function () {
             dataSvc.updateSummary()
         });
+    };
+
+    this.showDetailChart = function (d, i, series, raw) {
+        console.log(d, i, series, raw);
+        if (series.name == 'income' || series.name == 'expense') {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: modalTemplatePath + 'detailChart/template.html',
+                controller: 'DetailChartController',
+                controllerAs: 'detailChartCtrl',
+                resolve: {
+                    date: function () {
+                        return d.x;
+                    },
+                    kind: function () {
+                        return series.name;
+                    }
+                }
+            });
+        }
     };
 
     this.results = dataSvc.results;

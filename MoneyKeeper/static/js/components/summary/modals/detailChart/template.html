@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ detailChartCtrl.kind | capitalize }} details in {{ detailChartCtrl.date | date: "MMMM" }}</h3>
+</div>
+<div class="modal-body" style="width: 650px">
+    <nvd3-pie-chart
+            data="detailChartCtrl.data.monthDetails"
+            width="600"
+            height="450"
+            x="detailChartCtrl.xFunction()"
+            y="detailChartCtrl.yFunction()"
+            tooltips="true"
+            showLegend="true"
+            showLabels="true"
+            labelType="value">
+        <svg></svg>
+    </nvd3-pie-chart>
+</div>
+<div class="modal-footer">
+</div>

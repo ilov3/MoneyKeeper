@@ -36,6 +36,7 @@ function ChartController($scope, dataSvc, $window) {
             }
         ],
         tooltip: {
+            mode: "axes",
             formatter: function (x, y, series) {
                 return moment(x).format('MMMM') + ' ' + y
             }

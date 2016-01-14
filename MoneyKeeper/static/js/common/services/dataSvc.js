@@ -9,6 +9,7 @@ angular.module('MoneyKeeper')
                 categories: [],
                 accounts: [],
                 stats: [],
+                monthDetails: [],
                 income: null,
                 expense: null
             },
@@ -21,13 +22,14 @@ angular.module('MoneyKeeper')
                 stats: {method: 'GET', params: {action: 'stats'}}
             }),
             category: $resource('/api/category/:id/:action/', {}, {
-                options: {method: 'OPTIONS', isArray: true}
+                options: {method: 'OPTIONS', isArray: true},
+                monthDetails: {method: 'GET', params: {date: '@date', kind: '@kind', action: 'month_details'}}
             }),
             account: $resource('/api/account/:id/:action/', {}, {
                 options: {method: 'OPTIONS', isArray: true}
             }),
             user: $resource('/api/user/:id/:action/', {}, {
-                exists: {method: 'GET', params: {action: 'exists', username: '@username', email:'@email'}, isArray: false}
+                exists: {method: 'GET', params: {action: 'exists', username: '@username', email: '@email'}, isArray: false}
             }),
             tokenAuth: $resource('/api/token-auth/', {}, {
                 login: {method: 'POST', isArray: false}
@@ -56,14 +58,14 @@ angular.module('MoneyKeeper')
         };
 
         Data.getIncome = function (from, to) {
-            Data.transaction.amount({action: 'amount', kind: 'inc', begin: from, end: to}, function (data) {
-                Data.results.income = data.result;
+            Data.transaction.amount({action: 'amount', kind: 'inc', begin: from, end: to}, function (response) {
+                Data.results.income = response.result;
             });
         };
 
         Data.getExpense = function (from, to) {
-            Data.transaction.amount({action: 'amount', kind: 'exp', begin: from, end: to}, function (data) {
-                Data.results.expense = data.result;
+            Data.transaction.amount({action: 'amount', kind: 'exp', begin: from, end: to}, function (response) {
+                Data.results.expense = response.result;
             });
         };
 
@@ -74,6 +76,12 @@ angular.module('MoneyKeeper')
                 });
                 Data.results.stats = response.result;
                 $rootScope.$broadcast('statsReceived');
+            })
+        };
+
+        Data.getMonthDetails = function (date, kind) {
+            Data.category.monthDetails({date: date, kind: kind}, function(response) {
+                Data.results.monthDetails = response.result
             })
         };
 

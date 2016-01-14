@@ -17,6 +17,7 @@ angular.module('MoneyKeeper', [
         'formly',
         'formlyBootstrap',
         'n3-line-chart',
+        'nvd3ChartDirectives',
         'ngNotify',
         'MoneyKeeper.states'
     ])

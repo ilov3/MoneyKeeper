@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 from MoneyKeeper.models import Transaction, Category, Account
 from MoneyKeeper.serializers import TransactionSerializer, CategorySerializer, AccountSerializer, UserSerializer
-from MoneyKeeper.utils.utils import to_pydate, to_js_timestamp
+from MoneyKeeper.utils.utils import to_pydate, to_js_timestamp, first_day, last_day, random_color
 
 
 class GridMetadata(SimpleMetadata):
@@ -56,6 +56,25 @@ class CategoryViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Category.objects.filter(user=user)
+
+    @list_route()
+    def month_details(self, request):
+        date = to_pydate(request.query_params.get('date'))
+        kind = request.query_params.get('kind')
+        qs = self.get_queryset().filter(kind=kind[:3])
+        result = []
+        for category in qs:
+            value = category.get_transactions_amount(fr=first_day(date), to=last_day(date))
+            if value:
+                serializer = self.serializer_class(category)
+                data = serializer.data
+                data = {
+                    'key': data['name'],
+                    'y': value,
+                    # 'color': random_color()
+                }
+                result.append(data)
+        return Response({'result': result})
 
 
 class AccountViewSet(ModelViewSet):
