@@ -19,6 +19,12 @@ button.delete-button {
     color: black;
 }
 
+div.modal-body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+}
+
 /*ngAnimate*/
 .repeated-item.ng-enter, .repeated-item.ng-move {
     -webkit-transition: 0.5s linear all;

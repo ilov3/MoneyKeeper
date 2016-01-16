@@ -79,11 +79,11 @@ function SummaryController($scope, $uibModal, dataSvc, dateFuncs) {
     };
 
     this.showDetailChart = function (d, i, series, raw) {
-        console.log(d, i, series, raw);
         if (series.name == 'income' || series.name == 'expense') {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 animation: true,
                 templateUrl: modalTemplatePath + 'detailChart/template.html',
+                size: 'lg',
                 controller: 'DetailChartController',
                 controllerAs: 'detailChartCtrl',
                 resolve: {
