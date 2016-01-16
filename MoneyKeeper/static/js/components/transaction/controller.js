@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
+function TransactionController($uibModal, ngNotify, dataSvc) {
     BaseGridController.call(this);
     var self = this;
     this.gridOptions.rowTemplate = '' +
@@ -19,40 +19,25 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
             enableFiltering: false,
             enableColumnMenu: false,
             enableSorting: false,
-            cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.deleteRow(row)">Delete</button>'
+            cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">Delete</button>'
         });
         return columns;
     };
 
-    $scope.deleteRow = function (row) {
+    this.deleteRow = function (row) {
+        var successCallback = function () {
+            var index = self.gridOptions.data.indexOf(row.entity);
+            self.gridOptions.data.splice(index, 1);
+            ngNotify.set('Transaction #' + row.entity.id + ' successfully deleted.', 'success');
+            modalInstance.close()
+        };
         var confirm = function (row) {
-            dataSvc.transaction.delete({id: row.entity.id},
-                function (response) {
-                    if (response.$resolved) {
-                        var index = self.gridOptions.data.indexOf(row.entity);
-                        self.gridOptions.data.splice(index, 1);
-                        ngNotify.set('Transaction #' + row.entity.id + ' successfully deleted.', 'success');
-                        modalInstance.close();
-                    }
-                }, function (error) {
-                    ngNotify.set('Something went wrong!', 'error')
-                })
+            dataSvc.deleteTransaction(row.entity, successCallback)
         };
         var modalInstance = $uibModal.open({
             animation: true,
-            template: '<div class="modal-header"><h3 class="modal-title">Delete transaction #{{row.entity.id}}</h3></div>' +
-            '<div class="modal-body">Do you really want to delete this transaction</div>' +
-            '<div class="modal-footer">' +
-            '<button class="btn btn-sm btn-default" ng-click="confirm(row)">Yes</button>' +
-            '<button class="btn btn-sm btn-default" type="button" ng-click="cancel()">No</button>' +
-            '</div>',
-            controller: ['$scope', '$uibModalInstance', 'row', 'confirm', function ($scope, $uibModalInstance, row, confirm) {
-                $scope.row = row;
-                $scope.confirm = confirm;
-                $scope.cancel = function () {
-                    $uibModalInstance.close()
-                }
-            }],
+            templateUrl: '/static/js/components/transaction/modals/deleteTransaction/template.html',
+            controller: 'DeleteTransactionController',
             resolve: {
                 row: function () {
                     return row
@@ -68,4 +53,4 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
-angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$uibModal', 'ngNotify', 'dataSvc', TransactionController]);
+angular.module('MoneyKeeper.states').controller('TransactionController', ['$uibModal', 'ngNotify', 'dataSvc', TransactionController]);

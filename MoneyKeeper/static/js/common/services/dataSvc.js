@@ -2,7 +2,7 @@
  * Created by ilov3 on 19.10.15.
  */
 angular.module('MoneyKeeper')
-    .service('dataSvc', ['$rootScope', '$resource', 'dateFuncs', function ($rootScope, $resource, dateFuncs) {
+    .service('dataSvc', ['$rootScope', '$resource', 'ngNotify', 'dateFuncs', function ($rootScope, $resource, ngNotify, dateFuncs) {
         var Data = {
             results: {
                 transactions: [],
@@ -45,6 +45,17 @@ angular.module('MoneyKeeper')
             })
         };
 
+        Data.deleteTransaction = function (entity, cb) {
+            Data.transaction.delete({id: entity.id},
+                function (response) {
+                    if (response.$resolved) {
+                        cb()
+                    }
+                }, function (error) {
+                    ngNotify.set('Something went wrong!', 'error')
+                })
+        };
+
         Data.getCategories = function () {
             Data.category.query({}, function (response) {
                 Data.results.categories = response
@@ -80,7 +91,7 @@ angular.module('MoneyKeeper')
         };
 
         Data.getMonthDetails = function (date, kind) {
-            Data.category.monthDetails({date: date, kind: kind}, function(response) {
+            Data.category.monthDetails({date: date, kind: kind}, function (response) {
                 Data.results.monthDetails = response.result
             })
         };
