@@ -29,14 +29,13 @@ class CategoryViewSet(ModelViewSet):
         date = to_pydate(request.query_params.get('date'))
         kind = request.query_params.get('kind')
         kind = kind if len(kind) == 3 else kind[:3]
-        qs = self.get_queryset().filter(kind=kind)
+        qs = self.get_queryset().filter(kind=kind).annotate_with_amount(first_day(date), last_day(date))
         result = []
         for category in qs:
-            value = category.get_transactions_amount(fr=first_day(date), to=last_day(date))
-            if value:
+            if category.transactions_amount:
                 data = {
                     'key': category.name,
-                    'y': value,
+                    'y': category.transactions_amount,
                 }
                 result.append(data)
         return Response({'result': result})

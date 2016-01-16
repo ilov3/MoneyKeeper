@@ -1,5 +1,4 @@
 # coding=utf-8
-import random
 import glob
 import logging
 import os
@@ -19,11 +18,6 @@ first_day_of_previous_month = lambda: first_day(arrow.now().replace(months=-1))
 last_day = lambda dt=None: arrow.get(dt).ceil('month').datetime if dt else arrow.now().ceil('month').datetime
 
 last_day_of_previous_month = lambda: last_day(arrow.now().replace(months=-1))
-
-
-def random_color():
-    r = lambda: random.randint(0, 255)
-    return '#%02X%02X%02X' % (r(), r(), r())
 
 
 def setup_env(env_dir='envdir'):
