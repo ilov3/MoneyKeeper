@@ -5,6 +5,7 @@
 
 function CategoryController(dataSvc) {
     BaseGridController.call(this);
+    this.gridOptions.isVirtual = true;
     this.gridDataSource = dataSvc.category;
     this.setGridData()
 }

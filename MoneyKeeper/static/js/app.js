@@ -4,6 +4,7 @@
 
 angular.module('MoneyKeeper', [
         'ui.grid',
+        'ui.grid.pagination',
         'ngResource',
         'ngSanitize',
         'ngAnimate',

@@ -1,5 +1,7 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ detailChartCtrl.kind | capitalize }} details in {{ detailChartCtrl.date | date: "MMMM" }}. Total {{ detailChartCtrl.getTotal() | currency:"" }}</h3>
+    <h3 class="modal-title">
+        {{ detailChartCtrl.kind | capitalize }} details in {{ detailChartCtrl.date | date: "MMMM yyyy" }}. Total {{ detailChartCtrl.getTotal() | currency:"" }}
+    </h3>
 </div>
 <div class="modal-body pie-chart">
     <nvd3-pie-chart

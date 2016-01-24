@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from MoneyKeeper.filters import TransactionFilter
 from MoneyKeeper.models import Transaction
 from MoneyKeeper.serializers import TransactionSerializer
 from MoneyKeeper.utils.utils import to_pydate
@@ -19,6 +20,7 @@ class TransactionViewSet(ModelViewSet):
     serializer_class = TransactionSerializer
     metadata_class = GridMetadata
     permission_classes = (IsAuthenticated,)
+    filter_class = TransactionFilter
 
     def get_queryset(self):
         user = self.request.user

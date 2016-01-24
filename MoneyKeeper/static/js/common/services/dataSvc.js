@@ -15,6 +15,7 @@ angular.module('MoneyKeeper')
             },
 
             transaction: $resource('/api/transaction/:id/:action/', {}, {
+                query: {method: 'GET', isArray: false},
                 amount: {method: 'GET', params: {begin: '@begin', end: '@end', kind: '@kind'}, isArray: false, headers: {}},
                 update: {method: 'PUT', params: {action: '@id'}},
                 delete: {method: 'DELETE', params: {action: '@id'}},

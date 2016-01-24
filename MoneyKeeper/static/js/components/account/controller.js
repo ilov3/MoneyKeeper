@@ -5,6 +5,7 @@
 
 function AccountController(dataSvc) {
     BaseGridController.call(this);
+    this.gridOptions.isVirtual = true;
     this.gridDataSource = dataSvc.account;
     this.setGridData()
 }

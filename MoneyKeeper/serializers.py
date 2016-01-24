@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from MoneyKeeper.fields import CategoryField, AccountField, UserField
+from MoneyKeeper.models.transaction import TRANSACTION_KINDS
 from models import Transaction, Account, Category
 
 
@@ -19,13 +20,13 @@ class AccountSerializer(GridSchemaMixin, serializers.ModelSerializer):
         fields = ('user', 'name', 'opening', 'get_balance')
         grid_schema = [
             {'displayName': 'Name', 'field': 'name', 'colFilter': True},
-            {'displayName': 'Opening', 'field': 'opening', 'colFilter': True},
-            {'displayName': 'Balance', 'field': 'get_balance', 'colFilter': True},
+            {'displayName': 'Opening', 'field': 'opening', 'colFilter': True, 'type': 'number'},
+            {'displayName': 'Balance', 'field': 'get_balance', 'colFilter': True, 'type': 'number'},
         ]
         validators = [
             UniqueTogetherValidator(
-                queryset=Account.objects.all(),
-                fields=('user', 'name')
+                    queryset=Account.objects.all(),
+                    fields=('user', 'name')
             )
         ]
 
@@ -39,13 +40,13 @@ class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
         fields = ('user', 'name', 'kind', 'kind_display', 'get_transactions_amount', 'get_transactions_amount_last_month')
         grid_schema = [
             {'displayName': 'Name', 'field': 'name', 'colFilter': True},
-            {'displayName': 'This month', 'field': 'get_transactions_amount', 'colFilter': True},
-            {'displayName': 'Previous month', 'field': 'get_transactions_amount_last_month', 'colFilter': True},
+            {'displayName': 'This month', 'field': 'get_transactions_amount', 'colFilter': True, 'type': 'number'},
+            {'displayName': 'Previous month', 'field': 'get_transactions_amount_last_month', 'colFilter': True, 'type': 'number'},
         ]
         validators = [
             UniqueTogetherValidator(
-                queryset=Category.objects.all(),
-                fields=('user', 'name', 'kind')
+                    queryset=Category.objects.all(),
+                    fields=('user', 'name', 'kind')
             )
         ]
 
@@ -61,11 +62,12 @@ class TransactionSerializer(GridSchemaMixin, serializers.ModelSerializer):
     class Meta:
         model = Transaction
         grid_schema = [
-            {'displayName': 'Date', 'field': 'date', 'cellFilter': 'date', 'colFilter': True},
-            {'displayName': 'Kind', 'field': 'kind_display', 'colFilter': True},
-            {'displayName': 'Category/Transfer to', 'field': 'category_or_transfer_to', 'colFilter': True},
+            {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True, 'filter': {'placeholder': 'Format: "YYYY.MM.DD"'}},
+            {'displayName': 'Kind', 'field': 'kind_display', 'colFilter': True, 'enableSorting': False, 'filter':
+                {'type': 'select', 'selectOptions': [{'value': abbr, 'label': display} for abbr, display in TRANSACTION_KINDS]}},
+            {'displayName': 'Category/Transfer to', 'field': 'category_or_transfer_to', 'enableSorting': False, 'colFilter': True},
             {'displayName': 'Account', 'field': 'account', 'colFilter': True},
-            {'displayName': 'Amount', 'field': 'amount', 'colFilter': True},
+            {'displayName': 'Amount', 'field': 'amount', 'colFilter': True, 'type': 'number'},
             {'displayName': 'Comment', 'field': 'comment', 'colFilter': True},
         ]
 
