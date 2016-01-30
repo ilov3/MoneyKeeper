@@ -32,5 +32,5 @@ class TransactionFilter(filters.FilterSet):
             logger.warning('can\'t filter with provided date: "%s\n The error was: %s"' % (value, e))
             return qs
 
-    def filter_ordering(self, qs, value):
+    def filter_ordering(self, name, qs, value):
         return qs.order_by(value)
