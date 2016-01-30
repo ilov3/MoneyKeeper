@@ -49,12 +49,14 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
 
     this.processColumns = function (columns) {
         columns.unshift({
-            width: '58',
-            name: 'Del',
+            width: '35',
+            name: 'Delete row',
             enableFiltering: false,
             enableColumnMenu: false,
             enableSorting: false,
-            cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">Delete</button>'
+            headerCellTemplate: '<div></div>',
+            cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">' +
+            '<i class="glyphicon glyphicon-remove"></i></button>'
         });
         return columns;
     };
