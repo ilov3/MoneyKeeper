@@ -62,7 +62,7 @@ class TransactionSerializer(GridSchemaMixin, serializers.ModelSerializer):
     class Meta:
         model = Transaction
         grid_schema = [
-            {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True, 'filter': {'placeholder': 'Format: "YYYY.MM.DD"'}},
+            {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True},
             {'displayName': 'Kind', 'field': 'kind_display', 'colFilter': True, 'enableSorting': False, 'filter':
                 {'type': 'select', 'selectOptions': [{'value': abbr, 'label': display} for abbr, display in TRANSACTION_KINDS]}},
             {'displayName': 'Category/Transfer to', 'field': 'category_or_transfer_to', 'enableSorting': False, 'colFilter': True},

@@ -6,6 +6,16 @@
 function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
     BaseGridController.call(this);
     var self = this;
+    this.datePickerOptions = {
+        opened: false,
+        options: {
+            startingDay: 1
+        },
+        open: function () {
+            self.datePickerOptions.opened = true
+        }
+    };
+
     this.gridOptions.useExternalPagination = true;
     this.gridOptions.useExternalFiltering = true;
 
@@ -37,7 +47,7 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
                 self.baseQueryParams.ordering = direction == 'asc' ? fieldName : '-' + fieldName;
                 queryParams.ordering = self.baseQueryParams.ordering;
             }
-                self.queryGridData(queryParams);
+            self.queryGridData(queryParams);
         });
     };
 
@@ -56,7 +66,12 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
             enableSorting: false,
             headerCellTemplate: '<div></div>',
             cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">' +
-            '<i class="glyphicon glyphicon-remove"></i></button>'
+            '<i class="glyphicon glyphicon-trash"></i></button>'
+        });
+        columns.forEach(function (column) {
+            if (column.type == 'date') {
+                column.filterHeaderTemplate = '/static/partials/gridDatePickerFilter.html';
+            }
         });
         return columns;
     };

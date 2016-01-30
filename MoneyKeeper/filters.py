@@ -1,9 +1,9 @@
 # coding=utf-8
 import logging
 import rest_framework_filters as filters
-import arrow
 from django.db.models import Q
 
+from MoneyKeeper.utils.utils import to_pydate
 from models import Transaction
 
 __author__ = 'ilov3'
@@ -15,18 +15,19 @@ class TransactionFilter(filters.FilterSet):
     category_or_transfer_to = filters.MethodFilter()
     kind_display = filters.CharFilter(name='kind')
     account = filters.CharFilter(name='account__name', lookup_type='icontains')
+    comment = filters.CharFilter(lookup_type='icontains')
     ordering = filters.MethodFilter()
 
     class Meta:
         model = Transaction
         fields = ['date', 'kind_display', 'category_or_transfer_to', 'account', 'amount', 'comment', 'ordering']
 
-    def filter_category_or_transfer_to(self, qs, value):
+    def filter_category_or_transfer_to(self, name, qs, value):
         return qs.filter(Q(category__name__icontains=value) | Q(transfer_to_account__name__icontains=value))
 
-    def filter_date(self, qs, value):
+    def filter_date(self, name, qs, value):
         try:
-            datetime = arrow.get(value).datetime
+            datetime = to_pydate(value)
             return qs.filter(date=datetime)
         except Exception as e:
             logger.warning('can\'t filter with provided date: "%s\n The error was: %s"' % (value, e))
