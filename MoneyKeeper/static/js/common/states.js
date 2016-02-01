@@ -41,4 +41,7 @@ angular.module('MoneyKeeper.states', [])
                 controller: function () {
                 }
             })
+    }])
+    .run(['$templateRequest', function ($templateRequest) {
+        $templateRequest('/static/partials/gridDatePickerFilter.html', true);
     }]);

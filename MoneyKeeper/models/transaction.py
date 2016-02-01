@@ -17,7 +17,9 @@ TRANSACTION_KINDS = (
 
 
 class TransactionQuerySet(models.QuerySet):
-    def get_amount(self, kind, fr=first_day(), to=last_day()):
+    def get_amount(self, kind, fr=None, to=None):
+        fr = fr if fr else first_day()
+        to = to if to else last_day()
         result = self.filter(kind=kind, date__gte=fr, date__lte=to)
         result = result.aggregate(Sum('amount'))
         return result['amount__sum'] or 0
