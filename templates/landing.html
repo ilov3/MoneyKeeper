@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <body>
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+                <div class="inner cover">
+                    {% block inner_content %}
+                        <h1 class="cover-heading">Money Keeper</h1>
+                        <p class="lead">Track your money easily!</p>
+                        <p class="lead">
+                            <a href="/" class="btn btn-lg btn-default">Explore</a>
+                        </p>
+                    {% endblock %}
+                </div>
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Source is available on <a href="https://github.com/ilov3/moneykeeper">GitHub</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+{% block assets %}
+    {% include 'landing_assets.html' %}
+{% endblock %}

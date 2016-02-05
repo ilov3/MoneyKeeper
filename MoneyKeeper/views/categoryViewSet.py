@@ -2,28 +2,23 @@
 import logging
 
 from rest_framework.decorators import list_route
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from MoneyKeeper.models import Category
 from MoneyKeeper.serializers import CategorySerializer
-from MoneyKeeper.utils.utils import to_pydate, first_day, last_day
+from MoneyKeeper.utils.common_utils import to_pydate, first_day, last_day
+from MoneyKeeper.views.view_utils import FilterQuerySetMixin
 from MoneyKeeper.views.metadata import GridMetadata
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
 
 
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSet(FilterQuerySetMixin,
+                      ModelViewSet):
     serializer_class = CategorySerializer
     metadata_class = GridMetadata
-    permission_classes = (IsAuthenticated,)
     pagination_class = None
-
-    def get_queryset(self):
-        user = self.request.user
-        return Category.objects.filter(user=user)
 
     @list_route()
     def month_details(self, request):

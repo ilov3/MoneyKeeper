@@ -2,29 +2,24 @@
 import logging
 
 from rest_framework.decorators import list_route
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from MoneyKeeper.filters import TransactionFilter
-from MoneyKeeper.models import Transaction
 from MoneyKeeper.serializers import TransactionSerializer
-from MoneyKeeper.utils.utils import to_pydate
+from MoneyKeeper.utils.common_utils import to_pydate
+from MoneyKeeper.views.view_utils import FilterQuerySetMixin
 from MoneyKeeper.views.metadata import GridMetadata
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
 
 
-class TransactionViewSet(ModelViewSet):
+class TransactionViewSet(FilterQuerySetMixin,
+                         ModelViewSet):
     serializer_class = TransactionSerializer
     metadata_class = GridMetadata
-    permission_classes = (IsAuthenticated,)
     filter_class = TransactionFilter
-
-    def get_queryset(self):
-        user = self.request.user
-        return Transaction.objects.filter(user=user)
 
     @list_route()
     def amount(self, request):

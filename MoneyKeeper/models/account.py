@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Account(TransactionAmountMixin, models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='accounts')
     name = models.CharField(max_length=150)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 

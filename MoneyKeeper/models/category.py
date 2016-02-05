@@ -7,7 +7,7 @@ from django.db.models import Sum, Case, When, Value
 
 from MoneyKeeper.models.mixins import TransactionAmountMixin
 from MoneyKeeper.models.transaction import TRANSACTION_KINDS
-from MoneyKeeper.utils.utils import first_day_of_previous_month, last_day_of_previous_month
+from MoneyKeeper.utils.common_utils import first_day_of_previous_month, last_day_of_previous_month
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
@@ -32,4 +32,6 @@ class Category(TransactionAmountMixin, models.Model):
         return super(Category, self).get_transactions_amount(kind=self.kind, *args, **kwargs)
 
     def get_transactions_amount_last_month(self):
-        return super(Category, self).get_transactions_amount(kind=self.kind, fr=first_day_of_previous_month(), to=last_day_of_previous_month())
+        from_date = first_day_of_previous_month()
+        to_date = last_day_of_previous_month()
+        return super(Category, self).get_transactions_amount(kind=self.kind, fr=from_date, to=to_date)

@@ -7,19 +7,22 @@ var plugins = require("gulp-load-plugins")({
 
 var staticPath = 'MoneyKeeper/static/';
 var templatePath = 'templates/';
-var template = gulp.src(templatePath + 'assets.html');
+var appAssetsTemplate = gulp.src(templatePath + 'app_assets.html');
+
 var jsPathTransform = function (filepath) {
     filepath = filepath.slice(1);
     if (filepath.slice(-3) === '.js') {
         return '<script src="{% static "' + filepath + '" %}"></script>';
     }
 };
+
 var cssPathTransform = function (filepath) {
     filepath = filepath.slice(1);
     if (filepath.slice(-4) === '.css') {
         return '<link rel="stylesheet" href="{% static "' + filepath + '" %}">';
     }
 };
+
 var jsSrcThirdparty = plugins.mainBowerFiles('**/*.js');
 var cssSrcThirdparty = plugins.mainBowerFiles('**/*.css');
 var lessSrcThirdparty = plugins.mainBowerFiles('**/*.less');
@@ -56,7 +59,7 @@ gulp.task('css', function () {
         .pipe(plugins.if(argv.production, plugins.minifyCss()))
         .pipe(cssFilter.restore)
         .pipe(gulp.dest(staticPath + 'css'));
-    return template
+    return appAssetsTemplate
         .pipe(plugins.inject(merge, {
             ignorePath: ignorePaths,
             transform: cssPathTransform
@@ -75,7 +78,7 @@ gulp.task('js', function () {
         .pipe(plugins.if(argv.production, plugins.uglify()))
         .pipe(plugins.if(argv.production, gulp.dest(staticPath + 'js')));
 
-    return template
+    return appAssetsTemplate
         .pipe(plugins.inject(jsThirdparty, {
             ignorePath: ignorePaths,
             transform: jsPathTransform,

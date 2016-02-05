@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models, connection
 from django.db.models import Sum, Case, When, Value, F
 
-from MoneyKeeper.utils.utils import first_day, last_day
+from MoneyKeeper.utils.common_utils import first_day, last_day
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)

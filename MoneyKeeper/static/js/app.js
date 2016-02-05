@@ -71,6 +71,7 @@ function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
     $scope.logout = function () {
         authSvc.logout();
     };
+    $scope.login = loginRequired;
     $scope.$on('event:auth-loginRequired', function () {
         if (!self.loginDialogIsOpened) loginRequired();
         self.loginDialogIsOpened = 1;

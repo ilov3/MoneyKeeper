@@ -16,13 +16,17 @@ angular.module('MoneyKeeper')
                     $state.go('summary')
                 }
             };
-            var onLoginError = function (error) {
-                console.log(error);
-                ngNotify.set('Invalid credentials', 'error')
-            };
-            var onRegisterError = function (error) {
-                console.log(error);
-                ngNotify.set('Register error', 'error')
+            var onRegisterSuccess = function (response) {
+                var username = response.username;
+                var email = response.email;
+                ngNotify.set(
+                    'Thank you, <b>' + username + '</b>, for registering on "Money Keeper" we send you confirmation e-mail to ' + email + '.',
+                    {
+                        type: 'success',
+                        html: true,
+                        sticky: true
+                    }
+                );
             };
             var authSvc = {
                 getToken: function () {
@@ -42,18 +46,12 @@ angular.module('MoneyKeeper')
             };
             authSvc.login = function (user) {
                 var resource = dataSvc.tokenAuth.login(user);
-                resource.$promise.then(
-                    onLoginSuccess,
-                    onLoginError
-                );
+                resource.$promise.then(onLoginSuccess);
                 return resource.$promise;
             };
             authSvc.register = function (user) {
                 var resource = dataSvc.user.save(user);
-                resource.$promise.then(
-                    onLoginSuccess,
-                    onRegisterError
-                );
+                resource.$promise.then(onRegisterSuccess);
                 return resource.$promise;
             };
             authSvc.setUsername = function () {
@@ -81,16 +79,37 @@ angular.module('MoneyKeeper')
             };
             return authSvc
         }])
-    .service('authSvcInterceptor', ['$injector', function ($injector) {
-        return {
-            request: function (config) {
-                var authSvc = $injector.get('authSvc');
-                var token = authSvc.getToken();
-
-                if (token) {
-                    config.headers['Authorization'] = token;
+    .service('authSvcInterceptor', ['$injector', '$q', function ($injector, $q) {
+        var interceptor = this;
+        var getAuthSvc = function () {
+            return $injector.get('authSvc');
+        };
+        var getNgNotify = function () {
+            return $injector.get('ngNotify');
+        };
+        var getMessage = function (error) {
+            if (error.hasOwnProperty('data')) {
+                if (error.data.hasOwnProperty('detail')) {
+                    return error.data.detail
                 }
-                return config;
+                if (error.data.hasOwnProperty('non_field_errors')) {
+                    return error.data.non_field_errors
+                }
+                return 'Unable to parse the error!'
             }
         };
+        interceptor.request = function (config) {
+            var token = getAuthSvc().getToken();
+            if (token) {
+                config.headers['Authorization'] = token;
+            }
+            return config;
+        };
+
+        interceptor.responseError = function (error) {
+            var message = getMessage(error);
+            getNgNotify().set(message, 'error');
+            return $q.reject(error);
+        };
+        return interceptor
     }]);

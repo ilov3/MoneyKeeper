@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Money Keeper</title>
-</head>
-{% verbatim %}
-<body ng-app="MoneyKeeper" ng-controller="AppMainController" ng-cloak>
-<nav class="navbar navbar-default">
-    <span class="navbar-brand">Money Keeper</span>
-    <ul class="nav navbar-nav pull-right">
-        <li><a>{{ conf.username }}</a></li>
-        <li><a ng-click="logout()" href="">Logout</a></li>
-    </ul>
-</nav>
-<uib-tabset>
-    <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
-</uib-tabset>
-<ui-view></ui-view>
-</body>
-{% endverbatim %}
-{% include 'assets.html' %}
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    {% verbatim %}
+        <body ng-app="MoneyKeeper" ng-controller="AppMainController">
+        <nav class="navbar navbar-default">
+            <span class="navbar-brand">Money Keeper</span>
+            <ul class="nav navbar-nav pull-right">
+                <li><a title="Your username" ng-bind="conf.username"></a></li>
+                <li><a ng-hide="conf.username" ng-click="login()" href="">Log in</a></li>
+                <li><a ng-show="conf.username" ng-click="logout()" href="">Logout</a></li>
+                <li><a title="About this project" href="/about">About</a></li>
+            </ul>
+        </nav>
+        <uib-tabset>
+            <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
+        </uib-tabset>
+        <ui-view></ui-view>
+        </body>
+    {% endverbatim %}
+{% endblock %}
+{% block assets %}
+    {% include 'app_assets.html' %}
+{% endblock %}

@@ -1,7 +1,7 @@
 # coding=utf-8
 import sys
 import os
-from utils import setup_env
+from common_utils import setup_env
 from glob import glob
 import json
 import logging
