@@ -1,16 +1,10 @@
 # coding=utf-8
 import logging
 
-from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.core.exceptions import ValidationError
-from django.utils.http import urlsafe_base64_decode as uid_decoder
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render_to_response, redirect
-from django.utils.encoding import force_text
 from django.utils.timezone import now
-from django.views.generic import FormView
 from rest_framework import status
 from rest_framework.decorators import list_route
 from rest_framework.generics import GenericAPIView
@@ -22,7 +16,7 @@ from rest_framework_jwt.views import JSONWebTokenAPIView
 
 from MoneyKeeper.models.profile import UserProfile
 from MoneyKeeper.serializers import UserSerializer, JWTokenSerializer
-from MoneyKeeper.serializers.passwordResetSerializers import PasswordResetConfirmSerializer, PasswordResetSerializer
+from MoneyKeeper.serializers.passwordResetSerializers import PasswordResetSerializer
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
