@@ -28,6 +28,10 @@ angular.module('MoneyKeeper')
                     }
                 );
             };
+            var onPasswordResetSuccess = function (response) {
+                ngNotify.set(response.success, 'success');
+                $state.go('empty')
+            };
             var authSvc = {
                 getToken: function () {
                     return $localStorage.token
@@ -52,6 +56,11 @@ angular.module('MoneyKeeper')
             authSvc.register = function (user) {
                 var resource = dataSvc.user.save(user);
                 resource.$promise.then(onRegisterSuccess);
+                return resource.$promise;
+            };
+            authSvc.passwordReset = function (data) {
+                var resource = dataSvc.passwordReset.save(data);
+                resource.$promise.then(onPasswordResetSuccess);
                 return resource.$promise;
             };
             authSvc.setUsername = function () {
@@ -87,15 +96,15 @@ angular.module('MoneyKeeper')
         var getNgNotify = function () {
             return $injector.get('ngNotify');
         };
-        var getMessage = function (error) {
-            if (error.hasOwnProperty('data')) {
-                if (error.data.hasOwnProperty('detail')) {
-                    return error.data.detail
+        var getMessages = function (error) {
+            if (error.hasOwnProperty('data') && typeof error.data === 'object') {
+                var messages = '';
+                for (var fieldName in error.data) {
+                    if (error.data.hasOwnProperty(fieldName)) {
+                        messages += fieldName + ': ' + error.data[fieldName] + '\n'
+                    }
                 }
-                if (error.data.hasOwnProperty('non_field_errors')) {
-                    return error.data.non_field_errors
-                }
-                return 'Unable to parse the error!'
+                return messages
             }
         };
         interceptor.request = function (config) {
@@ -107,7 +116,7 @@ angular.module('MoneyKeeper')
         };
 
         interceptor.responseError = function (error) {
-            var message = getMessage(error);
+            var message = getMessages(error);
             getNgNotify().set(message, 'error');
             return $q.reject(error);
         };

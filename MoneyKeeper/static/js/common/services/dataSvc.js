@@ -37,7 +37,8 @@ angular.module('MoneyKeeper')
             }),
             conf: $resource('/api/conf/', {}, {
                 query: {isArray: false}
-            })
+            }),
+            passwordReset: $resource('/password/reset/', {})
         };
 
         Data.getTransactions = function () {

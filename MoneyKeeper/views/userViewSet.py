@@ -1,12 +1,19 @@
 # coding=utf-8
 import logging
 
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import ValidationError
+from django.utils.http import urlsafe_base64_decode as uid_decoder
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.utils.encoding import force_text
 from django.utils.timezone import now
+from django.views.generic import FormView
 from rest_framework import status
 from rest_framework.decorators import list_route
+from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -15,6 +22,7 @@ from rest_framework_jwt.views import JSONWebTokenAPIView
 
 from MoneyKeeper.models.profile import UserProfile
 from MoneyKeeper.serializers import UserSerializer, JWTokenSerializer
+from MoneyKeeper.serializers.passwordResetSerializers import PasswordResetConfirmSerializer, PasswordResetSerializer
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)
@@ -108,3 +116,37 @@ class ObtainJSONWebToken(JSONWebTokenAPIView):
     Returns a JSON Web Token that can be used for authenticated requests.
     """
     serializer_class = JWTokenSerializer
+
+
+class PasswordResetView(GenericAPIView):
+    """
+    Calls Django Auth PasswordResetForm save method.
+    Accepts the following POST parameters: email
+    Returns the success/fail message.
+    """
+
+    serializer_class = PasswordResetSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        # Create a serializer with request.data
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        # Return the success message with OK HTTP status
+        return Response(
+                {"success": "Password reset e-mail has been sent."},
+                status=status.HTTP_200_OK
+        )
+
+
+def password_reset_success(request):
+    inner_content = ('''
+                    <p>Password has been reset with the new password.</p>
+                    <p>Provide your account credentials on next view</p>
+                    <p class="lead">
+                    <a href="/" class="btn btn-lg btn-default">Next</a>
+                    </p>
+                    ''')
+    return render_to_response('confirm.html', {'inner_content': inner_content})

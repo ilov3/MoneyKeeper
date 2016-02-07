@@ -5,11 +5,11 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from MoneyKeeper.filters import TransactionFilter
 from MoneyKeeper.serializers import TransactionSerializer
 from MoneyKeeper.utils.common_utils import to_pydate
-from MoneyKeeper.views.view_utils import FilterQuerySetMixin
+from MoneyKeeper.views.filters import TransactionFilter
 from MoneyKeeper.views.metadata import GridMetadata
+from MoneyKeeper.views.view_utils import FilterQuerySetMixin
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)

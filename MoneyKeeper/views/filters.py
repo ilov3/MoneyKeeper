@@ -4,7 +4,7 @@ import rest_framework_filters as filters
 from django.db.models import Q
 
 from MoneyKeeper.utils.common_utils import to_pydate
-from models import Transaction
+from MoneyKeeper.models import Transaction
 
 __author__ = 'ilov3'
 logger = logging.getLogger(__name__)

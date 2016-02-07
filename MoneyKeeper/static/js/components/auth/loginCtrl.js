@@ -23,6 +23,17 @@ function LoginController(authSvc, $uibModal, $uibModalInstance) {
             }
         )
     };
+    this.rememberPassword = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/static/js/components/auth/passwordReset.html',
+            controller: 'PasswordResetController',
+            controllerAs: 'passwordResetCtrl'
+        });
+        modalInstance.result.then(function () {
+            $uibModalInstance.close();
+        })
+    };
     this.formFields = [
         {
             key: 'username',
