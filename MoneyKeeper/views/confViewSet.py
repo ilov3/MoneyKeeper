@@ -14,4 +14,5 @@ class ConfViewSet(FilterQuerySetMixin,
                   ViewSet):
     def get(self, request):
         user = self.get_user()
+        logger.debug('User "%s" has logged in.' % user.username)
         return Response({'username': user.username})

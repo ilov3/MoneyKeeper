@@ -2,7 +2,7 @@
 /.idea/
 /envdir/
 /static/
-/staticdev/
+/logs/
 /node_modules/
 /templates/app_assets.html
 #/templates/landing_assets.html

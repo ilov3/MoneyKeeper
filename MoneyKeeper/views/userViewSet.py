@@ -82,6 +82,7 @@ class UserViewSet(CreateModelMixin,
                     </p>
                     '''
                 )
+                logger.info('"%s" successfully activated his account', user)
             return render_to_response('confirm.html', {'inner_content': inner_content})
         return redirect('/about')
 
@@ -124,15 +125,19 @@ class PasswordResetView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         # Create a serializer with request.data
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
 
-        serializer.save()
-        # Return the success message with OK HTTP status
-        return Response(
-                {"success": "Password reset e-mail has been sent."},
-                status=status.HTTP_200_OK
-        )
+            serializer.save()
+            # Return the success message with OK HTTP status
+            return Response(
+                    {"success": "Password reset e-mail has been sent."},
+                    status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            logger.error('Error on password reset request.')
+            logger.exception(e)
 
 
 def password_reset_success(request):
@@ -143,4 +148,5 @@ def password_reset_success(request):
                     <a href="/" class="btn btn-lg btn-default">Next</a>
                     </p>
                     ''')
+    logger.info('Password has been reset')
     return render_to_response('confirm.html', {'inner_content': inner_content})
