@@ -28,9 +28,6 @@ angular.module('MoneyKeeper.states')
                             }
                         }
                     });
-                    modalInstance.result.then(function () {
-                        dataSvc.updateSummary();
-                    });
                 }]
             })
             .state({
