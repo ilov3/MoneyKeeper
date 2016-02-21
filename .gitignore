@@ -3,6 +3,7 @@
 /envdir/
 /static/
 /logs/
+/backups/
 /node_modules/
 /templates/app_assets.html
 #/templates/landing_assets.html

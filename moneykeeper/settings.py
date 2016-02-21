@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'MoneyKeeper',
     'rest_framework',
+    'dbbackup'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -191,3 +192,5 @@ LOGGING = {
         },
     }
 }
+
+DBBACKUP_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'backups')
