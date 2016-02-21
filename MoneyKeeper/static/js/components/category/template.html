@@ -2,12 +2,9 @@
     <div class="category-element" ng-repeat="(group, categories) in categoryCtrl.results.categories | groupBy: 'kind_display'">
         <div class="col-md-3">
             <h3>{{ group }}</h3>
-
-            <div ng-repeat="(group, categories) in categories | groupBy: 'is_shown'">
-
-                <div ng-repeat="category in categories | orderBy: 'name'">
-                    <a ui-sref="categories.delete({id: category.id})"><i class="glyphicon glyphicon-trash"></i></a>
-                    <!--<a ui-sref="categories.edit({id: category.id})"><i class="glyphicon glyphicon-edit"></i></a>-->
+            <div ng-repeat="category in categories | orderBy: 'name'">
+                <a ui-sref="categories.delete({id: category.id})"><i class="glyphicon glyphicon-trash"></i></a>
+                <!--<a ui-sref="categories.edit({id: category.id})"><i class="glyphicon glyphicon-edit"></i></a>-->
                 <span>
                     <input
                             type="checkbox"
@@ -15,10 +12,9 @@
                             ng-change="categoryCtrl.hide(category)"
                             title="Makes this category visible(invisible) in application.">
                 </span>
-                    <span>{{ category.name }}</span>
-                </div>
-                <br>
+                <span>{{ category.name }}</span>
             </div>
+            <br>
         </div>
     </div>
 </div>
