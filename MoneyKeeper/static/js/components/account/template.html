@@ -1,5 +1,5 @@
 <div class="category-element">
-    <h3>Accounts</h3>
+    <h3>Accounts <a title="Add new account" ui-sref="accounts.add"><i class="glyphicon glyphicon-plus"></i></a></h3>
 
     <div ng-repeat="account in accountCtrl.results.accounts | orderBy: 'name'">
         <a ui-sref="accounts.delete({id: account.id})"><i class="glyphicon glyphicon-trash"></i></a>
