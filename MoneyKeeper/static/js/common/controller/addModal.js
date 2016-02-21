@@ -6,7 +6,6 @@ function AddModalBaseController($scope, $state, $uibModalInstance, ngNotify) {
     var self = this;
     var onSubmitSuccess = function (data) {
         if (data.$resolved) {
-            self.updateFunc();
             ngNotify.set(self.name + ' successfully added!', 'success')
         }
     };

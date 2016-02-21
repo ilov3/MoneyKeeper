@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'MoneyKeeper',
     'rest_framework',
-    'dbbackup'
+    'dbbackup',
 )
 
 MIDDLEWARE_CLASSES = (

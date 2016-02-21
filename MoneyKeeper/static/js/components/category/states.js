@@ -24,12 +24,9 @@ angular.module('MoneyKeeper.states')
                         controllerAs: 'addCategoryCtrl',
                         resolve: {
                             update: function () {
-                                return dataSvc.updateSummary;
+                                return dataSvc.getCategories;
                             }
                         }
-                    });
-                    modalInstance.result.then(function () {
-                        dataSvc.updateSummary();
                     });
                 }]
             })
@@ -43,14 +40,11 @@ angular.module('MoneyKeeper.states')
                         controller: 'DeleteCategoryController',
                         controllerAs: 'deleteCategoryCtrl',
                         resolve: {
-                            update: function () {
-                                return dataSvc.updateSummary;
-                            },
                             resource: dataSvc.category.retrieve({id: $stateParams.id})
                         }
                     });
                     modalInstance.result.then(function () {
-                        dataSvc.updateSummary();
+                        return dataSvc.getCategories();
                     });
                 }]
             })
