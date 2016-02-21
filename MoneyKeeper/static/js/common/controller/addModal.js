@@ -2,7 +2,7 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddModalBaseController($scope, $uibModalInstance, ngNotify) {
+function AddModalBaseController($scope, $state, $uibModalInstance, ngNotify) {
     var self = this;
     var onSubmitSuccess = function (data) {
         if (data.$resolved) {
@@ -10,30 +10,20 @@ function AddModalBaseController($scope, $uibModalInstance, ngNotify) {
             ngNotify.set(self.name + ' successfully added!', 'success')
         }
     };
-    var onSubmitError = function (error) {
-        console.log(error);
-        var messages = [];
-        for (var obj in error.data) {
-            if (error.data.hasOwnProperty(obj)) messages.push(error.data[obj])
-        }
-        ngNotify.set('Error on creating new ' + self.name + '. Details: ' + messages.join('\n'), 'error')
-    };
     this.submit = function () {
         var payload = self.processFormData(self.formData);
         payload.user = $scope.conf.username;
-        self.resource.save(payload).$promise.then(
-            onSubmitSuccess,
-            onSubmitError
-        );
+        self.resource.save(payload).$promise.then(onSubmitSuccess);
         if (!self.formData.addAnother) {
             $uibModalInstance.close()
         }
     };
     self.cancel = function () {
-        $uibModalInstance.close()
+        $uibModalInstance.close();
     };
     $scope.$on('modal.closing', function () {
         self.updateFunc();
+        $state.go('^')
     });
 }
 

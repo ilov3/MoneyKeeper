@@ -18,7 +18,7 @@ class AccountSerializer(GridSchemaMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('user', 'name', 'opening', 'get_balance')
+        fields = ('id', 'user', 'name', 'opening', 'is_shown', 'get_balance')
         grid_schema = [
             {'displayName': 'Name', 'field': 'name', 'colFilter': True},
             {'displayName': 'Opening', 'field': 'opening', 'colFilter': True, 'type': 'number'},

@@ -3,8 +3,8 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states', [])
-    .config(['$stateProvider', function ($stateProvider) {
-        var componentsPath = '/static/js/components/';
+    .config(['$stateProvider', 'AppConstants', function ($stateProvider, AppConstants) {
+        var componentsPath = AppConstants.componentsPath;
         $stateProvider
             .state({
                 name: 'summary',
@@ -12,27 +12,6 @@ angular.module('MoneyKeeper.states', [])
                 templateUrl: componentsPath + 'summary/template.html',
                 controller: 'SummaryController',
                 controllerAs: 'summaryCtrl'
-            })
-            .state({
-                name: 'transaction',
-                url: '/transaction',
-                templateUrl: componentsPath + 'transaction/template.html',
-                controller: 'TransactionController',
-                controllerAs: 'transactionCtrl'
-            })
-            .state({
-                name: 'category',
-                url: '/category',
-                templateUrl: componentsPath + 'category/template.html',
-                controller: 'CategoryController',
-                controllerAs: 'categoryCtrl'
-            })
-            .state({
-                name: 'account',
-                url: '/account',
-                templateUrl: componentsPath + 'account/template.html',
-                controller: 'AccountController',
-                controllerAs: 'accountCtrl'
             })
             .state({
                 name: 'empty',
@@ -44,4 +23,7 @@ angular.module('MoneyKeeper.states', [])
     }])
     .run(['$templateRequest', function ($templateRequest) {
         $templateRequest('/static/partials/gridDatePickerFilter.html', true);
-    }]);
+    }])
+    .constant('AppConstants', {
+        componentsPath: '/static/js/components/'
+    });

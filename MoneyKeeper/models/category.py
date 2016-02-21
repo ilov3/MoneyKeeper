@@ -23,6 +23,7 @@ class Category(TransactionAmountMixin, models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(max_length=150)
     kind = models.CharField(max_length=100, choices=CATEGORY_KINDS)
+    is_shown = models.BooleanField(default=True)
     objects = CategoryQuerySet.as_manager()
 
     def __unicode__(self):

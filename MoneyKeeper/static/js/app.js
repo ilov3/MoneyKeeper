@@ -64,9 +64,9 @@ function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
     };
     $scope.tabs = [
         {title: 'Summary', state: 'summary'},
-        {title: 'Transactions', state: 'transaction'},
-        {title: 'Categories', state: 'category'},
-        {title: 'Accounts', state: 'account'}
+        {title: 'Transactions', state: 'transactions'},
+        {title: 'Categories', state: 'categories'},
+        {title: 'Accounts', state: 'accounts'}
     ];
     $scope.logout = function () {
         authSvc.logout();

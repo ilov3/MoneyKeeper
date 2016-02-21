@@ -25,6 +25,15 @@ div.modal-body.pie-chart {
     width: 700px;
 }
 
+div.category-element {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.category-element * {
+    margin-left: 3px;
+}
+
 /*ngAnimate*/
 .repeated-item.ng-enter, .repeated-item.ng-move {
     -webkit-transition: 0.5s linear all;

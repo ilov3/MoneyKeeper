@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
+function TransactionController($scope, $state, dataSvc) {
     BaseGridController.call(this);
     var self = this;
     this.datePickerOptions = {
@@ -77,32 +77,13 @@ function TransactionController($scope, $uibModal, ngNotify, dataSvc) {
     };
 
     this.deleteRow = function (row) {
-        var successCallback = function () {
-            var index = self.gridOptions.data.indexOf(row.entity);
-            self.gridOptions.data.splice(index, 1);
-            ngNotify.set('Transaction #' + row.entity.id + ' successfully deleted.', 'success');
-            modalInstance.close()
-        };
-        var confirm = function (row) {
-            dataSvc.deleteTransaction(row.entity, successCallback)
-        };
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: '/static/js/components/transaction/modals/deleteTransaction/template.html',
-            controller: 'DeleteTransactionController',
-            resolve: {
-                row: function () {
-                    return row
-                },
-                confirm: function () {
-                    return confirm
-                }
-            }
-        })
+        $state.get('transactions.delete').data.row = row;
+        $state.get('transactions.delete').data.gridOptions = self.gridOptions;
+        $state.go('transactions.delete', {id: row.entity.id})
     };
 
     this.setGridData();
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
-angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$uibModal', 'ngNotify', 'dataSvc', TransactionController]);
+angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', 'dataSvc', TransactionController]);

@@ -1,1 +1,15 @@
-<div class="grid" ui-grid="accountCtrl.gridOptions"></div>
+<div class="category-element">
+    <h3>Accounts</h3>
+
+    <div ng-repeat="account in accountCtrl.results.accounts | orderBy: 'name'">
+        <a ui-sref="accounts.delete({id: account.id})"><i class="glyphicon glyphicon-trash"></i></a>
+        <!-- <a ui-sref="accounts.edit({id: account.id})"><i class="glyphicon glyphicon-edit"></i></a>-->
+        <span><input
+                type="checkbox"
+                ng-model="account.is_shown"
+                ng-change="accountCtrl.hide(account)"
+                title="Makes this account visible(invisible) in application.">
+        </span>
+        <span>{{ account.name }}</span>
+    </div>
+</div>

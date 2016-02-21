@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 class Account(TransactionAmountMixin, models.Model):
     user = models.ForeignKey(User, related_name='accounts')
     name = models.CharField(max_length=150)
+    is_shown = models.BooleanField(default=True)
     opening = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __unicode__(self):

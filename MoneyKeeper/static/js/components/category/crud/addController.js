@@ -2,8 +2,8 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddCategoryController($scope, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $uibModalInstance, ngNotify);
+function AddCategoryController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
     this.name = 'Category';
     this.resource = dataSvc.category;
     this.updateFunc = update;
@@ -43,4 +43,4 @@ function AddCategoryController($scope, $uibModalInstance, dataSvc, update, ngNot
 }
 
 AddCategoryController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$scope', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddCategoryController]);
+angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddCategoryController]);

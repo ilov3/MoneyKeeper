@@ -2,12 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddTransactionController($scope, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $uibModalInstance, ngNotify);
+function AddTransactionController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
     this.name = 'Transaction';
     this.resource = dataSvc.transaction;
     this.updateFunc = update;
-    this.processFormData = function(formData){
+    this.processFormData = function (formData) {
         var payload = angular.copy(formData);
         payload.date = payload.date.toISOString().split('T')[0];
         return payload
@@ -46,7 +46,11 @@ function AddTransactionController($scope, $uibModalInstance, dataSvc, update, ng
                 optionsAttr: 'bs-options',
                 label: 'Category',
                 options: dataSvc.results.categories,
-                ngOptions: 'option.name as option in to.options | filter: {kind: model.kind} | filter: $select.search'
+                ngOptions: 'option.name as option in to.options ' +
+                '| filter: {kind: model.kind} ' +
+                '| filter: {is_shown: true} ' +
+                '| filter: $select.search ' +
+                '| orderBy: "name"'
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind != "trn"',
@@ -60,7 +64,10 @@ function AddTransactionController($scope, $uibModalInstance, dataSvc, update, ng
             templateOptions: {
                 label: 'Transfer to',
                 options: dataSvc.results.accounts,
-                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.account'
+                ngOptions: 'option.name as option.name for option in to.options ' +
+                '| filter: {is_shown: true} ' +
+                '| excludeFrom: model.account' +
+                '| orderBy: "name"'
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind == "trn"',
@@ -74,7 +81,10 @@ function AddTransactionController($scope, $uibModalInstance, dataSvc, update, ng
                 label: 'Account',
                 required: true,
                 options: dataSvc.results.accounts,
-                ngOptions: 'option.name as option.name for option in to.options | excludeFrom: model.transfer_to_account'
+                ngOptions: 'option.name as option.name for option in to.options ' +
+                '| filter: {is_shown: true} ' +
+                '| excludeFrom: model.transfer_to_account ' +
+                '| orderBy: "name"'
             }
         },
         {
@@ -107,4 +117,4 @@ function AddTransactionController($scope, $uibModalInstance, dataSvc, update, ng
 }
 
 AddTransactionController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddTransactionController]);
+angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddTransactionController]);

@@ -14,19 +14,24 @@ angular.module('MoneyKeeper')
                 expense: null
             },
 
-            transaction: $resource('/api/transaction/:id/:action/', {}, {
+            transaction: $resource('/api/transaction/:id/:action/', {id: '@id'}, {
                 query: {method: 'GET', isArray: false},
                 amount: {method: 'GET', params: {begin: '@begin', end: '@end', kind: '@kind'}, isArray: false, headers: {}},
-                update: {method: 'PUT', params: {action: '@id'}},
-                delete: {method: 'DELETE', params: {action: '@id'}},
+                update: {method: 'PUT'},
+                delete: {method: 'DELETE'},
                 options: {method: 'OPTIONS', isArray: true},
                 stats: {method: 'GET', params: {action: 'stats'}}
             }),
-            category: $resource('/api/category/:id/:action/', {}, {
+            category: $resource('/api/category/:id/:action/', {id: '@id'}, {
+                retrieve: {method: 'GET', isArray: false},
+                update: {method: 'PUT'},
                 options: {method: 'OPTIONS', isArray: true},
                 monthDetails: {method: 'GET', params: {date: '@date', kind: '@kind', action: 'month_details'}}
+
             }),
-            account: $resource('/api/account/:id/:action/', {}, {
+            account: $resource('/api/account/:id/:action/', {id: '@id'}, {
+                retrieve: {method: 'GET', isArray: false},
+                update: {method: 'PUT'},
                 options: {method: 'OPTIONS', isArray: true}
             }),
             user: $resource('/api/user/:id/:action/', {}, {

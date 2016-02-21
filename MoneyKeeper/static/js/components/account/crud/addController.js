@@ -2,8 +2,8 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddAccountController($scope, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $uibModalInstance, ngNotify);
+function AddAccountController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
+    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
     this.name = 'Account';
     this.resource = dataSvc.account;
     this.updateFunc = update;
@@ -41,4 +41,4 @@ function AddAccountController($scope, $uibModalInstance, dataSvc, update, ngNoti
 }
 
 AddAccountController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddAccountController', ['$scope', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddAccountController]);
+angular.module('MoneyKeeper.states').controller('AddAccountController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddAccountController]);

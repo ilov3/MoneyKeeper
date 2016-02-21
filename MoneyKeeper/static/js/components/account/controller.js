@@ -4,11 +4,9 @@
  */
 
 function AccountController(dataSvc) {
-    BaseGridController.call(this);
-    this.gridOptions.isVirtual = true;
-    this.gridDataSource = dataSvc.account;
-    this.setGridData()
+    BaseCrudController.call(this, dataSvc);
+    dataSvc.getAccounts();
 }
 
-AccountController.prototype = Object.create(BaseGridController.prototype);
+AccountController.prototype = Object.create(BaseCrudController.prototype);
 angular.module('MoneyKeeper.states').controller('AccountController', ['dataSvc', AccountController]);

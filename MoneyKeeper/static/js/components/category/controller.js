@@ -4,11 +4,9 @@
  */
 
 function CategoryController(dataSvc) {
-    BaseGridController.call(this);
-    this.gridOptions.isVirtual = true;
-    this.gridDataSource = dataSvc.category;
-    this.setGridData()
+    BaseCrudController.call(this, dataSvc);
+    dataSvc.getCategories();
 }
 
-CategoryController.prototype = Object.create(BaseGridController.prototype);
+CategoryController.prototype = Object.create(BaseCrudController.prototype);
 angular.module('MoneyKeeper.states').controller('CategoryController', ['dataSvc', CategoryController]);

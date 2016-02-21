@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3 class="modal-title">Delete category "{{ deleteCategoryCtrl.resource.name }}"</h3>
+</div>
+<div class="modal-body">
+    <p>Do you really want to delete this category?</p>
+    <p>All transactions which have relations to this category will be also removed!</p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm btn-default" ng-click="deleteCategoryCtrl.confirm()">Yes</button>
+    <button class="btn btn-sm btn-default" type="button" ng-click="deleteCategoryCtrl.cancel()">No</button>
+</div>

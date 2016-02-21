@@ -1,10 +1,8 @@
 # coding=utf-8
 import logging
-
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-
 from MoneyKeeper.models import Category
 from MoneyKeeper.serializers.fields import UserField
 from MoneyKeeper.serializers.mixins import GridSchemaMixin
@@ -19,7 +17,7 @@ class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('user', 'name', 'kind', 'kind_display', 'get_transactions_amount', 'get_transactions_amount_last_month')
+        fields = ('id', 'user', 'name', 'kind', 'kind_display', 'is_shown', 'get_transactions_amount', 'get_transactions_amount_last_month')
         grid_schema = [
             {'displayName': 'Name', 'field': 'name', 'colFilter': True},
             {'displayName': 'This month', 'field': 'get_transactions_amount', 'colFilter': True, 'type': 'number'},
@@ -27,7 +25,7 @@ class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
         ]
         validators = [
             UniqueTogetherValidator(
-                    queryset=model.objects.all(),
-                    fields=('user', 'name', 'kind')
+                queryset=model.objects.all(),
+                fields=('user', 'name', 'kind')
             )
         ]
