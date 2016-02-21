@@ -1,15 +1,17 @@
-<div class="category-element">
-    <h3>Accounts <a title="Add new account" ui-sref="accounts.add"><i class="glyphicon glyphicon-plus"></i></a></h3>
+<div class="container-fluid">
+    <div class="category-element">
+        <h3>Accounts <a title="Add new account" ui-sref="accounts.add"><i class="glyphicon glyphicon-plus"></i></a></h3>
 
-    <div ng-repeat="account in accountCtrl.results.accounts | orderBy: 'name'">
-        <a ui-sref="accounts.delete({id: account.id})"><i class="glyphicon glyphicon-trash"></i></a>
-        <!-- <a ui-sref="accounts.edit({id: account.id})"><i class="glyphicon glyphicon-edit"></i></a>-->
+        <div ng-repeat="account in accountCtrl.results.accounts | orderBy: 'name'">
+            <a ui-sref="accounts.delete({id: account.id})"><i class="glyphicon glyphicon-trash"></i></a>
+            <!-- <a ui-sref="accounts.edit({id: account.id})"><i class="glyphicon glyphicon-edit"></i></a>-->
         <span><input
                 type="checkbox"
                 ng-model="account.is_shown"
                 ng-change="accountCtrl.hide(account)"
                 title="Makes this account visible(invisible) in application.">
         </span>
-        <span>{{ account.name }}</span>
+            <span>{{ account.name }}</span>
+        </div>
     </div>
 </div>
