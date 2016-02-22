@@ -1,0 +1,49 @@
+- hosts: all
+  vars:
+    projectdir: /var/www/MoneyKeeper
+    localprojectdir: /home/ilov3/dev/MoneyKeeper
+  tasks:
+
+  - name: Build static
+    local_action: shell gulp build --production
+                  chdir={{localprojectdir}}
+    register: gulp
+  - debug: var=gulp.stdout
+
+  - name: Push static to server
+    local_action: shell scp MoneyKeeper/static/js/project.min.js moneykeeper:{{projectdir}}/static/js/ &&
+                        scp MoneyKeeper/static/js/thirdparty.min.js moneykeeper:{{projectdir}}/static/js/ &&
+                        scp MoneyKeeper/static/css/all.min.css moneykeeper:{{projectdir}}/static/css/
+                  chdir={{localprojectdir}}
+    register: scp
+  - debug: var=scp.stdout
+
+  - name: Update repo
+    shell: git pull
+           chdir={{projectdir}}
+    register: git
+  - debug: var=git.stdout
+
+  - name: Migrate app
+    shell: python manage.py migrate
+           chdir={{projectdir}}
+    register: migrate
+  - debug: var=migrate.stdout
+
+  - name: Collect static
+    shell: python manage.py collectstatic --no-input
+           chdir={{projectdir}}
+    register: collectstatic
+  - debug: var=collectstatic.stdout
+
+  - name: Restart gunicorn
+    shell: supervisorctl restart moneykeeper
+    become: yes
+    register: gunicorn
+  - debug: var=gunicorn.stdout
+
+  - name: Restart nginx
+    shell: service nginx restart
+    become: yes
+    register: nginx
+  - debug: var=nginx.stdout
