@@ -3,16 +3,17 @@
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="addCategoryCtrl.formData" fields="addCategoryCtrl.formFields" form="addCategoryCtrl.addCategoryForm"></formly-form>
+        <formly-form model="addCategoryCtrl.formData" fields="addCategoryCtrl.formFields" form="addCategoryCtrl.addCategoryForm">
+            <div class="modal-footer">
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        ng-click="addCategoryCtrl.service.submit(addCategoryCtrl.formData)"
+                        ng-disabled="addCategoryCtrl.addCategoryForm.$invalid">
+                    Submit
+                </button>
+                <button class="btn btn-warning" type="button" ng-click="addCategoryCtrl.service.cancel()">Cancel</button>
+            </div>
+        </formly-form>
     </form>
-</div>
-<div class="modal-footer">
-    <button
-            type="submit"
-            class="btn btn-primary"
-            ng-click="addCategoryCtrl.service.submit(addCategoryCtrl.formData)"
-            ng-disabled="addCategoryCtrl.addCategoryForm.$invalid">
-        Submit
-    </button>
-    <button class="btn btn-warning" type="button" ng-click="addCategoryCtrl.service.modalInstance.close()">Cancel</button>
 </div>

@@ -2,9 +2,9 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddModalSvc(ngNotify, authSvc) {
+function AddModalSvc(ngNotify, authSvc, BaseModalSvc) {
+    angular.extend(AddModalSvc.prototype, BaseModalSvc);
     var self = this;
-    self.modalInstance = null;
     self.resource = null;
     self.updateFn = null;
 
@@ -28,4 +28,4 @@ function AddModalSvc(ngNotify, authSvc) {
     return self
 }
 
-angular.module('MoneyKeeper.states').service('AddModalSvc', ['ngNotify', 'authSvc', AddModalSvc]);
+angular.module('MoneyKeeper.states').service('AddModalSvc', ['ngNotify', 'authSvc', 'BaseModalSvc', AddModalSvc]);

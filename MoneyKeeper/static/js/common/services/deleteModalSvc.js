@@ -2,7 +2,8 @@
 /**
  * __author__ = 'ilov3'
  */
-function DeleteModalSvc(ngNotify) {
+function DeleteModalSvc(ngNotify, BaseModalSvc) {
+    angular.extend(DeleteModalSvc.prototype, BaseModalSvc);
     var self = this;
     self.modalInstance = null;
     self.formData = null;
@@ -16,4 +17,4 @@ function DeleteModalSvc(ngNotify) {
     };
 }
 
-angular.module('MoneyKeeper.states').service('DeleteModalSvc', ['ngNotify', DeleteModalSvc]);
+angular.module('MoneyKeeper.states').service('DeleteModalSvc', ['ngNotify', 'BaseModalSvc', DeleteModalSvc]);
