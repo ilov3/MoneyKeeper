@@ -2,8 +2,8 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddTransactionController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
+function AddTransactionController($scope, $controller, dataSvc, update) {
+    $controller('AddModalBaseController', {this: this, $scope: $scope});
     this.name = 'Transaction';
     this.resource = dataSvc.transaction;
     this.updateFunc = update;
@@ -117,4 +117,4 @@ function AddTransactionController($scope, $state, $uibModalInstance, dataSvc, up
 }
 
 AddTransactionController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddTransactionController]);
+angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$controller', 'dataSvc', 'update', AddTransactionController]);

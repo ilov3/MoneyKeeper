@@ -29,3 +29,5 @@ function AddModalBaseController($scope, $state, $uibModalInstance, ngNotify) {
 AddModalBaseController.prototype.processFormData = function (formData) {
     return formData;
 };
+
+angular.module('MoneyKeeper.states').controller('AddModalBaseController', ['$scope', '$state', '$uibModalInstance', 'ngNotify', AddModalBaseController]);

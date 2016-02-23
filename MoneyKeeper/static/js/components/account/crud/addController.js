@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 function AddAccountController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
+    AddModalBaseController.call(this);
     this.name = 'Account';
     this.resource = dataSvc.account;
     this.updateFunc = update;

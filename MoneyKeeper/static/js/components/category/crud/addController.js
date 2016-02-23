@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 function AddCategoryController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this, $scope, $state, $uibModalInstance, ngNotify);
+    AddModalBaseController.call(this);
     this.name = 'Category';
     this.resource = dataSvc.category;
     this.updateFunc = update;
