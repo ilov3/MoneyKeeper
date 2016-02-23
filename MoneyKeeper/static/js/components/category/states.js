@@ -16,7 +16,8 @@ angular.module('MoneyKeeper.states')
             .state({
                 name: 'categories.add',
                 url: '/new',
-                onEnter: ['$state', '$uibModal', 'dataSvc', function ($state, $uibModal, dataSvc) {
+                onEnter: ['BaseModalSvc', '$uibModal', 'dataSvc', function (BaseModalSvc, $uibModal, dataSvc) {
+                    var updateFn = dataSvc.getCategories;
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/addTemplate.html',
@@ -24,16 +25,17 @@ angular.module('MoneyKeeper.states')
                         controllerAs: 'addCategoryCtrl',
                         resolve: {
                             update: function () {
-                                return dataSvc.getCategories;
+                                return updateFn
                             }
                         }
                     });
+                    modalInstance.result.then(BaseModalSvc.onModalClose(updateFn), BaseModalSvc.onModalClose(updateFn))
                 }]
             })
             .state({
                 name: 'categories.delete',
                 url: '/:id/delete',
-                onEnter: ['$state', '$stateParams', '$uibModal', 'dataSvc', function ($state, $stateParams, $uibModal, dataSvc) {
+                onEnter: ['$stateParams', '$uibModal', 'dataSvc', 'BaseModalSvc', function ($stateParams, $uibModal, dataSvc, BaseModalSvc) {
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/deleteTemplate.html',
@@ -43,9 +45,7 @@ angular.module('MoneyKeeper.states')
                             resource: dataSvc.category.retrieve({id: $stateParams.id})
                         }
                     });
-                    modalInstance.result.then(function () {
-                        return dataSvc.getCategories();
-                    });
+                    modalInstance.result.then(BaseModalSvc.onModalClose(dataSvc.getCategories), BaseModalSvc.onModalClose(dataSvc.getCategories))
                 }]
             })
     }]);

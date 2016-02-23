@@ -3,9 +3,10 @@
  * __author__ = 'ilov3'
  */
 
-function DeleteAccountController($scope, $uibModalInstance, $state, ngNotify, resource) {
-    DeleteModalBaseController.call(this, $scope, $uibModalInstance, $state, ngNotify, resource);
-    this.resource = resource;
+function DeleteAccountController(DeleteModalSvc, $uibModalInstance, resource) {
+    DeleteModalSvc.modalInstance = $uibModalInstance;
+    DeleteModalSvc.resource = resource;
+    this.service = DeleteModalSvc;
 }
 
-angular.module('MoneyKeeper.states').controller('DeleteAccountController', ['$scope', '$uibModalInstance', '$state', 'ngNotify', 'resource', DeleteAccountController]);
+angular.module('MoneyKeeper.states').controller('DeleteAccountController', ['DeleteModalSvc', '$uibModalInstance', 'resource', DeleteAccountController]);

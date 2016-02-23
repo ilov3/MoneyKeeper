@@ -2,11 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddTransactionController($scope, $controller, dataSvc, update) {
-    $controller('AddModalBaseController', {this: this, $scope: $scope});
-    this.name = 'Transaction';
-    this.resource = dataSvc.transaction;
-    this.updateFunc = update;
+function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, update) {
+    AddModalSvc.name = 'Transaction';
+    AddModalSvc.modalInstance = $uibModalInstance;
+    AddModalSvc.resource = dataSvc.transaction;
+    AddModalSvc.updateFn = update;
+    this.service = AddModalSvc;
     this.processFormData = function (formData) {
         var payload = angular.copy(formData);
         payload.date = payload.date.toISOString().split('T')[0];
@@ -116,5 +117,4 @@ function AddTransactionController($scope, $controller, dataSvc, update) {
     ]
 }
 
-AddTransactionController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddTransactionController', ['$scope', '$controller', 'dataSvc', 'update', AddTransactionController]);
+angular.module('MoneyKeeper.states').controller('AddTransactionController', ['AddModalSvc', 'dataSvc', '$uibModalInstance', 'update', AddTransactionController]);

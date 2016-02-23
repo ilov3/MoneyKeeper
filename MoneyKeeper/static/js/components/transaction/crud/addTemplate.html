@@ -3,10 +3,20 @@
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="addTransactionCtrl.formData" fields="addTransactionCtrl.formFields" form="addTransactionCtrl.addTransactionForm"></formly-form>
+        <formly-form
+                model="addTransactionCtrl.formData"
+                fields="addTransactionCtrl.formFields"
+                form="addTransactionCtrl.addTransactionForm">
+        </formly-form>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" ng-click="addTransactionCtrl.submit()" ng-disabled="addTransactionCtrl.addTransactionForm.$invalid">Submit</button>
-    <button class="btn btn-warning" type="button" ng-click="addTransactionCtrl.cancel()">Cancel</button>
+    <button
+            type="submit"
+            class="btn btn-primary"
+            ng-click="addTransactionCtrl.service.submit(addTransactionCtrl.formData, addTransactionCtrl.processFormData)"
+            ng-disabled="addTransactionCtrl.addTransactionForm.$invalid">
+        Submit
+    </button>
+    <button class="btn btn-warning" type="button" ng-click="addTransactionCtrl.service.modalInstance.close()">Cancel</button>
 </div>

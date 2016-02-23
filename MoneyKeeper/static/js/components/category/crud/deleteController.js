@@ -3,9 +3,10 @@
  * __author__ = 'ilov3'
  */
 
-function DeleteCategoryController($scope, $uibModalInstance, $state, ngNotify, resource) {
-    DeleteModalBaseController.call(this, $scope, $uibModalInstance, $state, ngNotify, resource);
-    this.resource = resource;
+function DeleteCategoryController(DeleteModalSvc, $uibModalInstance, resource) {
+    DeleteModalSvc.modalInstance = $uibModalInstance;
+    DeleteModalSvc.resource = resource;
+    this.service = DeleteModalSvc;
 }
 
-angular.module('MoneyKeeper.states').controller('DeleteCategoryController', ['$scope', '$uibModalInstance', '$state', 'ngNotify', 'resource', DeleteCategoryController]);
+angular.module('MoneyKeeper.states').controller('DeleteCategoryController', ['DeleteModalSvc', '$uibModalInstance', 'resource', DeleteCategoryController]);

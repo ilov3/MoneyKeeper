@@ -7,6 +7,12 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" ng-click="addCategoryCtrl.submit()" ng-disabled="addCategoryCtrl.addCategoryForm.$invalid">Submit</button>
-    <button class="btn btn-warning" type="button" ng-click="addCategoryCtrl.cancel()">Cancel</button>
+    <button
+            type="submit"
+            class="btn btn-primary"
+            ng-click="addCategoryCtrl.service.submit(addCategoryCtrl.formData)"
+            ng-disabled="addCategoryCtrl.addCategoryForm.$invalid">
+        Submit
+    </button>
+    <button class="btn btn-warning" type="button" ng-click="addCategoryCtrl.service.modalInstance.close()">Cancel</button>
 </div>

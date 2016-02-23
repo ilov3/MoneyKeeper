@@ -2,11 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddCategoryController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this);
-    this.name = 'Category';
-    this.resource = dataSvc.category;
-    this.updateFunc = update;
+function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) {
+    AddModalSvc.name = 'Category';
+    AddModalSvc.modalInstance = $uibModalInstance;
+    AddModalSvc.resource = dataSvc.category;
+    AddModalSvc.updateFn = update;
+    this.service = AddModalSvc;
     this.formFields = [
         {
             key: 'name',
@@ -42,5 +43,4 @@ function AddCategoryController($scope, $state, $uibModalInstance, dataSvc, updat
     ]
 }
 
-AddCategoryController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddCategoryController]);
+angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$uibModalInstance', 'AddModalSvc', 'dataSvc', 'update', AddCategoryController]);

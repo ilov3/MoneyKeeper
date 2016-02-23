@@ -3,12 +3,12 @@
  * __author__ = 'ilov3'
  */
 
-function DeleteTransactionController($scope, $uibModalInstance, row, confirm) {
-    $scope.row = row;
-    $scope.confirm = confirm;
-    $scope.cancel = function () {
-        $uibModalInstance.close()
-    }
+function DeleteTransactionController(DeleteModalSvc, $uibModalInstance, resource, row, confirm) {
+    DeleteModalSvc.modalInstance = $uibModalInstance;
+    DeleteModalSvc.resource = resource;
+    this.confirm = confirm;
+    this.row = row;
+    this.service = DeleteModalSvc;
 }
 
-angular.module('MoneyKeeper.states').controller('DeleteTransactionController', ['$scope', '$uibModalInstance', 'row', 'confirm', DeleteTransactionController]);
+angular.module('MoneyKeeper.states').controller('DeleteTransactionController', ['DeleteModalSvc', '$uibModalInstance', 'resource', 'row', 'confirm', DeleteTransactionController]);

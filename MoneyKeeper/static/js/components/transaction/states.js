@@ -16,7 +16,8 @@ angular.module('MoneyKeeper.states')
             .state({
                 name: 'summary.addTransaction',
                 url: '/transaction/new',
-                onEnter: ['$state', '$uibModal', 'dataSvc', function ($state, $uibModal, dataSvc) {
+                onEnter: ['BaseModalSvc', '$uibModal', 'dataSvc', function (BaseModalSvc, $uibModal, dataSvc) {
+                    var updateFn = dataSvc.updateSummary;
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/addTemplate.html',
@@ -24,13 +25,15 @@ angular.module('MoneyKeeper.states')
                         controllerAs: 'addTransactionCtrl',
                         resolve: {
                             update: function () {
-                                return dataSvc.updateSummary;
+                                return updateFn
                             }
                         }
                     });
+                    modalInstance.result.then(BaseModalSvc.onModalClose(updateFn), BaseModalSvc.onModalClose(updateFn))
                 }]
             })
             .state({
+                //TODO refactor this shit
                 name: 'transactions.delete',
                 url: 'transaction/:id/delete',
                 data: {
@@ -52,7 +55,9 @@ angular.module('MoneyKeeper.states')
                         animation: true,
                         templateUrl: componentPath + 'crud/deleteTemplate.html',
                         controller: 'DeleteTransactionController',
+                        controllerAs: 'deleteTransactionCtrl',
                         resolve: {
+                            resource: dataSvc.transaction.retrieve({id: $stateParams.id}),
                             row: function () {
                                 return row
                             },

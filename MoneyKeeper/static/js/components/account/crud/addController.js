@@ -6,7 +6,7 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
     AddModalSvc.name = 'Account';
     AddModalSvc.modalInstance = $uibModalInstance;
     AddModalSvc.resource = dataSvc.account;
-    AddModalSvc.updateFunc = update;
+    AddModalSvc.updateFn = update;
     this.service = AddModalSvc;
     this.formFields = [
         {
