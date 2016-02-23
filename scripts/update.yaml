@@ -11,9 +11,9 @@
   - debug: var=gulp.stdout
 
   - name: Push static to server
-    local_action: shell scp MoneyKeeper/static/js/project.min.js moneykeeper:{{projectdir}}/static/js/ &&
-                        scp MoneyKeeper/static/js/thirdparty.min.js moneykeeper:{{projectdir}}/static/js/ &&
-                        scp MoneyKeeper/static/css/all.min.css moneykeeper:{{projectdir}}/static/css/
+    local_action: shell scp staticdev/js/project.min.js moneykeeper:{{projectdir}}/static/js/ &&
+                        scp staticdev/js/thirdparty.min.js moneykeeper:{{projectdir}}/static/js/ &&
+                        scp staticdev/css/all.min.css moneykeeper:{{projectdir}}/static/css/
                   chdir={{localprojectdir}}
     register: scp
   - debug: var=scp.stdout

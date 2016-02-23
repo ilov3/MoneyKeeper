@@ -2,12 +2,10 @@
 /.idea/
 /envdir/
 /static/
+/staticdev/
 /logs/
 /backups/
 /node_modules/
 /templates/app_assets.html
 #/templates/landing_assets.html
-/MoneyKeeper/static/js/project.min.js
-/MoneyKeeper/static/js/thirdparty.min.js
-/MoneyKeeper/static/fonts
 *.pyc

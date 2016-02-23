@@ -6,6 +6,7 @@ var plugins = require("gulp-load-plugins")({
 });
 
 var staticPath = 'MoneyKeeper/static/';
+var staticPathProd = 'staticdev/';
 var templatePath = 'templates/';
 var appAssetsTemplate = gulp.src(templatePath + 'app_assets.html');
 
@@ -45,7 +46,8 @@ var cssSrc = cssSrcThirdparty.concat([
 ]);
 
 var ignorePaths = [
-    staticPath
+    staticPath,
+    staticPathProd
 ];
 
 gulp.task('css', function () {
@@ -58,7 +60,7 @@ gulp.task('css', function () {
         .pipe(plugins.if(argv.production, plugins.concat('all.min.css')))
         .pipe(plugins.if(argv.production, plugins.minifyCss()))
         .pipe(cssFilter.restore)
-        .pipe(gulp.dest(staticPath + 'css'));
+        .pipe(gulp.dest(staticPathProd + 'css'));
     return appAssetsTemplate
         .pipe(plugins.inject(merge, {
             ignorePath: ignorePaths,
@@ -71,12 +73,12 @@ gulp.task('js', function () {
     var jsThirdparty = gulp.src(jsSrcThirdparty)
         .pipe(plugins.if(argv.production, plugins.concat('thirdparty.min.js')))
         .pipe(plugins.if(argv.production, plugins.uglify()))
-        .pipe(plugins.if(argv.production, gulp.dest(staticPath + 'js')));
+        .pipe(plugins.if(argv.production, gulp.dest(staticPathProd + 'js')));
 
     var jsProject = gulp.src(jsSrcProject)
         .pipe(plugins.if(argv.production, plugins.concat('project.min.js')))
         .pipe(plugins.if(argv.production, plugins.uglify()))
-        .pipe(plugins.if(argv.production, gulp.dest(staticPath + 'js')));
+        .pipe(plugins.if(argv.production, gulp.dest(staticPathProd + 'js')));
 
     return appAssetsTemplate
         .pipe(plugins.inject(jsThirdparty, {
@@ -94,7 +96,7 @@ gulp.task('js', function () {
 
 gulp.task('font', function () {
     return gulp.src(fonts)
-        .pipe(gulp.dest(staticPath + 'fonts'))
+        .pipe(gulp.dest(staticPathProd + 'fonts'))
 });
 
 gulp.task('build', ['css', 'js', 'font']);
