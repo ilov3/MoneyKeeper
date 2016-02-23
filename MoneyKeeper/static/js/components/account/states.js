@@ -16,7 +16,7 @@ angular.module('MoneyKeeper.states')
             .state({
                 name: 'accounts.add',
                 url: '/new',
-                onEnter: ['$state', '$uibModal', 'dataSvc', function ($state, $uibModal, dataSvc) {
+                onEnter: ['$state', '$uibModal', 'dataSvc', 'BaseModalSvc', function ($state, $uibModal, dataSvc, BaseModalSvc) {
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/addTemplate.html',
@@ -28,12 +28,13 @@ angular.module('MoneyKeeper.states')
                             }
                         }
                     });
+                    modalInstance.result.then(BaseModalSvc.onModalClose(dataSvc.getAccounts), BaseModalSvc.onModalClose(dataSvc.getAccounts))
                 }]
             })
             .state({
                 name: 'accounts.delete',
                 url: '/:id/delete',
-                onEnter: ['$state', '$stateParams', '$uibModal', 'dataSvc', function ($state, $stateParams, $uibModal, dataSvc) {
+                onEnter: ['$state', '$stateParams', '$uibModal', '$timeout', 'dataSvc', 'BaseModalSvc', function ($state, $stateParams, $uibModal, $timeout, dataSvc, BaseModalSvc) {
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/deleteTemplate.html',
@@ -43,9 +44,7 @@ angular.module('MoneyKeeper.states')
                             resource: dataSvc.account.retrieve({id: $stateParams.id})
                         }
                     });
-                    modalInstance.result.then(function () {
-                        dataSvc.getAccounts();
-                    });
+                    modalInstance.result.then(BaseModalSvc.onModalClose(dataSvc.getAccounts), BaseModalSvc.onModalClose(dataSvc.getAccounts))
                 }]
             })
     }]);

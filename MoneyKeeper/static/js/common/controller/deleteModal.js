@@ -12,7 +12,4 @@ function DeleteModalBaseController($scope, $uibModalInstance, $state, ngNotify, 
             $uibModalInstance.close();
         })
     };
-    $scope.$on('modal.closing', function () {
-        $state.go('^')
-    });
 }

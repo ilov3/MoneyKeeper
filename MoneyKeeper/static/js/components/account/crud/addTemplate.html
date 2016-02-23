@@ -3,10 +3,10 @@
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="addAccountCtrl.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm"></formly-form>
+        <formly-form model="addAccountCtrl.service.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm"></formly-form>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" ng-click="addAccountCtrl.submit()" ng-disabled="addAccountCtrl.addAccountForm.$invalid">Submit</button>
-    <button class="btn btn-warning" type="button" ng-click="addAccountCtrl.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="addAccountCtrl.service.submit()" ng-disabled="addAccountCtrl.addAccountForm.$invalid">Submit</button>
+    <button class="btn btn-warning" type="button" ng-click="addAccountCtrl.service.cancel()">Cancel</button>
 </div>

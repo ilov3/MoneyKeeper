@@ -68,6 +68,9 @@ angular.module('MoneyKeeper')
                     $rootScope.conf.username = response.username;
                 })
             };
+            authSvc.getUsername = function () {
+                return $rootScope.conf.username;
+            };
             authSvc.userIsUnique = function (username) {
                 var resource = dataSvc.user.exists({username: username});
                 return resource.$promise.then(function (response) {

@@ -2,42 +2,56 @@
 /**
  * __author__ = 'ilov3'
  */
-module.factory('BaseModalSvc', ['$timeout', function ($timeout) {
+function BaseModalSvc($timeout, $state) {
     var self = this;
+    self.modalInstance = null;
+    self.formData = null;
 
-    function setModalInstance(instance) {
-        self.instance = instance
-    }
-
-    function setFormData(formData) {
-        self.formData = formData
-    }
-
-    function cancel() {
-        $timeout(function () {
-            self.instance.close()
-        }, 500);
+    function onModalClose(cb) {
+        return function () {
+            $timeout(function () {
+                cb();
+                $state.go('^')
+            }, 500)
+        }
     }
 
     return {
-        setFormData: setFormData,
-        setModalInstance: setModalInstance,
-        cancel: cancel
+        onModalClose: onModalClose
     };
-}]);
+}
 
-module.factory('AddModalSvc', ['BaseModalSvc', function (BaseModalSvc) {
-    var service = Object.create(BaseModalSvc);
+BaseModalSvc.prototype.cancel = function () {
+    this.modalInstance.close()
+};
+
+function AddModalSvc(ngNotify, authSvc) {
+    angular.extend(AddModalSvc.prototype, BaseModalSvc);
     var self = this;
+    self.resource = null;
+    self.updateFunc = null;
 
-    service.submit = function () {
-        var payload = self.processFormData(self.formData);
-        payload.user = $scope.conf.username;
-        self.resource.save(payload).$promise.then(onSubmitSuccess);
-        if (!self.formData.addAnother) {
-            self.instance.close()
+    var onSubmitSuccess = function (data) {
+        if (data.$resolved) {
+            ngNotify.set(self.name + ' ' + self.formData.name + ' successfully added!', 'success')
         }
     };
 
-    return service
-}]);
+    this.submit = function (resource, processFormDataCb) {
+        var payload = processFormDataCb ? processFormDataCb(this.formData) : this.formData;
+        payload.user = authSvc.getUsername();
+        self.resource.save(payload).$promise.then(onSubmitSuccess);
+        if (!this.formData.addAnother) {
+            self.modalInstance.close()
+        }
+    };
+
+    this.cancel = function () {
+        BaseModalSvc.prototype.cancel.call(self)
+    };
+
+    return self
+}
+
+angular.module('MoneyKeeper.states').service('BaseModalSvc', ['$timeout', '$state', BaseModalSvc]);
+angular.module('MoneyKeeper.states').service('AddModalSvc', ['ngNotify', 'authSvc', AddModalSvc]);

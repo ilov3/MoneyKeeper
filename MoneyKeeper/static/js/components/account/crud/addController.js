@@ -2,11 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddAccountController($scope, $state, $uibModalInstance, dataSvc, update, ngNotify) {
-    AddModalBaseController.call(this);
-    this.name = 'Account';
-    this.resource = dataSvc.account;
-    this.updateFunc = update;
+function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
+    AddModalSvc.name = 'Account';
+    AddModalSvc.modalInstance = $uibModalInstance;
+    AddModalSvc.resource = dataSvc.account;
+    AddModalSvc.updateFunc = update;
+    this.service = AddModalSvc;
     this.formFields = [
         {
             key: 'name',
@@ -40,5 +41,4 @@ function AddAccountController($scope, $state, $uibModalInstance, dataSvc, update
     ]
 }
 
-AddAccountController.prototype = Object.create(AddModalBaseController.prototype);
-angular.module('MoneyKeeper.states').controller('AddAccountController', ['$scope', '$state', '$uibModalInstance', 'dataSvc', 'update', 'ngNotify', AddAccountController]);
+angular.module('MoneyKeeper.states').controller('AddAccountController', ['$uibModalInstance', 'AddModalSvc', 'dataSvc', 'update', AddAccountController]);
