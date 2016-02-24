@@ -11,12 +11,16 @@ angular.module('MoneyKeeper.states')
                 url: '/transaction',
                 templateUrl: componentPath + 'template.html',
                 controller: 'TransactionController',
-                controllerAs: 'transactionCtrl'
+                controllerAs: 'transactionCtrl',
+                data: {
+                    componentName: 'Transaction'
+                }
             })
             .state({
                 name: 'summary.addTransaction',
                 url: '/transaction/new',
                 onEnter: ['BaseModalSvc', '$uibModal', 'dataSvc', function (BaseModalSvc, $uibModal, dataSvc) {
+                    var modalSvc = new BaseModalSvc();
                     var updateFn = dataSvc.updateSummary;
                     var modalInstance = $uibModal.open({
                         animation: true,
@@ -29,7 +33,7 @@ angular.module('MoneyKeeper.states')
                             }
                         }
                     });
-                    modalInstance.result.then(BaseModalSvc.onModalClose(updateFn), BaseModalSvc.onModalClose(updateFn))
+                    modalInstance.result.then(modalSvc.onModalClose(updateFn), modalSvc.onModalClose(updateFn))
                 }]
             })
             .state({

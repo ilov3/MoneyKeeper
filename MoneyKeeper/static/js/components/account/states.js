@@ -11,12 +11,16 @@ angular.module('MoneyKeeper.states')
                 url: '/account',
                 templateUrl: componentPath + 'template.html',
                 controller: 'AccountController',
-                controllerAs: 'accountCtrl'
+                controllerAs: 'accountCtrl',
+                data: {
+                    componentName: 'Account'
+                }
             })
             .state({
                 name: 'accounts.add',
                 url: '/new',
                 onEnter: ['$uibModal', 'dataSvc', 'BaseModalSvc', function ($uibModal, dataSvc, BaseModalSvc) {
+                    var modalSvc = new BaseModalSvc();
                     var updateFn = dataSvc.getAccounts;
                     var modalInstance = $uibModal.open({
                         animation: true,
@@ -29,13 +33,15 @@ angular.module('MoneyKeeper.states')
                             }
                         }
                     });
-                    modalInstance.result.then(BaseModalSvc.onModalClose(updateFn), BaseModalSvc.onModalClose(updateFn))
+                    modalInstance.result.then(modalSvc.onModalClose(updateFn), modalSvc.onModalClose(updateFn))
                 }]
             })
             .state({
                 name: 'accounts.delete',
                 url: '/:id/delete',
                 onEnter: ['$stateParams', '$uibModal', 'dataSvc', 'BaseModalSvc', function ($stateParams, $uibModal, dataSvc, BaseModalSvc) {
+                    var modalSvc = new BaseModalSvc();
+                    var updateFn = dataSvc.getAccounts;
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/deleteTemplate.html',
@@ -45,7 +51,7 @@ angular.module('MoneyKeeper.states')
                             resource: dataSvc.account.retrieve({id: $stateParams.id})
                         }
                     });
-                    modalInstance.result.then(BaseModalSvc.onModalClose(dataSvc.getAccounts), BaseModalSvc.onModalClose(dataSvc.getAccounts))
+                    modalInstance.result.then(modalSvc.onModalClose(updateFn), modalSvc.onModalClose(updateFn))
                 }]
             })
     }]);

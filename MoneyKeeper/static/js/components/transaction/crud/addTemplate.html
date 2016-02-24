@@ -4,14 +4,14 @@
 <div class="modal-body">
     <form novalidate>
         <formly-form
-                model="addTransactionCtrl.formData"
+                model="addTransactionCtrl.service.formData"
                 fields="addTransactionCtrl.formFields"
                 form="addTransactionCtrl.addTransactionForm">
             <div class="modal-footer">
                 <button
                         type="submit"
                         class="btn btn-primary"
-                        ng-click="addTransactionCtrl.service.submit(addTransactionCtrl.formData, addTransactionCtrl.processFormData)"
+                        ng-click="addTransactionCtrl.service.submit(addTransactionCtrl.processFormData)"
                         ng-disabled="addTransactionCtrl.addTransactionForm.$invalid">
                     Submit
                 </button>

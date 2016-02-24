@@ -3,11 +3,11 @@
  * __author__ = 'ilov3'
  */
 function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) {
-    AddModalSvc.name = 'Category';
-    AddModalSvc.modalInstance = $uibModalInstance;
-    AddModalSvc.resource = dataSvc.category;
-    AddModalSvc.updateFn = update;
-    this.service = AddModalSvc;
+    var modalSvc = new AddModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = dataSvc.category;
+    modalSvc.updateFn = update;
+    this.service = modalSvc;
     this.formFields = [
         {
             key: 'name',

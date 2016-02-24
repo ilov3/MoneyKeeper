@@ -3,11 +3,11 @@
  * __author__ = 'ilov3'
  */
 function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, update) {
-    AddModalSvc.name = 'Transaction';
-    AddModalSvc.modalInstance = $uibModalInstance;
-    AddModalSvc.resource = dataSvc.transaction;
-    AddModalSvc.updateFn = update;
-    this.service = AddModalSvc;
+    var modalSvc = new AddModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = dataSvc.transaction;
+    modalSvc.updateFn = update;
+    this.service = modalSvc;
     this.processFormData = function (formData) {
         var payload = angular.copy(formData);
         payload.date = payload.date.toISOString().split('T')[0];

@@ -2,10 +2,16 @@
 /**
  * __author__ = 'ilov3'
  */
-function BaseModalSvc($timeout, $state) {
-    this.modalInstance = null;
+angular.module('MoneyKeeper.states').factory('BaseModalSvc', ['$timeout', '$state', function ($timeout, $state) {
+    var BaseModalSvc = function () {
+        this.modalInstance = null;
+    };
 
-    this.onModalClose = function (cb) {
+    BaseModalSvc.prototype.cancel = function () {
+        this.modalInstance.close();
+    };
+
+    BaseModalSvc.prototype.onModalClose = function (cb) {
         return function () {
             $timeout(function () {
                 cb();
@@ -14,11 +20,16 @@ function BaseModalSvc($timeout, $state) {
         }
     };
 
-    this.cancel = function () {
-        this.modalInstance.close()
+    BaseModalSvc.prototype.getComponentName = function () {
+        if ($state.current.hasOwnProperty('data') && 'componentName' in $state.current.data) {
+            return $state.current.data.componentName;
+        }
+        return 'Item';
     };
 
-    return this
+    return BaseModalSvc
 }
 
-angular.module('MoneyKeeper.states').service('BaseModalSvc', ['$timeout', '$state', BaseModalSvc]);
+]);
+
+

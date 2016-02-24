@@ -3,12 +3,12 @@
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="addAccountCtrl.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm">
+        <formly-form model="addAccountCtrl.service.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm">
             <div class="modal-footer">
                 <button
                         type="submit"
                         class="btn btn-primary"
-                        ng-click="addAccountCtrl.service.submit(addAccountCtrl.formData)"
+                        ng-click="addAccountCtrl.service.submit()"
                         ng-disabled="addAccountCtrl.addAccountForm.$invalid">
                     Submit
                 </button>

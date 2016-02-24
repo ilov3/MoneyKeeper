@@ -3,11 +3,11 @@
  * __author__ = 'ilov3'
  */
 function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
-    AddModalSvc.name = 'Account';
-    AddModalSvc.modalInstance = $uibModalInstance;
-    AddModalSvc.resource = dataSvc.account;
-    AddModalSvc.updateFn = update;
-    this.service = AddModalSvc;
+    var modalSvc = new AddModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = dataSvc.account;
+    modalSvc.updateFn = update;
+    this.service = modalSvc;
     this.formFields = [
         {
             key: 'name',
