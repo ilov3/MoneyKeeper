@@ -40,7 +40,7 @@ var jsSrcProject = [
 
 var cssSrc = cssSrcThirdparty.concat([
     staticPath + 'css/app_styles.css',
-    staticPath + 'thirdparty/bootstrap/dist/css/bootstrap-theme.css',
+    //staticPath + 'thirdparty/bootstrap/dist/css/bootstrap-theme.css',
     staticPath + 'thirdparty/angular-ui-grid/ui-grid.ttf',
     staticPath + 'thirdparty/angular-ui-grid/ui-grid.woff'
 ]);

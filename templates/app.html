@@ -4,6 +4,9 @@
         <body ng-app="MoneyKeeper" ng-controller="AppMainController">
         <nav class="navbar navbar-default">
             <span class="navbar-brand">Money Keeper</span>
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: state.current.name == tab.state}" ng-repeat="tab in tabs"><a ui-sref="{{ tab.state }}" ng-bind="tab.title"></a></li>
+            </ul>
             <ul class="nav navbar-nav pull-right">
                 <li><a title="Your username" ng-bind="conf.username"></a></li>
                 <li><a ng-hide="conf.username" ng-click="login()" href="">Log in</a></li>
@@ -11,9 +14,6 @@
                 <li><a title="About this project" href="/about">About</a></li>
             </ul>
         </nav>
-        <uib-tabset>
-            <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
-        </uib-tabset>
         <ui-view></ui-view>
         </body>
     {% endverbatim %}

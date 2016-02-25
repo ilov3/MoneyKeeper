@@ -41,6 +41,12 @@ angular.module('MoneyKeeper', [
             extends: 'select',
             templateUrl: '/static/partials/ui-select-single.html'
         });
+        formlyConfig.setType({
+            name: 'checkbox',
+            templateUrl: '/static/partials/formly-checkbox.html',
+            "wrapper": ["bootstrapHasError"],
+            overwriteOk: true
+        });
     }])
     .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', 'ngNotify', AppMainController]);
 
@@ -68,6 +74,7 @@ function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
         {title: 'Categories', state: 'categories'},
         {title: 'Accounts', state: 'accounts'}
     ];
+    $scope.state = $state;
     $scope.logout = function () {
         authSvc.logout();
     };

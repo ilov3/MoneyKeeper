@@ -4,7 +4,6 @@
 
 .grid {
     margin: 40px 20px;
-    height: 750px;
 }
 
 .green {
@@ -15,8 +14,13 @@
     color: red;
 }
 
-button.delete-button {
+span.delete-button {
+    display: block;
+    text-align: center;
     color: black;
+    position: relative;
+    top: 20%;
+    /*margin-right: auto;*/
 }
 
 div.modal-body.pie-chart {

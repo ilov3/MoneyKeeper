@@ -19,13 +19,13 @@ function ChartController($scope, dataSvc, $window) {
             {
                 y: 'income',
                 type: 'column',
-                color: 'green',
+                color: 'forestgreen',
                 label: 'Income'
             },
             {
                 y: 'expense',
                 type: 'column',
-                color: 'red',
+                color: 'crimson',
                 label: 'Expense'
             },
             {

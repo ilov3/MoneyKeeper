@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-function TransactionController($scope, $state, dataSvc) {
+function TransactionController($scope, $state, $window, dataSvc) {
     BaseGridController.call(this);
     var self = this;
     this.datePickerOptions = {
@@ -65,8 +65,8 @@ function TransactionController($scope, $state, dataSvc) {
             enableColumnMenu: false,
             enableSorting: false,
             headerCellTemplate: '<div></div>',
-            cellTemplate: '<button class="btn btn-sm btn-default delete-button" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">' +
-            '<i class="glyphicon glyphicon-trash"></i></button>'
+            cellTemplate: '<span class="delete-button"><a href="" ng-click="grid.appScope.transactionCtrl.deleteRow(row)">' +
+            '<i class="glyphicon glyphicon-trash"></i></a></span>'
         });
         columns.forEach(function (column) {
             if (column.type == 'date') {
@@ -82,8 +82,12 @@ function TransactionController($scope, $state, dataSvc) {
         $state.go('transactions.delete', {id: row.entity.id})
     };
 
+    this.getTableHeight = function () {
+        return {height: $window.innerHeight * 0.85}
+    };
+
     this.setGridData();
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
-angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', 'dataSvc', TransactionController]);
+angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', '$window', 'dataSvc', TransactionController]);
