@@ -41,13 +41,13 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
         },
         {
             key: 'category',
-            type: 'ui-select-single',
+            type: 'select',
             hideExpression: 'model.kind == "trn"',
             templateOptions: {
-                optionsAttr: 'bs-options',
+                //optionsAttr: 'bs-options',
                 label: 'Category',
                 options: dataSvc.results.categories,
-                ngOptions: 'option.name as option in to.options ' +
+                ngOptions: 'option.name as option.name for option in to.options ' +
                 '| filter: {kind: model.kind} ' +
                 '| filter: {is_shown: true} ' +
                 '| filter: $select.search ' +
