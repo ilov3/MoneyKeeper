@@ -3,16 +3,8 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states', [])
-    .config(['$stateProvider', 'AppConstants', function ($stateProvider, AppConstants) {
-        var componentsPath = AppConstants.componentsPath;
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state({
-                name: 'summary',
-                url: '/summary',
-                templateUrl: componentsPath + 'summary/template.html',
-                controller: 'SummaryController',
-                controllerAs: 'summaryCtrl'
-            })
             .state({
                 name: 'empty',
                 url: '/',

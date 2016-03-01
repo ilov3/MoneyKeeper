@@ -1,0 +1,9 @@
+<h2>Report</h2>
+<div class="summary-chart" ng-controller="ChartController as chartCtrl">
+    <linechart
+            data="chartCtrl.data.stats"
+            options="chartCtrl.options"
+            on-click="summaryCtrl.showDetailChart"
+            height="{{ chartCtrl.height }}">
+    </linechart>
+</div>
