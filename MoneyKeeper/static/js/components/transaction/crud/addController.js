@@ -13,6 +13,10 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
         payload.date = payload.date.toISOString().split('T')[0];
         return payload
     };
+    var amountIsValid = function ($viewValue, $modelValue, scope) {
+        var value = $viewValue || $modelValue;
+        return /[0-9/*-+]+/.test(value)
+    };
     this.formFields = [
         {
             key: 'date',
@@ -89,12 +93,16 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             }
         },
         {
-            key: 'amount',
-            type: 'input',
+            key: '_amount',
+            type: 'calcInput',
             templateOptions: {
-                type: 'number',
+                type: 'text',
+                binding: 'amount',
                 label: 'Amount',
                 required: true
+            },
+            validators: {
+                _amount: amountIsValid
             }
         },
         {

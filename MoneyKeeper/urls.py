@@ -17,7 +17,7 @@ router.register(r'user', viewset=UserViewSet, base_name='user')
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='app.html')),
     url(r'^about$', TemplateView.as_view(template_name='landing.html')),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
     url(r'^password/reset/$', PasswordResetView.as_view(), name='password_reset'),
     url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.password_reset_confirm, {'post_reset_redirect': '/user/password/done/'}, name='password_reset_confirm'),

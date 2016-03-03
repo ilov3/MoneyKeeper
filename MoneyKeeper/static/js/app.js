@@ -44,9 +44,23 @@ angular.module('MoneyKeeper', [
         formlyConfig.setType({
             name: 'checkbox',
             templateUrl: '/static/partials/formly-checkbox.html',
-            "wrapper": ["bootstrapHasError"],
+            "wrapper": ['bootstrapHasError'],
             overwriteOk: true
         });
+        formlyConfig.setType({
+            name: 'calcInput',
+            wrapper: ['bootstrapLabel', 'bootstrapHasError'],
+            templateUrl: '/static/partials/formly-calc-input.html',
+            controller: ['$scope', function ($scope) {
+                $scope.calc = function (expr) {
+                    try {
+                        var pure = expr.replace(/[^-()\d/*+.]/g, '');
+                        $scope.model[$scope.to.binding] = $scope.$eval(pure);
+                    } catch (err) {
+                    }
+                };
+            }]
+        })
     }])
     .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', 'ngNotify', AppMainController]);
 
