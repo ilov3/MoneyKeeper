@@ -14,16 +14,16 @@ logger = logging.getLogger(__name__)
 
 
 def transfer_transaction_is_valid(value):
-    if value['kind'] == 'trn':
+    if value.get('kind', None) == 'trn':
         if not value['transfer_to_account']:
             raise serializers.ValidationError('Endpoint account for transaction not provided!')
 
 
 def income_expense_transaction_is_valid(value):
-    if value['kind'] in ('inc', 'exp'):
-        if not value['category']:
+    if value.get('kind', None) in ('inc', 'exp'):
+        if not value.get('category', None):
             raise serializers.ValidationError('Category field is necessary for this transaction kind(income)!')
-        if value['transfer_to_account']:
+        if value.get('transfer_to_account', None):
             raise serializers.ValidationError(
                     'Transfer_to_account field is unacceptable for this transaction kind(income)! Transfer_to_account was "%s".' % value['transfer_to_account'])
 
