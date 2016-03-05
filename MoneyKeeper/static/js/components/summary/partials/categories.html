@@ -4,9 +4,9 @@
 
         <div class="repeated-item" ng-repeat="(group, categories) in summaryCtrl.results.categories | groupBy: 'kind_display'">
             <div class="row">
-                <div class="col-md-6"><h4>{{ group }}</h4></div>
-                <div ng-if="$index == 0" class="col-md-3"><h5 class="pull-right">{{ summaryCtrl.mon | date: "MMMM" }}</h5></div>
-                <div ng-if="$index == 0" class="col-md-3"><h5 class="pull-right">{{ summaryCtrl.prevMon | date: "MMMM" }}</h5></div>
+                <div class="col-sm-6"><h4>{{ group }}</h4></div>
+                <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.mon | date: "MMMM" }}</h5></div>
+                <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.prevMon | date: "MMMM" }}</h5></div>
             </div>
 
             <div class="row"
