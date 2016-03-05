@@ -14,6 +14,22 @@ angular.module('MoneyKeeper.states')
                 controllerAs: 'transactionCtrl',
                 data: {
                     componentName: 'Transaction'
+                },
+                resolve: {
+                    '1': ['dataSvc', '$q', function (dataSvc, $q) {
+                        if (!dataSvc.results.categories.length) {
+                            var deferred = $q.defer();
+                            dataSvc.getCategories(deferred);
+                            return deferred.promise
+                        }
+                    }],
+                    '2': ['dataSvc', '$q', function (dataSvc, $q) {
+                        if (!dataSvc.results.accounts.length) {
+                            var deferred = $q.defer();
+                            dataSvc.getAccounts(deferred);
+                            return deferred.promise
+                        }
+                    }]
                 }
             })
             .state({

@@ -64,15 +64,24 @@ angular.module('MoneyKeeper')
                 })
         };
 
-        Data.getCategories = function () {
-            Data.category.query({}, function (response) {
+        Data.getCategories = function (deferred) {
+            return Data.category.query({}, function (response) {
+                if (deferred) deferred.resolve();
                 Data.results.categories = response
             })
         };
 
-        Data.getAccounts = function () {
-            Data.account.query({}, function (response) {
+        Data.getAccounts = function (deferred) {
+            return Data.account.query({}, function (response) {
+                if (deferred) deferred.resolve();
                 Data.results.accounts = response
+            })
+        };
+
+
+        Data.getNames = function (resourceList) {
+            return resourceList.map(function (elem) {
+                return elem.name
             })
         };
 

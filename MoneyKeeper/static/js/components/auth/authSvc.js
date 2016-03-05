@@ -120,7 +120,7 @@ angular.module('MoneyKeeper')
 
         interceptor.responseError = function (error) {
             var message = getMessages(error);
-            getNgNotify().set(message, 'error');
+            getNgNotify().set(message, {type: 'error', duration: 8000});
             return $q.reject(error);
         };
         return interceptor

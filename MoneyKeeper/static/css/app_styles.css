@@ -1,17 +1,13 @@
-.nav-tabs {
-    margin-top: 10px;
-}
-
 .grid {
-    margin: 40px 20px;
+    margin: 0 20px;
 }
 
 .green {
-    color: green;
+    color: #237D0F;
 }
 
 .red {
-    color: red;
+    color: #af2626;
 }
 
 span.delete-button {
