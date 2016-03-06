@@ -25,6 +25,7 @@ function TransactionController($scope, $state, $window, dataSvc, ngNotify) {
         var saveRow = function (rowEntity) {
             var deferred = dataSvc.transaction.update(rowEntity);
             deferred.$promise.then(function(){
+                dataSvc.getHistory();
                 ngNotify.set('Transaction #' + rowEntity.id + ' successfully updated!', 'success');
             });
             self.gridApi.rowEdit.setSavePromise(rowEntity, deferred.$promise);
