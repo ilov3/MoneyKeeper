@@ -65,9 +65,9 @@ angular.module('MoneyKeeper', [
             }]
         })
     }])
-    .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', 'ngNotify', AppMainController]);
+    .controller('AppMainController', ['$scope', '$uibModal', '$state', 'authSvc', 'ngNotify', 'dataSvc', AppMainController]);
 
-function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
+function AppMainController($scope, $uibModal, $state, authSvc, ngNotify, dataSvc) {
     var self = this;
     this.loginDialogIsOpened = 0;
     var loginRequired = function () {
@@ -91,11 +91,17 @@ function AppMainController($scope, $uibModal, $state, authSvc, ngNotify) {
         {title: 'Categories', state: 'categories'},
         {title: 'Accounts', state: 'accounts'}
     ];
+    $scope.iconMap = {
+        addition: 'glyphicon glyphicon-plus',
+        change: 'glyphicon glyphicon-pencil',
+        deletion: 'glyphicon glyphicon-trash'
+    };
     $scope.state = $state;
     $scope.logout = function () {
         authSvc.logout();
     };
     $scope.login = loginRequired;
+    $scope.dataSvc = dataSvc;
     $scope.$on('event:auth-loginRequired', function () {
         if (!self.loginDialogIsOpened) loginRequired();
         self.loginDialogIsOpened = 1;

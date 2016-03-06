@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from MoneyKeeper.models import Category, Account, Transaction
 from MoneyKeeper.models.transaction import TRANSACTION_KINDS
+from MoneyKeeper.models.utils import log_addition, log_change
 from MoneyKeeper.serializers.fields import UserField, CategoryField, AccountField
 from MoneyKeeper.serializers.mixins import GridSchemaMixin
 
@@ -57,3 +58,13 @@ class TransactionSerializer(GridSchemaMixin, serializers.ModelSerializer):
     def get_category_or_transfer_to(self, obj):
         res = obj.category or obj.transfer_to_account
         return res.name
+
+    def create(self, validated_data):
+        instance = super(TransactionSerializer, self).create(validated_data)
+        log_addition(self.context['request'], instance)
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super(TransactionSerializer, self).update(instance, validated_data)
+        log_change(self.context['request'], instance)
+        return instance

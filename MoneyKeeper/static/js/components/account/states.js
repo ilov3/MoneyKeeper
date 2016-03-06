@@ -21,7 +21,10 @@ angular.module('MoneyKeeper.states')
                 url: '/new',
                 onEnter: ['$uibModal', 'dataSvc', 'BaseModalSvc', function ($uibModal, dataSvc, BaseModalSvc) {
                     var modalSvc = new BaseModalSvc();
-                    var updateFn = dataSvc.getAccounts;
+                    var updateFn = function () {
+                        dataSvc.getAccounts();
+                        dataSvc.getHistory();
+                    };
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/addTemplate.html',
@@ -41,7 +44,10 @@ angular.module('MoneyKeeper.states')
                 url: '/:id/delete',
                 onEnter: ['$stateParams', '$uibModal', 'dataSvc', 'BaseModalSvc', function ($stateParams, $uibModal, dataSvc, BaseModalSvc) {
                     var modalSvc = new BaseModalSvc();
-                    var updateFn = dataSvc.getAccounts;
+                    var updateFn = function () {
+                        dataSvc.getAccounts();
+                        dataSvc.getHistory();
+                    };
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: componentPath + 'crud/deleteTemplate.html',

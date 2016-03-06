@@ -1,0 +1,7 @@
+<div>
+    <span class="history-entry" ng-repeat="entry in dataSvc.results.history">
+        <p><span ng-class="entry.action_type">
+            <i ng-class="iconMap[entry.action_type]"></i>
+        </span>{{ entry.action_time|date:"dd.MM.yy h:mm" }} {{ entry.content_type }} {{ entry.object_repr }}</p>
+    </span>
+</div>

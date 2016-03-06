@@ -10,6 +10,7 @@ angular.module('MoneyKeeper')
                 accounts: [],
                 stats: [],
                 monthDetails: [],
+                history: [],
                 income: null,
                 expense: null
             },
@@ -37,6 +38,9 @@ angular.module('MoneyKeeper')
             }),
             user: $resource('/api/user/:id/:action/', {}, {
                 exists: {method: 'GET', params: {action: 'exists', username: '@username', email: '@email'}, isArray: false}
+            }),
+            history: $resource('/api/history/', {}, {
+                query: {method: 'GET', isArray: false}
             }),
             tokenAuth: $resource('/api/token-auth/', {}, {
                 login: {method: 'POST', isArray: false}
@@ -78,10 +82,15 @@ angular.module('MoneyKeeper')
             })
         };
 
-
         Data.getNames = function (resourceList) {
             return resourceList.map(function (elem) {
                 return elem.name
+            })
+        };
+
+        Data.getHistory = function () {
+            Data.history.query({}, function (response) {
+                Data.results.history = response.results;
             })
         };
 
@@ -121,6 +130,7 @@ angular.module('MoneyKeeper')
             var lastDay = dateFuncs.getLastDay(date);
             Data.getAccounts();
             Data.getCategories();
+            Data.getHistory();
             Data.getStats();
             Data.getIncome(firstDay, lastDay);
             Data.getExpense(firstDay, lastDay);

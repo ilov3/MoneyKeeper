@@ -54,7 +54,11 @@ class Transaction(models.Model):
     objects = TransactionQuerySet.as_manager()
 
     def __unicode__(self):
-        return u'%s::%s::%s::%s' % (self.account, self.kind, self.category, self.amount)
+        if self.kind != 'inc':
+            repr = u'%s %s > %s %s' % (self.date, self.account, self.category if self.category else self.transfer_to_account, self.amount)
+        else:
+            repr = u'%s %s < %s %s' % (self.date, self.account, self.category, self.amount)
+        return repr
 
     class Meta:
         ordering = ['-date', '-amount']

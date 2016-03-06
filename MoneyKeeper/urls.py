@@ -5,7 +5,7 @@ from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 
 from MoneyKeeper.views.userViewSet import ObtainJSONWebToken, PasswordResetView, password_reset_success
-from views import TransactionViewSet, AccountViewSet, CategoryViewSet, UserViewSet, ConfViewSet
+from views import TransactionViewSet, AccountViewSet, CategoryViewSet, UserViewSet, ConfViewSet, LogEntryViewSet
 
 router = DefaultRouter()
 
@@ -13,6 +13,7 @@ router.register(r'transaction', viewset=TransactionViewSet, base_name='transacti
 router.register(r'category', viewset=CategoryViewSet, base_name='category')
 router.register(r'account', viewset=AccountViewSet, base_name='account')
 router.register(r'user', viewset=UserViewSet, base_name='user')
+router.register(r'history', viewset=LogEntryViewSet, base_name='history')
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='app.html')),

@@ -5,6 +5,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from MoneyKeeper.models.utils import log_deletion
 from MoneyKeeper.serializers import TransactionSerializer
 from MoneyKeeper.utils.common_utils import to_pydate
 from MoneyKeeper.views.filters import TransactionFilter
@@ -20,6 +21,10 @@ class TransactionViewSet(FilterQuerySetMixin,
     serializer_class = TransactionSerializer
     metadata_class = GridMetadata
     filter_class = TransactionFilter
+
+    def perform_destroy(self, instance):
+        log_deletion(self.request, instance)
+        super(TransactionViewSet, self).perform_destroy(instance)
 
     @list_route()
     def amount(self, request):

@@ -2,5 +2,4 @@
 <h4 ng-repeat="account in summaryCtrl.results.accounts | filter: {is_shown: 'true'}">{{ account.name }}: {{ account.get_balance | currency:"" }}</h4>
 
 <h3>Total: {{ summaryCtrl.getTotal() | currency:""}}</h3>
-<br>
 <a href="" ui-sref="accounts.add">Add account</a>

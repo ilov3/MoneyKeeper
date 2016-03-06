@@ -19,7 +19,8 @@
             <a href="" ng-if="categories.length > summaryCtrl.limit" ng-click="summaryCtrl.limit = categories.length">More</a>
             <a href="" ng-if="categories.length == summaryCtrl.limit && categories.length > 5" ng-click="summaryCtrl.limit = 5">Less</a>
         </div>
-        <br>
-        <a href="" ui-sref="categories.add">Add category</a>
+        <div style="margin-top: 10px;">
+            <a href="" ui-sref="categories.add">Add category</a>
+        </div>
     </div>
 </div>

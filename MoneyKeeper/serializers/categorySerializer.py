@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from MoneyKeeper.models import Category
+from MoneyKeeper.models.utils import log_addition, log_change
 from MoneyKeeper.serializers.fields import UserField
 from MoneyKeeper.serializers.mixins import GridSchemaMixin
 
@@ -29,3 +30,13 @@ class CategorySerializer(GridSchemaMixin, serializers.ModelSerializer):
                 fields=('user', 'name', 'kind')
             )
         ]
+
+    def create(self, validated_data):
+        instance = super(CategorySerializer, self).create(validated_data)
+        log_addition(self.context['request'], instance)
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super(CategorySerializer, self).update(instance, validated_data)
+        log_change(self.context['request'], instance)
+        return instance

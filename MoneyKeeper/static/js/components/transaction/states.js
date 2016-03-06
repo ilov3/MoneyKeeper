@@ -65,6 +65,7 @@ angular.module('MoneyKeeper.states')
                     var successCallback = function () {
                         var index = gridOptions.data.indexOf(row.entity);
                         gridOptions.data.splice(index, 1);
+                        dataSvc.getHistory();
                         ngNotify.set('Transaction #' + row.entity.id + ' successfully deleted.', 'success');
                         modalInstance.close()
                     };

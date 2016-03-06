@@ -34,6 +34,52 @@ div.category-element {
     margin-left: 3px;
 }
 
+.popover {
+    max-width: 450px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 300;
+}
+
+.history-entry i {
+    margin-right: 5px;
+}
+
+.deletion {
+    color: #af2626;
+}
+
+.change {
+    color: #afab20;
+}
+
+.addition {
+    color: #5FA95F;
+}
+
+.popover p {
+    white-space: nowrap;
+}
+
+div.popover-content {
+    background-color: #EEEEEE;
+    color: #333333;
+    overflow: scroll;
+    max-height: 450px;
+}
+
+h3.popover-title {
+    background-color: #727272;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.form-group {
+    padding-bottom: 5px;
+    margin: 0;
+}
+
 /*ngAnimate*/
 .repeated-item.ng-enter, .repeated-item.ng-move {
     -webkit-transition: 0.5s linear all;

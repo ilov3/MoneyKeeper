@@ -8,6 +8,15 @@
                 <li ng-class="{active: state.current.name == tab.state}" ng-repeat="tab in tabs"><a ui-sref="{{ tab.state }}" ng-bind="tab.title"></a></li>
             </ul>
             <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a class="cursor-pointer"
+                       uib-popover-template="'/static/partials/recent-actions-popover.html'"
+                       popover-title="Recent actions"
+                       popover-trigger="outsideClick"
+                       popover-placement="bottom">
+                        Recent actions
+                    </a>
+                </li>
                 <li><a title="Your username" ng-bind="conf.username"></a></li>
                 <li><a ng-hide="conf.username" ng-click="login()" href="">Log in</a></li>
                 <li><a ng-show="conf.username" ng-click="logout()" href="">Logout</a></li>
