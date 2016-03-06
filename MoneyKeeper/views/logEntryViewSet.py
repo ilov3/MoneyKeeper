@@ -15,4 +15,4 @@ class LogEntryViewSet(FilterQuerySetMixin,
     serializer_class = LogEntrySerializer
 
     def get_queryset(self):
-        return super(LogEntryViewSet, self).get_queryset().exclude(content_type__model='user')[:20]
+        return super(LogEntryViewSet, self).get_queryset().exclude(content_type__model='user')[:15]

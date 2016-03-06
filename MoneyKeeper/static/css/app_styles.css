@@ -44,6 +44,13 @@ div.category-element {
     margin-right: 5px;
 }
 
+span.mini {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 10px;
+    color: #999;
+}
+
 .deletion {
     color: #af2626;
 }
@@ -58,13 +65,14 @@ div.category-element {
 
 .popover p {
     white-space: nowrap;
+    margin-bottom: 4px;
 }
 
 div.popover-content {
     background-color: #EEEEEE;
     color: #333333;
-    overflow: scroll;
-    max-height: 450px;
+    overflow: hidden;
+    max-height: 750px;
 }
 
 h3.popover-title {
