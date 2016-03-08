@@ -4,7 +4,6 @@
  */
 function LoginController(authSvc, $uibModal, $uibModalInstance) {
     var self = this;
-    this.heading = 'Login';
     this.switchToRegister = function () {
         var modalInstance = $uibModal.open({
             animation: true,
@@ -43,6 +42,9 @@ function LoginController(authSvc, $uibModal, $uibModalInstance) {
                 label: 'Login',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"username" | translate'
             }
         },
         {
@@ -53,6 +55,9 @@ function LoginController(authSvc, $uibModal, $uibModalInstance) {
                 label: 'Password',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"password" | translate'
             }
         }
     ]

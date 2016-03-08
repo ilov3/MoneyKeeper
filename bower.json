@@ -33,6 +33,7 @@
     "n3-line-chart": "~1.x",
     "ng-notify": "~0.x",
     "angularjs-nvd3-directives": "~0.x",
-    "bootstrap-material-design": "~0.x"
+    "bootstrap-material-design": "~0.x",
+    "angular-translate": "~2.10.0"
   }
 }

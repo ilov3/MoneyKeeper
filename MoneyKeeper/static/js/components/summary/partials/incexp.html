@@ -1,4 +1,4 @@
-<h2>Income/Expense</h2>
-<h4>Income: {{ summaryCtrl.results.income | currency:"" }}</h4>
-<h4>Expense: {{ summaryCtrl.results.expense | currency:"" }}</h4>
-<a href="" ui-sref="summary.addTransaction">Add transaction</a>
+<h2>{{ 'income' | translate }}/{{ 'expense' | translate }}</h2>
+<h4>{{ 'income' | translate }}: {{ summaryCtrl.results.income | currency:"" }}</h4>
+<h4>{{ 'expense' | translate }}: {{ summaryCtrl.results.expense | currency:"" }}</h4>
+<a href="" ui-sref="summary.addTransaction">{{ 'add' | translate }} {{ 'transactions' | translate | lowercase }}</a>

@@ -4,7 +4,6 @@
  */
 function PasswordResetController(authSvc, $uibModalInstance) {
     var self = this;
-    this.heading = 'Provide e-mail address:';
     this.formFields = [
         {
             key: 'email',

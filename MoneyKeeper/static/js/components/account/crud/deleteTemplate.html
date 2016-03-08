@@ -1,11 +1,10 @@
 <div class="modal-header">
-    <h3 class="modal-title">Delete account "{{ deleteAccountCtrl.service.resource.name }}"</h3>
+    <h3 class="modal-title">{{ 'delete' | translate }} {{ 'account' | translate | lowercase}} "{{ deleteAccountCtrl.service.resource.name }}"</h3>
 </div>
 <div class="modal-body">
-    <p>Do you really want to delete this Account?</p>
-    <p>All transactions which have relations to this account will be also removed!</p>
+    <p translate="deleteMsgWarn" translate-values="{value: deleteAccountCtrl.service.resource.name}"></p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm btn-default" ng-click="deleteAccountCtrl.service.confirm()">Yes</button>
-    <button class="btn btn-sm btn-default" type="button" ng-click="deleteAccountCtrl.service.cancel()">No</button>
+    <button class="btn btn-sm btn-default" ng-click="deleteAccountCtrl.service.confirm()">{{ 'yes' | translate }}</button>
+    <button class="btn btn-sm btn-default" type="button" ng-click="deleteAccountCtrl.service.cancel()">{{ 'no' | translate }}</button>
 </div>

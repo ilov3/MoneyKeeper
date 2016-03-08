@@ -56,6 +56,9 @@ function RegisterController(authSvc, $uibModalInstance) {
                 isUnique: {
                     expression: userIsUnique
                 }
+            },
+            expressionProperties: {
+                'templateOptions.label': '"username" | translate'
             }
         },
         {
@@ -66,6 +69,9 @@ function RegisterController(authSvc, $uibModalInstance) {
                 label: 'Password',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"password" | translate'
             }
         },
         {
@@ -81,6 +87,9 @@ function RegisterController(authSvc, $uibModalInstance) {
                 isSame: function ($viewValue, $modelValue, scope) {
                     return $viewValue == scope.model.password
                 }
+            },
+            expressionProperties: {
+                'templateOptions.label': '"confirmPassword" | translate'
             }
         }
     ]

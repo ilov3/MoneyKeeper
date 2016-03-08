@@ -27,6 +27,9 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
                 label: 'Date',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"date" | translate'
             }
         },
         {
@@ -41,6 +44,12 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
                     {name: 'Income', value: 'inc'},
                     {name: 'Transfer', value: 'trn'}
                 ]
+            },
+            expressionProperties: {
+                'templateOptions.label': '"kind" | translate',
+                'templateOptions.options[0].name': '"expense" | translate',
+                'templateOptions.options[1].name': '"income" | translate',
+                'templateOptions.options[2].name': '"transfer" | translate'
             }
         },
         {
@@ -48,7 +57,6 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             type: 'select',
             hideExpression: 'model.kind == "trn"',
             templateOptions: {
-                //optionsAttr: 'bs-options',
                 label: 'Category',
                 options: dataSvc.results.categories,
                 ngOptions: 'option.name as option.name for option in to.options ' +
@@ -59,7 +67,8 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind != "trn"',
-                "templateOptions.disabled": 'model.kind == "trn" ? model.category = "" : ""'
+                "templateOptions.disabled": 'model.kind == "trn" ? model.category = "" : ""',
+                "templateOptions.label": '"category" | translate'
             }
         },
         {
@@ -76,7 +85,8 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             },
             expressionProperties: {
                 "templateOptions.required": 'model.kind == "trn"',
-                "templateOptions.disabled": 'model.kind != "trn" ? model.transfer_to_account = "" : ""'
+                "templateOptions.disabled": 'model.kind != "trn" ? model.transfer_to_account = "" : ""',
+                "templateOptions.label": '"transferTo" | translate'
             }
         },
         {
@@ -90,6 +100,9 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
                 '| filter: {is_shown: true} ' +
                 '| excludeFrom: model.transfer_to_account ' +
                 '| orderBy: "name"'
+            },
+            expressionProperties: {
+                "templateOptions.label": '"account" | translate'
             }
         },
         {
@@ -103,6 +116,9 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             },
             validators: {
                 _amount: amountIsValid
+            },
+            expressionProperties: {
+                "templateOptions.label": '"amount" | translate'
             }
         },
         {
@@ -112,6 +128,9 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
                 type: 'text',
                 label: 'Comment',
                 required: false
+            },
+            expressionProperties: {
+                "templateOptions.label": '"comment" | translate'
             }
         },
         {
@@ -120,6 +139,9 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
             templateOptions: {
                 label: 'Add another',
                 required: false
+            },
+            expressionProperties: {
+                "templateOptions.label": '"addAnother" | translate'
             }
         }
     ]

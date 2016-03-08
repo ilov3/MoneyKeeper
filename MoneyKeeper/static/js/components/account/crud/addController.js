@@ -17,6 +17,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
                 label: 'Name',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"name" | translate'
             }
         },
         {
@@ -28,6 +31,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
                 label: 'Opening',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"opening" | translate'
             }
         },
         {
@@ -36,6 +42,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
             templateOptions: {
                 label: 'Add another',
                 required: false
+            },
+            expressionProperties: {
+                'templateOptions.label': '"addAnother" | translate'
             }
         }
     ]

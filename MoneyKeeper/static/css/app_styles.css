@@ -36,6 +36,7 @@ div.category-element {
 
 .popover {
     max-width: 450px;
+    min-width: 200px;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 300;
 }
@@ -86,6 +87,15 @@ h3.popover-title {
 .form-group {
     padding-bottom: 5px;
     margin: 0;
+}
+
+.dropdown-menu.lang-select {
+    min-width: 0;
+}
+
+.checkbox {
+    margin-top:5px;
+    margin-bottom: 5px;
 }
 
 /*ngAnimate*/

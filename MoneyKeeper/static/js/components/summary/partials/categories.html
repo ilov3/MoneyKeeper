@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <h2>Categories</h2>
+        <h2>{{ 'categories' | translate }}</h2>
 
         <div class="repeated-item" ng-repeat="(group, categories) in summaryCtrl.results.categories | groupBy: 'kind_display'">
             <div class="row">
-                <div class="col-sm-6"><h4>{{ group }}</h4></div>
+                <div class="col-sm-6"><h4>{{ group | lowercase | translate }}</h4></div>
                 <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.mon | date: "MMMM" }}</h5></div>
                 <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.prevMon | date: "MMMM" }}</h5></div>
             </div>
@@ -16,11 +16,11 @@
                 <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount | currency:"" }}</span></div>
                 <div class="col-sm-3"><span class="pull-right">{{ category.get_transactions_amount_last_month | currency: "" }}</span></div>
             </div>
-            <a href="" ng-if="categories.length > summaryCtrl.limit" ng-click="summaryCtrl.limit = categories.length">More</a>
-            <a href="" ng-if="categories.length == summaryCtrl.limit && categories.length > 5" ng-click="summaryCtrl.limit = 5">Less</a>
+            <a href="" ng-if="categories.length > summaryCtrl.limit" ng-click="summaryCtrl.limit = categories.length">{{ 'more' | translate }}</a>
+            <a href="" ng-if="categories.length == summaryCtrl.limit && categories.length > 5" ng-click="summaryCtrl.limit = 5">{{ 'less' | translate }}</a>
         </div>
         <div style="margin-top: 10px;">
-            <a href="" ui-sref="categories.add">Add category</a>
+            <a href="" ui-sref="categories.add">{{ 'add' | translate }} {{ 'categories' | translate | lowercase }}</a>
         </div>
     </div>
 </div>
