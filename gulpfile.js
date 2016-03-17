@@ -25,7 +25,9 @@ var cssPathTransform = function (filepath) {
 };
 
 var jsSrcThirdparty = plugins.mainBowerFiles('**/*.js');
+jsSrcThirdparty.push('node_modules/n3-charts/build/LineChart.js');
 var cssSrcThirdparty = plugins.mainBowerFiles('**/*.css');
+cssSrcThirdparty.push('node_modules/n3-charts/build/LineChart.css');
 var lessSrcThirdparty = plugins.mainBowerFiles('**/*.less');
 var fonts = plugins.mainBowerFiles(['**/*.woff', '**/*.woff2', '**/*.ttf']).concat([
     staticPath + 'thirdparty/bootstrap/fonts/glyphicons-halflings-regular.woff2'
@@ -47,7 +49,8 @@ var cssSrc = cssSrcThirdparty.concat([
 
 var ignorePaths = [
     staticPath,
-    staticPathProd
+    staticPathProd,
+    'node_modules'
 ];
 
 gulp.task('css', function () {

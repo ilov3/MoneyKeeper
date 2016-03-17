@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 
-from MoneyKeeper.views.userViewSet import ObtainJSONWebToken, PasswordResetView, password_reset_success
+from MoneyKeeper.views.userViewSet import ObtainJSONWebToken, PasswordResetView, password_reset_success, auth_token_redirect
 from views import TransactionViewSet, AccountViewSet, CategoryViewSet, UserViewSet, ConfViewSet, LogEntryViewSet
 
 router = DefaultRouter()
@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api/token-auth/', ObtainJSONWebToken.as_view(), name='obtain_jwt_token'),
     url(r'^api/conf/', ConfViewSet.as_view({'get': 'get'}), name='conf'),
+    url(r'^auth/(?P<user_id>[0-9]*)/', auth_token_redirect, name='auth_token_redirect')
 ]

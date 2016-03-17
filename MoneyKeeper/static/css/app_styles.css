@@ -1,5 +1,6 @@
 .grid {
     margin: 0 20px;
+    height:100%;
 }
 
 .green {
@@ -94,8 +95,16 @@ h3.popover-title {
 }
 
 .checkbox {
-    margin-top:5px;
+    margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.summary-chart {
+    min-height: 300px;
+}
+
+.chart .column-series {
+    fill-opacity: 0.7;
 }
 
 /*ngAnimate*/

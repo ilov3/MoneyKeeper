@@ -8,7 +8,7 @@ angular.module('MoneyKeeper')
                 transactions: [],
                 categories: [],
                 accounts: [],
-                stats: [],
+                stats: {dataSet: []},
                 monthDetails: [],
                 history: [],
                 income: null,
@@ -111,7 +111,9 @@ angular.module('MoneyKeeper')
                 response.result.forEach(function (row) {
                     row.month = new Date(row.month);
                 });
-                Data.results.stats = response.result;
+                response.result.splice(0, 0, {month: dateFuncs.getPrevMon(response.result[0].month)});
+                response.result.push({month: dateFuncs.getNextMon(response.result[response.result.length-1].month)});
+                Data.results.stats.dataSet = response.result;
                 $rootScope.$broadcast('statsReceived');
             })
         };

@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-function TransactionController($scope, $state, $window, dataSvc, ngNotify) {
+function TransactionController($scope, $state, dataSvc, ngNotify) {
     BaseGridController.call(this);
     var self = this;
     this.datePickerOptions = {
@@ -156,12 +156,8 @@ function TransactionController($scope, $state, $window, dataSvc, ngNotify) {
         $state.go('transactions.delete', {id: row.entity.id})
     };
 
-    this.getTableHeight = function () {
-        return {height: $window.innerHeight * 0.85}
-    };
-
     this.setGridData();
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
-angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', '$window', 'dataSvc', 'ngNotify', TransactionController]);
+angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', 'dataSvc', 'ngNotify', TransactionController]);
