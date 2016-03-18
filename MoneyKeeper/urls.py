@@ -1,5 +1,6 @@
+# coding: utf-8
 from django.conf.urls import url, include
-from django.contrib.auth import views
+from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
@@ -21,10 +22,11 @@ urlpatterns = [
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
     url(r'^password/reset/$', PasswordResetView.as_view(), name='password_reset'),
     url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        views.password_reset_confirm, {'post_reset_redirect': '/user/password/done/'}, name='password_reset_confirm'),
+        auth_views.password_reset_confirm, {'post_reset_redirect': '/user/password/done/'}, name='password_reset_confirm'),
     url(r'^user/password/done/$', password_reset_success, name='password_reset_success'),
     url(r'^api/', include(router.urls)),
     url(r'^api/token-auth/', ObtainJSONWebToken.as_view(), name='obtain_jwt_token'),
     url(r'^api/conf/', ConfViewSet.as_view({'get': 'get'}), name='conf'),
-    url(r'^auth/(?P<user_id>[0-9]*)/', auth_token_redirect, name='auth_token_redirect')
+    url(r'^auth/(?P<user_id>[0-9]*)/', auth_token_redirect, name='auth_token_redirect'),
+    url(r'^accounts/login/$', auth_views.login, name='login'),
 ]
