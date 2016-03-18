@@ -1,6 +1,5 @@
 # coding=utf-8
 import logging
-import base64
 
 from django.contrib.auth.models import User, AnonymousUser
 from django.db import transaction
@@ -156,17 +155,20 @@ def password_reset_success(request):
 
 
 def auth_token_redirect(request, user_id):
-    if request.user == AnonymousUser:
-        # TODO finish this case
-        inner_content = ('''
-        <p>Provide your login and password:</p>
-        ''')
-        return render_to_response('confirm.html', {'inner_content': inner_content})
-    else:
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-        payload = jwt_payload_handler(request.user)
-        token = jwt_encode_handler(payload)
-        r = redis.StrictRedis(host='localhost', port=6379, db=0)
-        r.hset(user_id, 'token', token)
-        return redirect('https://telegram.me/MoneyKeeperBot?start=authenticated')
+    try:
+        if request.user == AnonymousUser:
+            # TODO finish this case
+            inner_content = ('''
+            <p>Provide your login and password:</p>
+            ''')
+            return render_to_response('confirm.html', {'inner_content': inner_content})
+        else:
+            jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+            jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+            payload = jwt_payload_handler(request.user)
+            token = jwt_encode_handler(payload)
+            r = redis.StrictRedis(host='localhost', port=6379, db=0)
+            r.hset(user_id, 'token', token)
+            return redirect('https://telegram.me/MoneyKeeperBot?start=authenticated')
+    except Exception as e:
+        logger.error(e)
