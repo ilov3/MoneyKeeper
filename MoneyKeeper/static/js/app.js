@@ -133,10 +133,11 @@ angular.module('MoneyKeeper', [
 
             $translateProvider.preferredLanguage('ru');
         }])
-    .run(['$state', '$rootScope', '$stateParams', 'formlyConfig', 'authSvc', function ($state, $rootScope, $stateParams, formlyConfig, authSvc) {
+    .run(['$state', '$rootScope', '$stateParams', 'formlyConfig', 'authSvc', 'dataSvc', function ($state, $rootScope, $stateParams, formlyConfig, authSvc, dataSvc) {
         $rootScope.$stateParams = $stateParams;
         $rootScope.conf = {};
         authSvc.setUsername();
+        dataSvc.getHistory();
 
         formlyConfig.extras.removeChromeAutoComplete = true;
         formlyConfig.setType({

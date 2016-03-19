@@ -132,7 +132,6 @@ angular.module('MoneyKeeper')
             var lastDay = dateFuncs.getLastDay(date);
             Data.getAccounts();
             Data.getCategories();
-            Data.getHistory();
             Data.getStats();
             Data.getIncome(firstDay, lastDay);
             Data.getExpense(firstDay, lastDay);
