@@ -157,6 +157,7 @@ function TransactionController($scope, $state, dataSvc, ngNotify) {
     };
 
     this.setGridData();
+    dataSvc.getHistory();
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
