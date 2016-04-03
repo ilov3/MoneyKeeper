@@ -3,8 +3,8 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states')
-    .config(['$stateProvider', 'AppConstants', function ($stateProvider, AppConstants) {
-        var componentsPath = AppConstants.componentsPath + 'summary/';
+    .config(['$stateProvider', 'statesConstants', function ($stateProvider, statesConstants) {
+        var componentsPath = statesConstants.componentsPath + 'summary/';
         $stateProvider
             .state({
                 name: 'abstractSummary',

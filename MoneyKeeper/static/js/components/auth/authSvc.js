@@ -33,6 +33,7 @@ angular.module('MoneyKeeper')
                 $state.go('empty')
             };
             var authSvc = {
+                loginDialogIsOpened: 0,
                 getToken: function () {
                     return $localStorage.token
                 },

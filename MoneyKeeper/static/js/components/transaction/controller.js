@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-function TransactionController($scope, $state, dataSvc, ngNotify) {
+function TransactionController($scope, $state, dataSvc, ngNotify, uiGridConstants) {
     BaseGridController.call(this);
     var self = this;
     this.datePickerOptions = {
@@ -16,6 +16,7 @@ function TransactionController($scope, $state, dataSvc, ngNotify) {
         }
     };
 
+    this.gridOptions.showColumnFooter = true;
     this.gridOptions.useExternalPagination = true;
     this.gridOptions.useExternalFiltering = true;
 
@@ -24,7 +25,7 @@ function TransactionController($scope, $state, dataSvc, ngNotify) {
 
         var saveRow = function (rowEntity) {
             var deferred = dataSvc.transaction.update(rowEntity);
-            deferred.$promise.then(function(){
+            deferred.$promise.then(function () {
                 dataSvc.getHistory();
                 ngNotify.set('Transaction #' + rowEntity.id + ' successfully updated!', 'success');
             });
@@ -146,6 +147,9 @@ function TransactionController($scope, $state, dataSvc, ngNotify) {
                     return {id: elem.name, value: elem.name}
                 })
             }
+            if (column.field == 'amount') {
+                column.aggregationType = uiGridConstants.aggregationTypes.sum
+            }
         });
         return columns;
     };
@@ -160,4 +164,4 @@ function TransactionController($scope, $state, dataSvc, ngNotify) {
 }
 
 TransactionController.prototype = Object.create(BaseGridController.prototype);
-angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', 'dataSvc', 'ngNotify', TransactionController]);
+angular.module('MoneyKeeper.states').controller('TransactionController', ['$scope', '$state', 'dataSvc', 'ngNotify', 'uiGridConstants', TransactionController]);
