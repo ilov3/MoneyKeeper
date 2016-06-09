@@ -1,10 +1,8 @@
 # coding=utf-8
 import logging
-
 from django.contrib.auth.models import User
-from django.db import models, connection
-from django.db.models import Sum, Case, When, Value, F
-
+from django.db import models
+from django.db.models import Sum
 from MoneyKeeper.utils.common_utils import first_day, last_day
 
 __author__ = 'ilov3'
@@ -33,13 +31,46 @@ class TransactionQuerySet(models.QuerySet):
     def get_transfers(self):
         return self.filter(kind='trn').aggregate(Sum('amount'))['amount__sum'] or 0
 
-    def get_amounts_by_month(self):
-        truncate_date = connection.ops.date_trunc_sql('month', 'date')
-        qs = self.extra({'month': truncate_date})
-        return qs.values('month').distinct().order_by('month').annotate(
-                inc_sum=Sum(Case(When(kind='inc', then='amount'), default=Value(0))),
-                exp_sum=Sum(Case(When(kind='exp', then='amount'), default=Value(0))),
-        ).annotate(profit=F('inc_sum') - F('exp_sum'))
+    def get_amounts_by_month(self, user_id):
+        q = '''
+SELECT
+  t1.id,
+  t1.month,
+  t1.inc_sum AS income,
+  t1.exp_sum AS expense,
+  sum(t2.profit) AS balance
+FROM
+  (SELECT
+     id,
+     SUM(CASE WHEN `MoneyKeeper_transaction`.`kind` = 'inc'
+       THEN `MoneyKeeper_transaction`.`amount`
+         ELSE 0 END)                                            AS `inc_sum`,
+     SUM(CASE WHEN `MoneyKeeper_transaction`.`kind` = 'exp'
+       THEN `MoneyKeeper_transaction`.`amount`
+         ELSE 0 END)                                            AS `exp_sum`,
+     (CAST(DATE_FORMAT(date, '%%Y-%%m-01 00:00:00') AS DATETIME)) AS `month`
+   FROM `MoneyKeeper_transaction`
+   WHERE (`MoneyKeeper_transaction`.`user_id` = %s)
+   GROUP BY (CAST(DATE_FORMAT(date, '%%Y-%%m-01 00:00:00') AS DATETIME))
+   ORDER BY `month` ASC) t1
+  JOIN (SELECT
+          (CAST(DATE_FORMAT(date, '%%Y-%%m-01 00:00:00') AS DATETIME)) AS `month`,
+          (SUM(CASE WHEN `MoneyKeeper_transaction`.`kind` = 'inc'
+            THEN `MoneyKeeper_transaction`.`amount`
+               ELSE 0 END) - SUM(CASE WHEN `MoneyKeeper_transaction`.`kind` = 'exp'
+            THEN `MoneyKeeper_transaction`.`amount`
+                                 ELSE 0 END))                        AS `profit`
+        FROM `MoneyKeeper_transaction`
+        WHERE (`MoneyKeeper_transaction`.`user_id` = %s)
+        GROUP BY (CAST(DATE_FORMAT(date, '%%Y-%%m-01 00:00:00') AS DATETIME))
+        ORDER BY `month` ASC) t2
+    ON t1.month >= t2.month
+GROUP BY t1.month
+ORDER BY t1.month DESC
+LIMIT 8
+        '''
+        q = self.raw(q, params=[user_id, user_id])
+        return list(q)[::-1]
 
 
 class Transaction(models.Model):

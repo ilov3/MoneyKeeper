@@ -16,7 +16,7 @@ function SummaryController($scope, $state, $uibModal, dataSvc, dateFuncs) {
     };
 
     this.showDetailChart = function (d, i, series, raw) {
-        if (series.name == 'income' || series.name == 'expense') {
+        if (series.key.y1 == 'income' || series.key.y1 == 'expense') {
             $uibModal.open({
                 animation: true,
                 templateUrl: modalTemplatePath + 'detailChart/template.html',
@@ -28,7 +28,7 @@ function SummaryController($scope, $state, $uibModal, dataSvc, dateFuncs) {
                         return d.x;
                     },
                     kind: function () {
-                        return series.name;
+                        return series.key.y1;
                     }
                 }
             });

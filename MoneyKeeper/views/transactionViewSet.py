@@ -1,10 +1,8 @@
 # coding=utf-8
 import logging
-
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
 from MoneyKeeper.models.utils import log_deletion
 from MoneyKeeper.serializers import TransactionSerializer
 from MoneyKeeper.utils.common_utils import to_pydate
@@ -36,13 +34,8 @@ class TransactionViewSet(FilterQuerySetMixin,
 
     @list_route()
     def stats(self, request):
-        stats = self.get_queryset().get_amounts_by_month()
-        balance = 0
-        result = []
-        for stat in stats:
-            balance += stat['profit']
-            result.append({'income': stat['inc_sum'],
-                           'expense': stat['exp_sum'],
-                           'month': stat['month'],
-                           'balance': balance})
-        return Response({'result': result})
+        stats = self.get_queryset().get_amounts_by_month(request.user.id)
+        return Response({'result': [{'month': stat.month,
+                                     'income': stat.income,
+                                     'expense': stat.expense,
+                                     'balance': stat.balance} for stat in stats]})
