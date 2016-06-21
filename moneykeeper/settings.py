@@ -39,10 +39,12 @@ INSTALLED_APPS = (
     'MoneyKeeper',
     'rest_framework',
     'dbbackup',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -199,3 +201,5 @@ LOGGING = {
 }
 
 DBBACKUP_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'backups')
+
+CORS_ORIGIN_ALLOW_ALL = True
