@@ -33,6 +33,7 @@
     "gulp-watch": "^4.3.5",
     "main-bower-files": "^2.9.0",
     "merge-stream": "^1.0.0",
+    "n3-charts": "https://github.com/ilov3/line-chart/tarball/feature/on_col_click_trigger",
     "yargs": "^3.30.0"
   }
 }
