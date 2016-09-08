@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var argv = require('yargs').argv;
+var fs = require('fs-extra');
 var plugins = require("gulp-load-plugins")({
     pattern: ['gulp-*', 'gulp.*', 'main-bower-files', 'merge-stream'],
     replaceString: /\bgulp[\-.]/
@@ -8,7 +9,14 @@ var plugins = require("gulp-load-plugins")({
 var staticPath = 'MoneyKeeper/static/';
 var staticPathProd = 'staticdev/';
 var templatePath = 'templates/';
+// copy app_assets.html from template
+try {
+    fs.accessSync(templatePath + 'app_assets.html', fs.F_OK);
+} catch (e) {
+    fs.copySync(templatePath + 'app_assets.template.html', templatePath + 'app_assets.html');
+}
 var appAssetsTemplate = gulp.src(templatePath + 'app_assets.html');
+
 
 var jsPathTransform = function (filepath) {
     filepath = filepath.slice(1);

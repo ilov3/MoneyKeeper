@@ -18,10 +18,10 @@
     "angular": "~1.x",
     "angular-ui-grid": "~3.x",
     "angular-resource": "~1.x",
-    "angular-ui-router": "~0.x",
-    "angular-bootstrap": "~1.x",
+    "angular-ui-router": "~1.x",
+    "angular-bootstrap": "~2.x",
     "jquery": "~2.x",
-    "angular-formly": "~7.3.x",
+    "angular-formly": "~8.x",
     "angular-formly-templates-bootstrap": "~6.x",
     "ui-select": "angular-ui-select#~0.13.2",
     "angular-sanitize": "~1.x",
@@ -35,5 +35,9 @@
     "bootstrap-material-design": "~0.x",
     "angular-translate": "~2.10.0",
     "moment": "momentjs#~2.12.0"
+  },
+  "resolutions": {
+    "d3": "~3.3.13",
+    "angular": ">=1.2.x"
   }
 }
