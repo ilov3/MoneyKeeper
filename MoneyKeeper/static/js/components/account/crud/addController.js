@@ -3,11 +3,11 @@
  * __author__ = 'ilov3'
  */
 function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
-    AddModalSvc.name = 'Account';
-    AddModalSvc.modalInstance = $uibModalInstance;
-    AddModalSvc.resource = dataSvc.account;
-    AddModalSvc.updateFn = update;
-    this.service = AddModalSvc;
+    var modalSvc = new AddModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = dataSvc.account;
+    modalSvc.updateFn = update;
+    this.service = modalSvc;
     this.formFields = [
         {
             key: 'name',
@@ -17,6 +17,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
                 label: 'Name',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"name" | translate'
             }
         },
         {
@@ -28,6 +31,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
                 label: 'Opening',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"opening" | translate'
             }
         },
         {
@@ -36,6 +42,9 @@ function AddAccountController($uibModalInstance, AddModalSvc, dataSvc, update) {
             templateOptions: {
                 label: 'Add another',
                 required: false
+            },
+            expressionProperties: {
+                'templateOptions.label': '"addAnother" | translate'
             }
         }
     ]

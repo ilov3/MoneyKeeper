@@ -14,24 +14,30 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.5",
-    "angular": "~1.4.7",
-    "angular-ui-grid": "~3.0.7",
-    "angular-resource": "~1.4.7",
-    "angular-ui-router": "~0.2.15",
-    "angular-bootstrap": "~0.14.2",
-    "jquery": "~2.1.4",
-    "angular-formly": "~7.2.3",
-    "angular-formly-templates-bootstrap": "~6.1.5",
+    "bootstrap": "~3.x",
+    "angular": "~1.x",
+    "angular-ui-grid": "~3.x",
+    "angular-resource": "~1.x",
+    "angular-ui-router": "~1.x",
+    "angular-bootstrap": "~2.x",
+    "jquery": "~2.x",
+    "angular-formly": "~8.x",
+    "angular-formly-templates-bootstrap": "~6.x",
     "ui-select": "angular-ui-select#~0.13.2",
-    "angular-sanitize": "~1.4.7",
-    "angular-filter": "~0.5.7",
-    "angular-animate": "~1.4.7",
+    "angular-sanitize": "~1.x",
+    "angular-filter": "~0.x",
+    "angular-animate": "~1.x",
     "angular-loading-bar": "~0.8.0",
     "ngstorage": "~0.3.9",
-    "angular-http-auth": "~1.2.2",
-    "n3-line-chart": "~1.1.12",
-    "ng-notify": "~0.7.1",
-    "angularjs-nvd3-directives": "~0.0.7"
+    "angular-http-auth": "~1.x",
+    "ng-notify": "~0.x",
+    "angularjs-nvd3-directives": "~0.x",
+    "bootstrap-material-design": "~0.x",
+    "angular-translate": "~2.10.0",
+    "moment": "momentjs#~2.12.0"
+  },
+  "resolutions": {
+    "d3": "~3.3.13",
+    "angular": ">=1.2.x"
   }
 }

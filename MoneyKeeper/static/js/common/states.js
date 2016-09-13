@@ -2,17 +2,9 @@
 /**
  * __author__ = 'ilov3'
  */
-angular.module('MoneyKeeper.states', [])
-    .config(['$stateProvider', 'AppConstants', function ($stateProvider, AppConstants) {
-        var componentsPath = AppConstants.componentsPath;
+angular.module('MoneyKeeper.states', ['constants'])
+    .config(['$stateProvider', 'statesConstants', function ($stateProvider, statesConstants) {
         $stateProvider
-            .state({
-                name: 'summary',
-                url: '/summary',
-                templateUrl: componentsPath + 'summary/template.html',
-                controller: 'SummaryController',
-                controllerAs: 'summaryCtrl'
-            })
             .state({
                 name: 'empty',
                 url: '/',
@@ -20,10 +12,33 @@ angular.module('MoneyKeeper.states', [])
                 controller: function () {
                 }
             })
+            .state({
+                name: 'login',
+                url: '/login',
+                onEnter: ['$uibModal', 'authSvc', function ($uibModal, authSvc) {
+                    function loginModal() {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            backdrop: 'static',
+                            keyboard: false,
+                            templateUrl: statesConstants.componentsPath + 'auth/login.html',
+                            controller: 'LoginController',
+                            controllerAs: 'loginCtrl'
+                        });
+                        modalInstance.result.then(function () {
+                            authSvc.loginDialogIsOpened = 0;
+                        }, function () {
+                            authSvc.loginDialogIsOpened = 0;
+                        })
+                    }
+
+                    if (!authSvc.loginDialogIsOpened) {
+                        loginModal();
+                        authSvc.loginDialogIsOpened = 1;
+                    }
+                }]
+            })
     }])
     .run(['$templateRequest', function ($templateRequest) {
         $templateRequest('/static/partials/gridDatePickerFilter.html', true);
-    }])
-    .constant('AppConstants', {
-        componentsPath: '/static/js/components/'
-    });
+    }]);

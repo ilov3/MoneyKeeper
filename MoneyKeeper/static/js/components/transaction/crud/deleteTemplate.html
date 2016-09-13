@@ -1,10 +1,12 @@
 <div class="modal-header">
-    <h3 class="modal-title">Delete transaction #{{ deleteTransactionCtrl.service.resource.id }}</h3>
+    <h3 class="modal-title">
+        {{ 'delete' | translate }}
+        {{ deleteTransactionCtrl.service.resource.kind_display.toLowerCase() }}
+        {{ 'deleteFormTransaction' | translate | lowercase }} #{{ deleteTransactionCtrl.service.resource.id }}</h3>
 </div>
 <div class="modal-body">
-    <p>Do you really want to delete this transaction?</p>
     <p>
-        Details:
+        {{ 'details' | translate }}:
         {{ deleteTransactionCtrl.service.resource.date | date }}
         {{ deleteTransactionCtrl.service.resource.account }}
         {{ deleteTransactionCtrl.service.resource.kind=='inc'? '<':'>' }}
@@ -13,6 +15,6 @@
     </p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm btn-default" ng-click="deleteTransactionCtrl.confirm(deleteTransactionCtrl.row)">Yes</button>
-    <button class="btn btn-sm btn-default" type="button" ng-click="deleteTransactionCtrl.service.modalInstance.close()">No</button>
+    <button class="btn btn-sm btn-default" ng-click="deleteTransactionCtrl.confirm(deleteTransactionCtrl.row)">{{ 'yes' | translate }}</button>
+    <button class="btn btn-sm btn-default" type="button" ng-click="deleteTransactionCtrl.service.cancel()">{{ 'no' | translate }}</button>
 </div>

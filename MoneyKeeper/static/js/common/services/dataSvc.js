@@ -8,8 +8,9 @@ angular.module('MoneyKeeper')
                 transactions: [],
                 categories: [],
                 accounts: [],
-                stats: [],
+                stats: {dataSet: []},
                 monthDetails: [],
+                history: [],
                 income: null,
                 expense: null
             },
@@ -38,6 +39,9 @@ angular.module('MoneyKeeper')
             user: $resource('/api/user/:id/:action/', {}, {
                 exists: {method: 'GET', params: {action: 'exists', username: '@username', email: '@email'}, isArray: false}
             }),
+            history: $resource('/api/history/', {}, {
+                query: {method: 'GET', isArray: false}
+            }),
             tokenAuth: $resource('/api/token-auth/', {}, {
                 login: {method: 'POST', isArray: false}
             }),
@@ -64,15 +68,29 @@ angular.module('MoneyKeeper')
                 })
         };
 
-        Data.getCategories = function () {
-            Data.category.query({}, function (response) {
+        Data.getCategories = function (deferred) {
+            return Data.category.query({}, function (response) {
+                if (deferred) deferred.resolve();
                 Data.results.categories = response
             })
         };
 
-        Data.getAccounts = function () {
-            Data.account.query({}, function (response) {
+        Data.getAccounts = function (deferred) {
+            return Data.account.query({}, function (response) {
+                if (deferred) deferred.resolve();
                 Data.results.accounts = response
+            })
+        };
+
+        Data.getNames = function (resourceList) {
+            return resourceList.map(function (elem) {
+                return elem.name
+            })
+        };
+
+        Data.getHistory = function () {
+            Data.history.query({}, function (response) {
+                Data.results.history = response.results;
             })
         };
 
@@ -93,7 +111,9 @@ angular.module('MoneyKeeper')
                 response.result.forEach(function (row) {
                     row.month = new Date(row.month);
                 });
-                Data.results.stats = response.result;
+                response.result.splice(0, 0, {month: dateFuncs.getPrevMon(response.result[0].month)});
+                response.result.push({month: dateFuncs.getNextMon(response.result[response.result.length-1].month)});
+                Data.results.stats.dataSet = response.result;
                 $rootScope.$broadcast('statsReceived');
             })
         };

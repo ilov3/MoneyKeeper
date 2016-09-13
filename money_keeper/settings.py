@@ -39,10 +39,12 @@ INSTALLED_APPS = (
     'MoneyKeeper',
     'rest_framework',
     'dbbackup',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'moneykeeper.urls'
+ROOT_URLCONF = 'money_keeper.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'moneykeeper.wsgi.application'
+WSGI_APPLICATION = 'money_keeper.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -113,6 +115,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticdev"),
+    os.path.join(BASE_DIR, "node_modules"),
 ]
 
 REST_FRAMEWORK = {
@@ -198,3 +201,5 @@ LOGGING = {
 }
 
 DBBACKUP_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'backups')
+
+CORS_ORIGIN_ALLOW_ALL = True

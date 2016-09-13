@@ -4,9 +4,10 @@
  */
 
 function DeleteAccountController(DeleteModalSvc, $uibModalInstance, resource) {
-    DeleteModalSvc.modalInstance = $uibModalInstance;
-    DeleteModalSvc.resource = resource;
-    this.service = DeleteModalSvc;
+    var modalSvc = new DeleteModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = resource;
+    this.service = modalSvc;
 }
 
 angular.module('MoneyKeeper.states').controller('DeleteAccountController', ['DeleteModalSvc', '$uibModalInstance', 'resource', DeleteAccountController]);

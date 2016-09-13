@@ -17,4 +17,16 @@ angular.module('MoneyKeeper')
                 })
             }
         }
-    });
+    })
+    .directive('dynamicHeight', ['$window', function ($window) {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                element.css('height', attrs.dynamicHeight * $window.innerHeight);
+                angular.element($window).bind('resize', function () {
+                    element.css('height', attrs.dynamicHeight * $window.innerHeight);
+                });
+            }
+        }
+    }]);

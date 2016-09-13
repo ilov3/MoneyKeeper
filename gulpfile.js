@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var argv = require('yargs').argv;
+var fs = require('fs-extra');
 var plugins = require("gulp-load-plugins")({
     pattern: ['gulp-*', 'gulp.*', 'main-bower-files', 'merge-stream'],
     replaceString: /\bgulp[\-.]/
@@ -8,7 +9,14 @@ var plugins = require("gulp-load-plugins")({
 var staticPath = 'MoneyKeeper/static/';
 var staticPathProd = 'staticdev/';
 var templatePath = 'templates/';
+// copy app_assets.html from template
+try {
+    fs.accessSync(templatePath + 'app_assets.html', fs.F_OK);
+} catch (e) {
+    fs.copySync(templatePath + 'app_assets.template.html', templatePath + 'app_assets.html');
+}
 var appAssetsTemplate = gulp.src(templatePath + 'app_assets.html');
+
 
 var jsPathTransform = function (filepath) {
     filepath = filepath.slice(1);
@@ -25,7 +33,9 @@ var cssPathTransform = function (filepath) {
 };
 
 var jsSrcThirdparty = plugins.mainBowerFiles('**/*.js');
+jsSrcThirdparty.push('node_modules/n3-charts/.tmp/build/LineChart.js');
 var cssSrcThirdparty = plugins.mainBowerFiles('**/*.css');
+cssSrcThirdparty.push('node_modules/n3-charts/.tmp/build/LineChart.css');
 var lessSrcThirdparty = plugins.mainBowerFiles('**/*.less');
 var fonts = plugins.mainBowerFiles(['**/*.woff', '**/*.woff2', '**/*.ttf']).concat([
     staticPath + 'thirdparty/bootstrap/fonts/glyphicons-halflings-regular.woff2'
@@ -40,14 +50,15 @@ var jsSrcProject = [
 
 var cssSrc = cssSrcThirdparty.concat([
     staticPath + 'css/app_styles.css',
-    staticPath + 'thirdparty/bootstrap/dist/css/bootstrap-theme.css',
+    //staticPath + 'thirdparty/bootstrap/dist/css/bootstrap-theme.css',
     staticPath + 'thirdparty/angular-ui-grid/ui-grid.ttf',
     staticPath + 'thirdparty/angular-ui-grid/ui-grid.woff'
 ]);
 
 var ignorePaths = [
     staticPath,
-    staticPathProd
+    staticPathProd,
+    'node_modules'
 ];
 
 gulp.task('css', function () {

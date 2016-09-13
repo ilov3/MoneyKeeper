@@ -1,18 +1,19 @@
 <div class="modal-header">
-    <h3 class="modal-title">Add account</h3>
+    <h3 class="modal-title">{{ 'add' | translate }} {{ 'account' | translate | lowercase }}</h3>
 </div>
 <div class="modal-body">
     <form novalidate>
-        <formly-form model="addAccountCtrl.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm"></formly-form>
+        <formly-form model="addAccountCtrl.service.formData" fields="addAccountCtrl.formFields" form="addAccountCtrl.addAccountForm">
+            <div class="modal-footer">
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        ng-click="addAccountCtrl.service.submit()"
+                        ng-disabled="addAccountCtrl.addAccountForm.$invalid">
+                    {{ 'submit' | translate }}
+                </button>
+                <button class="btn btn-warning" type="button" ng-click="addAccountCtrl.service.cancel()">{{ 'cancel' | translate }}</button>
+            </div>
+        </formly-form>
     </form>
-</div>
-<div class="modal-footer">
-    <button
-            type="submit"
-            class="btn btn-primary"
-            ng-click="addAccountCtrl.service.submit(addAccountCtrl.formData)"
-            ng-disabled="addAccountCtrl.addAccountForm.$invalid">
-        Submit
-    </button>
-    <button class="btn btn-warning" type="button" ng-click="addAccountCtrl.service.modalInstance.close()">Cancel</button>
 </div>

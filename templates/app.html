@@ -2,18 +2,44 @@
 {% block content %}
     {% verbatim %}
         <body ng-app="MoneyKeeper" ng-controller="AppMainController">
-        <nav class="navbar navbar-default">
-            <span class="navbar-brand">Money Keeper</span>
-            <ul class="nav navbar-nav pull-right">
-                <li><a title="Your username" ng-bind="conf.username"></a></li>
-                <li><a ng-hide="conf.username" ng-click="login()" href="">Log in</a></li>
-                <li><a ng-show="conf.username" ng-click="logout()" href="">Logout</a></li>
-                <li><a title="About this project" href="/about">About</a></li>
-            </ul>
-        </nav>
-        <uib-tabset>
-            <uib-tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ui-sref="{{ tab.state }}" ui-sref-active="active"></uib-tab>
-        </uib-tabset>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" ng-click="navCollapsed = !navCollapsed" class="navbar-toggle">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">Money Keeper</span>
+                </div>
+                <div ng-init="navCollapsed=true" class="navbar-collapse collapse navbar-responsive-collapse" uib-collapse="navCollapsed">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active: state.current.name == tab.state}" ng-repeat="tab in tabs"><a ui-sref="{{ tab.state }}" ng-bind="tab.state | translate"></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li uib-dropdown uib-dropdown-toggle class="dropdown">
+                            <a href="" ng-bind="lang | capitalize"><span class="caret"></span></a>
+                            <ul class="dropdown-menu lang-select">
+                                <li><a href="" ng-click="lang='en'">En</a></li>
+                                <li><a href="" ng-click="lang='ru'">Ru</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer"
+                               uib-popover-template="'/static/partials/recent-actions-popover.html'"
+                               popover-title="{{ 'recentActions' | translate }}"
+                               popover-trigger="outsideClick"
+                               popover-placement="bottom" ng-bind="'recentActions' | translate">
+                            </a>
+                        </li>
+                        <li><a title="Your username" ng-bind="conf.username"></a></li>
+                        <li><a ng-hide="conf.username" ui-sref="login" ng-bind="'login' | translate"></a></li>
+                        <li><a ng-show="conf.username" ng-click="logout()" href="" ng-bind="'logout' | translate"></a></li>
+                        <li><a title="About this project" href="/about" ng-bind="'about' | translate"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <ui-view></ui-view>
         </body>
     {% endverbatim %}

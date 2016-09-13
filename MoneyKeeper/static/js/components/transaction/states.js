@@ -3,20 +3,40 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper.states')
-    .config(['$stateProvider', 'AppConstants', function ($stateProvider, AppConstants) {
-        var componentPath = AppConstants.componentsPath + 'transaction/';
+    .config(['$stateProvider', 'statesConstants', function ($stateProvider, statesConstants) {
+        var componentPath = statesConstants.componentsPath + 'transaction/';
         $stateProvider
             .state({
                 name: 'transactions',
                 url: '/transaction',
                 templateUrl: componentPath + 'template.html',
                 controller: 'TransactionController',
-                controllerAs: 'transactionCtrl'
+                controllerAs: 'transactionCtrl',
+                data: {
+                    componentName: 'Transaction'
+                },
+                resolve: {
+                    '1': ['dataSvc', '$q', function (dataSvc, $q) {
+                        if (!dataSvc.results.categories.length) {
+                            var deferred = $q.defer();
+                            dataSvc.getCategories(deferred);
+                            return deferred.promise
+                        }
+                    }],
+                    '2': ['dataSvc', '$q', function (dataSvc, $q) {
+                        if (!dataSvc.results.accounts.length) {
+                            var deferred = $q.defer();
+                            dataSvc.getAccounts(deferred);
+                            return deferred.promise
+                        }
+                    }]
+                }
             })
             .state({
                 name: 'summary.addTransaction',
                 url: '/transaction/new',
                 onEnter: ['BaseModalSvc', '$uibModal', 'dataSvc', function (BaseModalSvc, $uibModal, dataSvc) {
+                    var modalSvc = new BaseModalSvc();
                     var updateFn = dataSvc.updateSummary;
                     var modalInstance = $uibModal.open({
                         animation: true,
@@ -29,7 +49,7 @@ angular.module('MoneyKeeper.states')
                             }
                         }
                     });
-                    modalInstance.result.then(BaseModalSvc.onModalClose(updateFn), BaseModalSvc.onModalClose(updateFn))
+                    modalInstance.result.then(modalSvc.onModalClose(updateFn), modalSvc.onModalClose(updateFn))
                 }]
             })
             .state({
@@ -45,6 +65,7 @@ angular.module('MoneyKeeper.states')
                     var successCallback = function () {
                         var index = gridOptions.data.indexOf(row.entity);
                         gridOptions.data.splice(index, 1);
+                        dataSvc.getHistory();
                         ngNotify.set('Transaction #' + row.entity.id + ' successfully deleted.', 'success');
                         modalInstance.close()
                     };

@@ -1,0 +1,5 @@
+<h2>{{ 'accounts' | translate }}</h2>
+<h4 ng-repeat="account in summaryCtrl.results.accounts | filter: {is_shown: 'true'}">{{ account.name }}: {{ account.get_balance | currency:"" }}</h4>
+
+<h3>{{ 'total' | translate }}: {{ summaryCtrl.getTotal() | currency:""}}</h3>
+<a href="" ui-sref="accounts.add">{{ 'add' | translate }} {{ 'accounts' | translate | lowercase }}</a>

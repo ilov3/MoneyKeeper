@@ -15,20 +15,8 @@ function SummaryController($scope, $state, $uibModal, dataSvc, dateFuncs) {
         return total;
     };
 
-    this.addTransaction = function () {
-        $state.go('summary.addTransaction')
-    };
-
-    this.addAccount = function () {
-        $state.go('accounts.add');
-    };
-
-    this.addCategory = function () {
-        $state.go('categories.add');
-    };
-
     this.showDetailChart = function (d, i, series, raw) {
-        if (series.name == 'income' || series.name == 'expense') {
+        if (series.key.y1 == 'income' || series.key.y1 == 'expense') {
             $uibModal.open({
                 animation: true,
                 templateUrl: modalTemplatePath + 'detailChart/template.html',
@@ -40,7 +28,7 @@ function SummaryController($scope, $state, $uibModal, dataSvc, dateFuncs) {
                         return d.x;
                     },
                     kind: function () {
-                        return series.name;
+                        return series.key.y1;
                     }
                 }
             });

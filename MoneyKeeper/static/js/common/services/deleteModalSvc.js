@@ -2,18 +2,20 @@
 /**
  * __author__ = 'ilov3'
  */
-function DeleteModalSvc(ngNotify) {
-    var self = this;
-    self.modalInstance = null;
-    self.formData = null;
-    self.resource = null;
+angular.module('MoneyKeeper.states').service('DeleteModalSvc', ['ngNotify', 'BaseModalSvc', function (ngNotify, BaseModalSvc) {
+    var DeleteModalSvc = function () {
+        BaseModalSvc.apply(this, arguments)
+    };
+    DeleteModalSvc.prototype = Object.create(BaseModalSvc.prototype);
+    DeleteModalSvc.prototype.constructor = DeleteModalSvc;
 
-    this.confirm = function () {
-        self.resource.$delete(function (data) {
-            ngNotify.set(self.resource.name + ' successfully deleted!', 'success');
+    DeleteModalSvc.prototype.confirm = function () {
+        var self = this;
+        this.resource.$delete(function (data) {
+            var message = self.getComponentName() + (data.name ? ' ' + data.name : '') + ' successfully deleted!';
+            ngNotify.set(message, 'success');
             self.modalInstance.close();
         })
     };
-}
-
-angular.module('MoneyKeeper.states').service('DeleteModalSvc', ['ngNotify', DeleteModalSvc]);
+    return DeleteModalSvc
+}]);

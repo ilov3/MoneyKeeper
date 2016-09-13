@@ -4,11 +4,12 @@
  */
 
 function DeleteTransactionController(DeleteModalSvc, $uibModalInstance, resource, row, confirm) {
-    DeleteModalSvc.modalInstance = $uibModalInstance;
-    DeleteModalSvc.resource = resource;
+    var modalSvc = new DeleteModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = resource;
     this.confirm = confirm;
     this.row = row;
-    this.service = DeleteModalSvc;
+    this.service = modalSvc;
 }
 
 angular.module('MoneyKeeper.states').controller('DeleteTransactionController', ['DeleteModalSvc', '$uibModalInstance', 'resource', 'row', 'confirm', DeleteTransactionController]);

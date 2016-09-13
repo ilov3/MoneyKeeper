@@ -5,6 +5,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from MoneyKeeper.models.utils import log_deletion
 from MoneyKeeper.serializers import CategorySerializer
 from MoneyKeeper.utils.common_utils import to_pydate, first_day, last_day
 from MoneyKeeper.views.view_utils import FilterQuerySetMixin
@@ -19,6 +20,10 @@ class CategoryViewSet(FilterQuerySetMixin,
     serializer_class = CategorySerializer
     metadata_class = GridMetadata
     pagination_class = None
+
+    def perform_destroy(self, instance):
+        log_deletion(self.request, instance)
+        super(CategoryViewSet, self).perform_destroy(instance)
 
     @list_route()
     def month_details(self, request):

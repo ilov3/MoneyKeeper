@@ -1,0 +1,10 @@
+<h2>{{ 'report' | translate }}</h2>
+<div ng-controller="ChartController as chartCtrl">
+    <div class="summary-chart" dynamic-height="0.4">
+        <linechart
+                data="chartCtrl.data.stats"
+                options="chartCtrl.options"
+                on-click="summaryCtrl.showDetailChart(row, index, series, options)">
+        </linechart>
+    </div>
+</div>

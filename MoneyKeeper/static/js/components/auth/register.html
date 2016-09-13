@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{ registerCtrl.heading }}</h3>
+    <h3 class="modal-title">{{ 'register' | translate }}</h3>
 </div>
 <div class="modal-body">
     <form novalidate>
@@ -10,7 +10,7 @@
                         class="btn btn-sm btn-default"
                         ng-click="registerCtrl.register()"
                         ng-disabled="registerCtrl.registerForm.$invalid">
-                    Register
+                    {{ 'submit' | translate }}
                 </button>
             </div>
         </formly-form>

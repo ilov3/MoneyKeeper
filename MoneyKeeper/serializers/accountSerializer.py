@@ -6,6 +6,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from MoneyKeeper.models import Account
+from MoneyKeeper.models.utils import log_addition, log_change
 from MoneyKeeper.serializers.fields import UserField
 from MoneyKeeper.serializers.mixins import GridSchemaMixin
 
@@ -30,3 +31,13 @@ class AccountSerializer(GridSchemaMixin, serializers.ModelSerializer):
                     fields=('user', 'name')
             )
         ]
+
+    def create(self, validated_data):
+        instance = super(AccountSerializer, self).create(validated_data)
+        log_addition(self.context['request'], instance)
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super(AccountSerializer, self).update(instance, validated_data)
+        log_change(self.context['request'], instance)
+        return instance

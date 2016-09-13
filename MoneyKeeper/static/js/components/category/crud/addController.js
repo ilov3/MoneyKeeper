@@ -2,12 +2,12 @@
 /**
  * __author__ = 'ilov3'
  */
-function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) {
-    AddModalSvc.name = 'Category';
-    AddModalSvc.modalInstance = $uibModalInstance;
-    AddModalSvc.resource = dataSvc.category;
-    AddModalSvc.updateFn = update;
-    this.service = AddModalSvc;
+function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update, $translate) {
+    var modalSvc = new AddModalSvc();
+    modalSvc.modalInstance = $uibModalInstance;
+    modalSvc.resource = dataSvc.category;
+    modalSvc.updateFn = update;
+    this.service = modalSvc;
     this.formFields = [
         {
             key: 'name',
@@ -17,6 +17,9 @@ function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) 
                 label: 'Name',
                 placeholder: '',
                 required: true
+            },
+            expressionProperties: {
+                'templateOptions.label': '"name" | translate'
             }
         },
         {
@@ -30,6 +33,11 @@ function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) 
                     {name: 'Expense', value: 'exp'},
                     {name: 'Income', value: 'inc'}
                 ]
+            },
+            expressionProperties: {
+                'templateOptions.label': '"kind" | translate',
+                'templateOptions.options[0].name': '"expense" | translate',
+                'templateOptions.options[1].name': '"income" | translate'
             }
         },
         {
@@ -38,9 +46,12 @@ function AddCategoryController($uibModalInstance, AddModalSvc, dataSvc, update) 
             templateOptions: {
                 label: 'Add another',
                 required: false
+            },
+            expressionProperties: {
+                'templateOptions.label': '"addAnother" | translate'
             }
         }
     ]
 }
 
-angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$uibModalInstance', 'AddModalSvc', 'dataSvc', 'update', AddCategoryController]);
+angular.module('MoneyKeeper.states').controller('AddCategoryController', ['$uibModalInstance', 'AddModalSvc', 'dataSvc', 'update', '$translate', AddCategoryController]);

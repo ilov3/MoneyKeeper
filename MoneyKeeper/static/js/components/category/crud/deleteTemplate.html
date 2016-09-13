@@ -1,11 +1,10 @@
 <div class="modal-header">
-    <h3 class="modal-title">Delete category "{{ deleteCategoryCtrl.service.resource.name }}"</h3>
+    <h3 class="modal-title">{{ 'delete' | translate }} {{ 'deleteFormCategory' | translate | lowercase }} "{{ deleteCategoryCtrl.service.resource.name }}"</h3>
 </div>
 <div class="modal-body">
-    <p>Do you really want to delete this category?</p>
-    <p>All transactions which have relations to this category will be also removed!</p>
+    <p translate="deleteMsgWarn" translate-values="{value: deleteCategoryCtrl.service.resource.name}"></p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm btn-default" ng-click="deleteCategoryCtrl.service.confirm()">Yes</button>
-    <button class="btn btn-sm btn-default" type="button" ng-click="deleteCategoryCtrl.service.modalInstance.close()">No</button>
+    <button class="btn btn-sm btn-default" ng-click="deleteCategoryCtrl.service.confirm()">{{ 'yes' | translate }}</button>
+    <button class="btn btn-sm btn-default" type="button" ng-click="deleteCategoryCtrl.service.cancel()">{{ 'no' | translate }}</button>
 </div>
