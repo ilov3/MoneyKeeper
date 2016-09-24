@@ -15,7 +15,7 @@
                 class="btn btn-link" style="margin: 0 4px ; padding: 0"
                 ng-click="datePickerOptions.open()">Filter
         </button>
-        <span ng-show="start || end">
+        <span ng-show="(start || end) && (col.filters[0].term || datePickerOptions.opened)">
         {{ start | date:'dd.MM.yyyy' }} - {{ end | date:'dd.MM.yyyy' }}
     </span>
     </label>
