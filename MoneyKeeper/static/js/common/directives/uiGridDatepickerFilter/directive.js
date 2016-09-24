@@ -79,13 +79,12 @@ angular.module('MoneyKeeper')
                     scope.events.push({date: scope.start, status: 'full', label: 'start'})
                 }
                 if (scope.end) {
-                    scope.events.push({date: scope.end, status: 'full', label: 'end'})
+                    scope.events.push({date: scope.end, status: 'full', label: 'end'});
 
-                    var tempDate;
                     for (var i = 1; i <= daydiff(scope.start, scope.end); i++) {
-                        tempDate = new Date();
-                        tempDate.setDate(scope.start.getDate() + i);
-                        scope.events.push({date: tempDate, status: 'partially'})
+                        var tempDate = moment(scope.start);
+                        tempDate.add(i, 'd');
+                        scope.events.push({date: tempDate.toDate(), status: 'partially'})
 
                     }
 
