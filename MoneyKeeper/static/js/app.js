@@ -25,7 +25,8 @@ angular.module('MoneyKeeper', [
         'ngNotify',
         'pascalprecht.translate',
         'MoneyKeeper.states',
-        'constants'
+        'MoneyKeeper.constants',
+        'MoneyKeeper.utils'
     ])
     .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', '$translateProvider', 'langConstants',
         function ($resourceProvider, $httpProvider, $urlRouterProvider, cfpLoadingBarProvider, $translateProvider, langConstants) {

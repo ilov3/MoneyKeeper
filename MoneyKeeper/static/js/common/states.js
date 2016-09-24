@@ -2,7 +2,7 @@
 /**
  * __author__ = 'ilov3'
  */
-angular.module('MoneyKeeper.states', ['constants'])
+angular.module('MoneyKeeper.states', ['MoneyKeeper.constants'])
     .config(['$stateProvider', 'statesConstants', function ($stateProvider, statesConstants) {
         $stateProvider
             .state({
@@ -38,7 +38,4 @@ angular.module('MoneyKeeper.states', ['constants'])
                     }
                 }]
             })
-    }])
-    .run(['$templateRequest', function ($templateRequest) {
-        $templateRequest('/static/partials/gridDatePickerFilter.html', true);
     }]);

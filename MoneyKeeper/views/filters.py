@@ -1,4 +1,5 @@
 # coding=utf-8
+import json
 import logging
 import rest_framework_filters as filters
 from django.db.models import Q
@@ -27,8 +28,13 @@ class TransactionFilter(filters.FilterSet):
 
     def filter_date(self, name, qs, value):
         try:
-            datetime = to_pydate(value)
-            return qs.filter(date=datetime)
+            filter_kwargs = {}
+            value = json.loads(value)
+            start = value.get('start')
+            end = value.get('end')
+            if start: filter_kwargs.update({'date__gte': to_pydate(start)})
+            if end: filter_kwargs.update({'date__lt': to_pydate(end)})
+            return qs.filter(**filter_kwargs)
         except Exception as e:
             logger.warning('can\'t filter with provided date: "%s\n The error was: %s"' % (value, e))
             return qs

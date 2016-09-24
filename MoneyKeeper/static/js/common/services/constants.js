@@ -3,7 +3,7 @@
  * __author__ = 'ilov3'
  */
 
-angular.module('constants', [])
+angular.module('MoneyKeeper.constants', [])
     .constant('langConstants', {
         ruLang: {
             accounts: 'Счета',

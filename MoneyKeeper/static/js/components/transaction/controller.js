@@ -6,15 +6,6 @@
 function TransactionController($scope, $state, dataSvc, ngNotify, uiGridConstants) {
     BaseGridController.call(this);
     var self = this;
-    this.datePickerOptions = {
-        opened: false,
-        options: {
-            startingDay: 1
-        },
-        open: function () {
-            self.datePickerOptions.opened = true
-        }
-    };
 
     this.gridOptions.showColumnFooter = true;
     this.gridOptions.useExternalPagination = true;
@@ -102,7 +93,7 @@ function TransactionController($scope, $state, dataSvc, ngNotify, uiGridConstant
         });
         columns.forEach(function (column) {
             if (column.type == 'date') {
-                column.filterHeaderTemplate = '/static/partials/gridDatePickerFilter.html';
+                column.filterHeaderTemplate = '<ui-grid-date-picker-filter></ui-grid-date-picker-filter>';
             }
             if (column.field == 'category_or_transfer_to') {
                 var extended = [];

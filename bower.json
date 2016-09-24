@@ -38,6 +38,8 @@
   },
   "resolutions": {
     "d3": "~3.3.13",
-    "angular": ">=1.2.x"
+    "angular": ">=1.2.x",
+    "bootstrap": "~3.x",
+    "bootstrap-material-design": "~0.x"
   }
 }

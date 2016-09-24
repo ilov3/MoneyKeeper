@@ -1,0 +1,29 @@
+<div class="ui-grid-filter-container">
+    <label
+            class="ui-grid-filter-input ui-grid-filter-input-{{$index}}"
+            uib-datepicker-popup
+            datepicker-options="datePickerOptions"
+            ng-model="dt"
+            datepicker-template-url="/static/js/common/directives/uiGridDatepickerFilter/datepicker.html"
+            datepicker-popup-template-url="/static/js/common/directives/uiGridDatepickerFilter/datepickerPopup.html"
+            is-open="datePickerOptions.opened"
+            close-text="Close"
+            close-on-date-selection="false"
+            datepicker-append-to-body="true"
+    >
+        <button
+                class="btn btn-link" style="margin: 0 4px ; padding: 0"
+                ng-click="datePickerOptions.open()">Filter
+        </button>
+        <span ng-show="start || end">
+        {{ start | date:'dd.MM.yyyy' }} - {{ end | date:'dd.MM.yyyy' }}
+    </span>
+    </label>
+    <div role="button"
+         class="ui-grid-filter-button"
+         ng-click="removeFilter(col.filters[0], $index);datePickerOptions.clearDates()"
+         ng-disabled="col.filters[0].term === undefined || col.filters[0].term === null || col.filters[0].term === ''"
+         ng-show="col.filters[0].term !== undefined && col.filters[0].term !== null && col.filters[0].term !== ''"
+    ><i class="ui-grid-icon-cancel" ui-grid-one-bind-aria-label="aria.removeFilter">&nbsp;</i>
+    </div>
+</div>

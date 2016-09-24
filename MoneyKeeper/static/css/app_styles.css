@@ -249,3 +249,15 @@ h3.popover-title {
     -moz-transform: translate3d(100px, 0, 0);
     transform: translate3d(100px, 0, 0);
 }
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
