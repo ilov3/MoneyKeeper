@@ -5,7 +5,7 @@
         <div class="repeated-item" ng-repeat="(group, categories) in summaryCtrl.results.categories | groupBy: 'kind_display'">
             <div class="row">
                 <div class="col-sm-6"><h4>{{ group | lowercase | translate }}</h4></div>
-                <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.mon | date: "MMMM" }}</h5></div>
+                <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.currentMonth | date: "MMMM" }}</h5></div>
                 <div ng-if="$index == 0" class="col-sm-3"><h5 class="pull-right">{{ summaryCtrl.prevMonth | date: "MMMM" }}</h5></div>
             </div>
 
