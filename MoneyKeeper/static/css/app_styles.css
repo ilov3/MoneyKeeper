@@ -261,3 +261,7 @@ h3.popover-title {
     border-radius: 32px;
     color: black;
 }
+
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    background-color: #d2d2d2;
+}

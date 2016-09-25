@@ -24,6 +24,7 @@
         <td ng-if="showWeeks" class="text-center h6"><em>{{ weekNumbers[$index] }}</em></td>
         <td ng-repeat="dt in row track by dt.date" class="uib-day text-center" role="gridcell" id="{{::dt.uid}}" ng-class="dt.customClass">
             <button type="button" style="min-width:100%;" class="btn btn-default btn-sm" ng-click="select(dt.date)"
+                    ng-class="{'btn-info': datepickerOptions.isSelected(dt), active: datepickerOptions.isActive(dt)}"
                     ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{'text-muted': dt.secondary, 'text-info': dt.current}">{{::dt.label}}</span></button>
         </td>
     </tr>

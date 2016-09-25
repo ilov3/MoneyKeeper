@@ -1,0 +1,12 @@
+<input
+        type="text"
+        class="form-control"
+        uib-datepicker-popup="{{ to.datepickerOptions.format }}"
+        datepicker-template-url="/static/js/common/directives/uiGridDatepickerFilter/datepicker.html"
+        ng-model="originalModel.date"
+        is-open="to.datepickerOptions.opened"
+        datepicker-options="to.datepickerOptions"
+        close-text="Close"
+        ng-click="to.datepickerOptions.open()"
+        popup-placement="bottom-right"
+/>

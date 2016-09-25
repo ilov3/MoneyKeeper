@@ -3,9 +3,9 @@
  * __author__ = 'ilov3'
  */
 angular.module('MoneyKeeper')
-    .directive('uiGridDatePickerFilter', function () {
+    .directive('uiGridDatePickerFilter', function () { // TODO make this re-usable
         function link(scope, element, attrs) {
-            scope.dt = new Date();
+            scope.dt = null;
 
             scope.start = null;
             scope.end = null;
@@ -14,6 +14,8 @@ angular.module('MoneyKeeper')
                 scope.start = null;
                 scope.end = null;
                 scope.events = [];
+                scope.grid.columns[1].filters[0].term = null;
+                scope.removeFilter(scope.col.filters[0], scope.$index)
             };
 
             scope.submit = function () {
@@ -28,7 +30,7 @@ angular.module('MoneyKeeper')
             scope.getDayClass = function (obj) {
                 var date = obj.date;
                 var mode = obj.mode;
-                if (mode === 'day') {
+                if (mode === 'day' && scope.events !== undefined) {
                     var calDay = new Date(date).setHours(0, 0, 0, 0);
                     for (var i = 0; i < scope.events.length; i++) {
                         var eventDate = new Date(scope.events[i].date).setHours(0, 0, 0, 0);
@@ -42,18 +44,22 @@ angular.module('MoneyKeeper')
                 return '';
             };
 
-            scope.datePickerOptions = {
+            scope.datepickerOptions = {
                 submit: scope.submit,
                 clearDates: scope.clearDates,
                 customClass: scope.getDayClass,
                 opened: false,
-                options: {
-                    startingDay: 1
-                },
+                startingDay: 1,
                 open: function () {
-                    scope.datePickerOptions.opened = true
+                    this.opened = true
                 }
             };
+
+            scope.$watch('start', function (newVal) {
+                if (scope.dt == null) {
+                    scope.datepickerOptions.initDate = newVal
+                }
+            });
 
             scope.$watch('dt', function () {
                 if (!scope.dt) {

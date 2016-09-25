@@ -40,7 +40,7 @@ class TransactionSerializer(GridSchemaMixin, serializers.ModelSerializer):
     class Meta:
         model = Transaction
         grid_schema = [
-            {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True, 'cellFilter': 'date:"yyyy-MM-dd"', 'enableCellEdit': False},
+            {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True, 'cellFilter': 'date:"dd.MM.yyyy"', 'enableCellEdit': False},
             {'displayName': 'Kind', 'field': 'kind_display', 'colFilter': True, 'enableSorting': False, 'editableCellTemplate': 'ui-grid/dropdownEditor',
              'editDropdownOptionsArray': [{'id': display, 'value': display} for abbr, display in TRANSACTION_KINDS],
              'filter': {'type': 'select', 'selectOptions': [{'value': abbr, 'label': display} for abbr, display in TRANSACTION_KINDS]}},

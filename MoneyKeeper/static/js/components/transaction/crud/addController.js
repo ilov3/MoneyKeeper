@@ -20,7 +20,7 @@ function AddTransactionController(AddModalSvc, dataSvc, $uibModalInstance, updat
     this.formFields = [
         {
             key: 'date',
-            type: 'input',
+            type: 'datepicker',
             defaultValue: new Date(),
             templateOptions: {
                 type: 'date',

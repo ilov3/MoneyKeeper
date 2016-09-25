@@ -37,12 +37,12 @@ function SummaryController($scope, $state, $uibModal, dataSvc, dateFuncs) {
 
     this.results = dataSvc.results;
     this.limit = 5;
-    this.mon = new Date();
-    this.prevMon = self.dateFuncs.getPrevMon(self.mon);
+    this.currentMonth = new Date();
+    this.prevMonth = self.dateFuncs.getPrevMon(self.currentMonth);
 
     dataSvc.updateSummary();
 
-    $scope.$watch('mon', function (newValue, oldValue) {
+    $scope.$watch('currentMonth', function (newValue, oldValue) {
         if (oldValue !== newValue) {
             dataSvc.updateSummary(newValue)
         }

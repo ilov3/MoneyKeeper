@@ -3,31 +3,31 @@
  */
 //$.material.init();
 angular.module('MoneyKeeper', [
-        'ui.grid',
-        'ui.grid.pagination',
-        'ui.grid.edit',
-        'ui.grid.cellNav',
-        'ui.grid.rowEdit',
-        'ngResource',
-        'ngSanitize',
-        'ngAnimate',
-        'ngStorage',
-        'ui.router',
-        'ui.bootstrap',
-        'ui.select',
-        'angular.filter',
-        'angular-loading-bar',
-        'http-auth-interceptor',
-        'formly',
-        'formlyBootstrap',
-        'n3-line-chart',
-        'nvd3ChartDirectives',
-        'ngNotify',
-        'pascalprecht.translate',
-        'MoneyKeeper.states',
-        'MoneyKeeper.constants',
-        'MoneyKeeper.utils'
-    ])
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.edit',
+    'ui.grid.cellNav',
+    'ui.grid.rowEdit',
+    'ngResource',
+    'ngSanitize',
+    'ngAnimate',
+    'ngStorage',
+    'ui.router',
+    'ui.bootstrap',
+    'ui.select',
+    'angular.filter',
+    'angular-loading-bar',
+    'http-auth-interceptor',
+    'formly',
+    'formlyBootstrap',
+    'n3-line-chart',
+    'nvd3ChartDirectives',
+    'ngNotify',
+    'pascalprecht.translate',
+    'MoneyKeeper.states',
+    'MoneyKeeper.constants',
+    'MoneyKeeper.utils'
+])
     .config(['$resourceProvider', '$httpProvider', '$urlRouterProvider', 'cfpLoadingBarProvider', '$translateProvider', 'langConstants',
         function ($resourceProvider, $httpProvider, $urlRouterProvider, cfpLoadingBarProvider, $translateProvider, langConstants) {
             cfpLoadingBarProvider.includeSpinner = false;
@@ -40,39 +40,13 @@ angular.module('MoneyKeeper', [
             $translateProvider.translations('ru', langConstants.ruLang);
             $translateProvider.preferredLanguage('en');
         }])
-    .run(['$state', '$rootScope', '$stateParams', 'formlyConfig', 'authSvc', 'dataSvc',
-        function ($state, $rootScope, $stateParams, formlyConfig, authSvc, dataSvc) {
+    .run(['$state', '$rootScope', '$stateParams', 'FormlyConfig', 'authSvc', 'dataSvc',
+        function ($state, $rootScope, $stateParams, FormlyConfig, authSvc, dataSvc) {
             $rootScope.$stateParams = $stateParams;
             $rootScope.conf = {};
             authSvc.setUsername();
             dataSvc.getHistory();
-
-            formlyConfig.extras.removeChromeAutoComplete = true;
-            formlyConfig.setType({
-                name: 'ui-select-single',
-                extends: 'select',
-                templateUrl: '/static/partials/ui-select-single.html'
-            });
-            formlyConfig.setType({
-                name: 'checkbox',
-                templateUrl: '/static/partials/formly-checkbox.html',
-                "wrapper": ['bootstrapHasError'],
-                overwriteOk: true
-            });
-            formlyConfig.setType({
-                name: 'calcInput',
-                wrapper: ['bootstrapLabel', 'bootstrapHasError'],
-                templateUrl: '/static/partials/formly-calc-input.html',
-                controller: ['$scope', function ($scope) {
-                    $scope.calc = function (expr) {
-                        try {
-                            var pure = expr.replace(/[^-()\d/*+.]/g, '');
-                            $scope.model[$scope.to.binding] = $scope.$eval(pure);
-                        } catch (err) {
-                        }
-                    };
-                }]
-            })
+            FormlyConfig.init()
         }])
     .controller('AppMainController', ['$scope', '$state', 'authSvc', 'ngNotify', 'dataSvc', '$translate', '$localStorage', 'appControllerConstants', AppMainController]);
 

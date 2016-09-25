@@ -33,7 +33,7 @@ class TransactionFilter(filters.FilterSet):
             start = value.get('start')
             end = value.get('end')
             if start: filter_kwargs.update({'date__gte': to_pydate(start)})
-            if end: filter_kwargs.update({'date__lt': to_pydate(end)})
+            if end: filter_kwargs.update({'date__lte': to_pydate(end)})
             return qs.filter(**filter_kwargs)
         except Exception as e:
             logger.warning('can\'t filter with provided date: "%s\n The error was: %s"' % (value, e))
