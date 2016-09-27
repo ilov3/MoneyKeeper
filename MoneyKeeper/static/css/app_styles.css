@@ -250,18 +250,18 @@ h3.popover-title {
     transform: translate3d(100px, 0, 0);
 }
 
-.full button span {
-    background-color: limegreen;
-    border-radius: 32px;
-    color: black;
-}
-
-.partially button span {
-    background-color: orange;
+.selected button span {
+    background-color: #22c3b4;
     border-radius: 32px;
     color: black;
 }
 
 .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
     background-color: #d2d2d2;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

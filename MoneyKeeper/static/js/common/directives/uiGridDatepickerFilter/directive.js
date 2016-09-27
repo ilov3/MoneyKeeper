@@ -13,6 +13,7 @@ angular.module('MoneyKeeper')
             scope.clearDates = function () {
                 scope.start = null;
                 scope.end = null;
+                scope.dt = null;
                 scope.events = [];
                 scope.grid.columns[1].filters[0].term = null;
                 scope.removeFilter(scope.col.filters[0], scope.$index)
@@ -37,7 +38,7 @@ angular.module('MoneyKeeper')
 
                         if (calDay === eventDate) {
 
-                            return scope.events[i].status;
+                            return 'selected';
                         }
                     }
                 }
@@ -82,22 +83,17 @@ angular.module('MoneyKeeper')
                 }
 
                 if (scope.start) {
-                    scope.events.push({date: scope.start, status: 'full', label: 'start'})
+                    scope.events.push({date: scope.start, label: 'start'})
                 }
                 if (scope.end) {
-                    scope.events.push({date: scope.end, status: 'full', label: 'end'});
+                    scope.events.push({date: scope.end, label: 'end'});
 
                     for (var i = 1; i <= daydiff(scope.start, scope.end); i++) {
                         var tempDate = moment(scope.start);
                         tempDate.add(i, 'd');
-                        scope.events.push({date: tempDate.toDate(), status: 'partially'})
-
+                        scope.events.push({date: tempDate.toDate()})
                     }
-
                 }
-
-                scope.dt = null;
-
             });
         }
 
