@@ -21,12 +21,23 @@ angular.module('MoneyKeeper')
                 name: 'calcInput',
                 wrapper: ['bootstrapLabel', 'bootstrapHasError'],
                 templateUrl: '/static/partials/formly-calc-input.html',
+                defaultOptions: {
+                    validators: {
+                        calcInput: function (viewValue, modelValue) {
+                            var value = viewValue || modelValue;
+                            return parseInt(value) > 0
+                        }
+                    }
+                },
                 controller: ['$scope', function ($scope) {
                     $scope.calc = function (expr) {
                         try {
                             var pure = expr.replace(/[^-()\d/*+.]/g, '');
                             $scope.model[$scope.to.binding] = $scope.$eval(pure);
                         } catch (err) {
+                            if (expr === undefined) {
+                                $scope.model[$scope.to.binding] = undefined
+                            }
                         }
                     };
                 }]
@@ -81,6 +92,7 @@ angular.module('MoneyKeeper')
                     templateOptions: {
                         datepickerOptions: {
                             format: 'dd.MM.yyyy',
+                            startingDay: 1,
                             initDate: new Date(),
                             opened: false,
                             open: function () {
