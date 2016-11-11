@@ -3,18 +3,10 @@ from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
-from rest_framework.routers import DefaultRouter
 
+from MoneyKeeper.router import router
+from MoneyKeeper.views.apiDocs import schema_view
 from MoneyKeeper.views.userViewSet import ObtainJSONWebToken, PasswordResetView, password_reset_success, auth_token_redirect
-from views import TransactionViewSet, AccountViewSet, CategoryViewSet, UserViewSet, ConfViewSet, LogEntryViewSet
-
-router = DefaultRouter()
-
-router.register(r'transaction', viewset=TransactionViewSet, base_name='transaction')
-router.register(r'category', viewset=CategoryViewSet, base_name='category')
-router.register(r'account', viewset=AccountViewSet, base_name='account')
-router.register(r'user', viewset=UserViewSet, base_name='user')
-router.register(r'history', viewset=LogEntryViewSet, base_name='history')
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='app.html')),
@@ -26,7 +18,7 @@ urlpatterns = [
     url(r'^user/password/done/$', password_reset_success, name='password_reset_success'),
     url(r'^api/', include(router.urls)),
     url(r'^api/token-auth/', ObtainJSONWebToken.as_view(), name='obtain_jwt_token'),
-    url(r'^api/conf/', ConfViewSet.as_view({'get': 'get'}), name='conf'),
     url(r'^auth/(?P<user_id>[0-9]*)/', auth_token_redirect, name='auth_token_redirect'),
     url(r'^accounts/login/$', auth_views.login, name='login'),
+    url(r'^apidocs/', schema_view, name='apidocs'),
 ]

@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
         validators = [
             UniqueTogetherValidator(
                     queryset=model.objects.all(),

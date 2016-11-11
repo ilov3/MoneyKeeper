@@ -46,4 +46,4 @@ def setup_env(env_dir='envdir'):
             with open(env_var, 'r') as env_var_file:
                 os.environ.setdefault(env_var.split(os.sep)[-1],
                                       env_var_file.read().strip())
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moneykeeper.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "money_keeper.settings")

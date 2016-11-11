@@ -39,6 +39,7 @@ class TransactionSerializer(GridSchemaMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
+        fields = '__all__'
         grid_schema = [
             {'displayName': 'Date', 'field': 'date', 'type': 'date', 'colFilter': True, 'cellFilter': 'date:"dd.MM.yyyy"', 'enableCellEdit': False},
             {'displayName': 'Kind', 'field': 'kind_display', 'colFilter': True, 'enableSorting': False, 'editableCellTemplate': 'ui-grid/dropdownEditor',
