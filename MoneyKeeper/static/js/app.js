@@ -40,13 +40,22 @@ angular.module('MoneyKeeper', [
             $translateProvider.translations('ru', langConstants.ruLang);
             $translateProvider.preferredLanguage('en');
         }])
-    .run(['$state', '$rootScope', '$stateParams', 'FormlyConfig', 'authSvc', 'dataSvc',
-        function ($state, $rootScope, $stateParams, FormlyConfig, authSvc, dataSvc) {
+    .run(['$state', '$rootScope', '$stateParams', '$http', '$templateCache', 'FormlyConfig', 'authSvc', 'dataSvc',
+        function ($state, $rootScope, $stateParams, $http, $templateCache, FormlyConfig, authSvc, dataSvc) {
             $rootScope.$stateParams = $stateParams;
             $rootScope.conf = {};
             authSvc.setUsername();
             dataSvc.getHistory();
-            FormlyConfig.init()
+            FormlyConfig.init();
+            //caching
+            $http.get('/static/js/common/directives/uiGridDatepickerFilter/daypicker.html', {cache: $templateCache});
+            $http.get('/static/js/common/directives/uiGridDatepickerFilter/gridDatePickerFilter.html', {cache: $templateCache});
+            $http.get('/static/js/common/directives/uiGridDatepickerFilter/datepickerPopup.html', {cache: $templateCache});
+            $http.get('/static/js/common/directives/uiGridDatepickerFilter/datepicker.html', {cache: $templateCache});
+            $http.get('/static/partials/recent-actions-popover.html', {cache: $templateCache});
+            $http.get('/static/partials/datepicker.html', {cache: $templateCache});
+            $http.get('/static/js/components/auth/register.html', {cache: $templateCache});
+            $http.get('/static/js/components/summary/modals/detailChart/template.html', {cache: $templateCache});
         }])
     .controller('AppMainController', ['$scope', '$state', 'authSvc', 'ngNotify', 'dataSvc', '$translate', '$localStorage', 'appControllerConstants', AppMainController]);
 
