@@ -201,7 +201,10 @@ LOGGING = {
     }
 }
 
-DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'backups')
+DBBACKUP_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'oauth2_access_token': os.environ['DROPBOX_TOKEN'],
+    'root_path': '/apps/mk_backups'
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
