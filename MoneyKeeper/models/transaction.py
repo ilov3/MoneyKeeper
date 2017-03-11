@@ -67,7 +67,6 @@ FROM
     ON t1.month >= t2.month
 GROUP BY t1.month
 ORDER BY t1.month DESC
-LIMIT 8
         '''
         q = self.raw(q, params=[user_id, user_id])
         return list(q)[::-1]

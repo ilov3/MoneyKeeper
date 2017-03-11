@@ -60,8 +60,9 @@ angular.module('MoneyKeeper.states')
                     row: null
                 },
                 onEnter: ['$state', '$stateParams', '$uibModal', 'ngNotify', 'dataSvc', function ($state, $stateParams, $uibModal, ngNotify, dataSvc) {
-                    var row = $state.get(this.name).data.row;
-                    var gridOptions = $state.get(this.name).data.gridOptions;
+                    var name = 'transactions.delete';
+                    var row = $state.get(name).data.row;
+                    var gridOptions = $state.get(name).data.gridOptions;
                     var successCallback = function () {
                         var index = gridOptions.data.indexOf(row.entity);
                         gridOptions.data.splice(index, 1);
